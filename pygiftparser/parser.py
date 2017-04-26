@@ -119,10 +119,10 @@ class TrueFalseSet(AnswerSet):
         with doc.tag('div', klass='answerFeedback'):
             doc.text(self.answer)
         if self.feedbackCorrect :
-            with doc.tag('div', klass='answerCorrectFeedback'):
+            with doc.tag('div', klass='correct_answer'):
                 doc.asis(markupRendering(self.feedbackCorrect,self.question.markup))
         if self.feedbackWrong :
-            with doc.tag('div', klass='answerWrongFeedback'):
+            with doc.tag('div', klass='wrong_answer'):
                 doc.asis(markupRendering(self.feedbackWrong,self.question.markup))
 
 
@@ -148,6 +148,7 @@ class NumericAnswerSet(AnswerSet):
                     with doc.tag('li', klass=aklass):
                         doc.asis(a.toHTMLFB())
                         if a.feedback:
+                            with doc.tag('p', klass='simpleFeedback')
                             doc.asis(" &#8669; "+markupRendering(a.feedback,self.question.markup))
 
 
