@@ -234,7 +234,7 @@ class SelectSet(ChoicesSet):
             with doc.tag("ul", klass='multichoice'):
                 for a in self.answers:
                     with doc.tag("li"):
-                        doc.tag('input', type='radio', name='name')
+                        doc.input(name = "name", type = 'radio')
                         doc.text(a.answer)
 
     def toHTMLFB(self,doc):
