@@ -511,7 +511,9 @@ class Question:
                         with doc.tag('div', klass='global_feedback'):
                             doc.asis('<b><em>Feedback:</em></b>')
                             with doc.tag('p'):
-                                doc.asis(markupRendering(self.generalFeedback,self.markup))
+                                html_fb = markdown.markdown(self.generalFeedback, MARKDOWN_EXT, output_format='xhtml')
+                                doc.asis(markupRendering(html_fb,self.markup))
+                                doc.text(' ')
         return doc
 
     def myprint(self):
