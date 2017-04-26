@@ -233,7 +233,7 @@ class SelectSet(ChoicesSet):
         with doc.tag('div', klass='question'):
             with doc.tag("ul", klass='multichoice'):
                 for a in self.answers:
-                    with doc.tag('li')
+                    with doc.tag("li"):
                         doc.tag('input', type='radio', name='name')
                         doc.text(a.answer)
 
