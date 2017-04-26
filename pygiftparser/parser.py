@@ -148,8 +148,7 @@ class NumericAnswerSet(AnswerSet):
                     with doc.tag('li', klass=aklass):
                         doc.asis(a.toHTMLFB())
                         if a.feedback:
-                            with doc.tag('p', klass='simpleFeedback'):
-                                doc.asis(" &#8669; "+markupRendering(a.feedback,self.question.markup))
+                            doc.asis(" &#8669; "+markupRendering(a.feedback,self.question.markup))
 
 
 class MatchingSet(AnswerSet):
@@ -223,8 +222,7 @@ class ShortSet(ChoicesSet):
                     with doc.tag('li', klass="right_answer"):
                         doc.text(a.answer)
                         if a.feedback:
-                            with doc.tag('p', klass='simpleFeedback'):
-                                doc.asis(" &#8669; "+markupRendering(a.feedback,self.question.markup))
+                            doc.asis(" &#8669; "+markupRendering(a.feedback,self.question.markup))
 
 class SelectSet(ChoicesSet):
     """ One  choice in a list"""
@@ -252,8 +250,7 @@ class SelectSet(ChoicesSet):
                     with doc.tag('li', klass=aklass):
                         doc.text(a.answer)
                         if a.feedback:
-                            with doc.tag('p', klass='simpleFeedback'):
-                                doc.asis(" &#8669; "+markupRendering(a.feedback,self.question.markup))
+                            doc.asis(" &#8669; "+markupRendering(a.feedback,self.question.markup))
 
 class MultipleChoicesSet(ChoicesSet):
     """ One or more choices in a list"""
