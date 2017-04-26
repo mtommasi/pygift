@@ -23,7 +23,7 @@ OPTIONALFEEDBACK2='(#(?P<feedback2>'+ANYCHAR+'*))?'
 GENERALFEEDBACK='(####(\[(?P<gf_markup>.*?)\])*(?P<generalfeedback>.*))?'
 NUMERIC='[\d]+(\.[\d]+)?'
 
-MARKDOWN_EXT = ['markdown.extensions.extra', 'superscript']
+# MARKDOWN_EXT = ['markdown.extensions.extra', 'superscript']
 
 # Regular Expressions
 reSepQuestions=re.compile(r'^\s*$')
@@ -516,11 +516,7 @@ class Question:
                     self.answers.toHTMLFB(doc)
                     if self.generalFeedback != '':
                         with doc.tag('div', klass='global_feedback'):
-                            doc.asis('<b><em>Feedback:</em></b>')
-                            with doc.tag('p'):
-                                html_fb = markdown.markdown(self.generalFeedback, MARKDOWN_EXT, output_format='xhtml')
-                                doc.asis(markupRendering(html_fb,self.markup))
-                                doc.text(' ')
+                            doc.asis('<b><em>Feedback:</em></b><br/>'+self.generalFeedback)
         return doc
 
     def myprint(self):
