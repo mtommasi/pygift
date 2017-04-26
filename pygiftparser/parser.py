@@ -491,7 +491,7 @@ class Question:
         doc.asis('<!-- New question -->')
         with doc.tag('div', klass='question'):
             with doc.tag('h3', klass='questiontitle'):
-                doc.text(self.title)
+                doc.text(self.title + "\n")
             with doc.tag('form', action = ""):
                 if self.tail !='' :
                     with doc.tag('span', klass='questionTextInline'):
