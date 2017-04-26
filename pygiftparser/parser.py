@@ -139,10 +139,8 @@ class NumericAnswerSet(AnswerSet):
         with doc.tag('div', klass='answerFeedback'):
             with doc.tag('ul'):
                 for a in self.answers:
-                    if a.fraction==100:
+                    if a.fraction>0:
                         aklass="right_answer"
-                    elif a.fraction >0:
-                        aklass="partial"
                     else:
                         aklass="wrong_answer"
                     with doc.tag('li', klass=aklass):
@@ -241,10 +239,8 @@ class SelectSet(ChoicesSet):
         with doc.tag('div', klass='groupedAnswerFeedback'):
             with doc.tag("ul", klass='multichoice'):
                 for a in self.answers:
-                    if a.fraction==100:
+                    if a.fraction>0:
                         aklass="right_answer"
-                    elif a.fraction >0:
-                        aklass="partial"
                     else:
                         aklass="wrong_answer"
                     with doc.tag('li', klass=aklass):
@@ -273,10 +269,8 @@ class MultipleChoicesSet(ChoicesSet):
         with doc.tag('div', klass='groupedAnswerFeedback'):
             with doc.tag('ul', klass='multichoice'):
                 for a in self.answers:
-                    if a.fraction==100:
+                    if a.fraction>0:
                         aklass="right_answer"
-                    elif a.fraction >0:
-                        aklass="partial"
                     else:
                         aklass="wrong_answer"
                     with doc.tag('li', klass=aklass):
