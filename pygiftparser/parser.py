@@ -491,18 +491,18 @@ class Question:
             if (not feedbacks):
                 if self.tail !='' :
                     with doc.tag('span', klass='questionTextInline'):
-                        self.mdToHtml(self.text)
+                        self.mdToHtml(self.text,doc)
                     with doc.tag('span', klass='questionAnswersInline'):
                         self.answers.toHTML(doc)
                     doc.text(' ')
                     doc.asis(markupRendering(self.tail,self.markup))
                 else:
                     with doc.tag('div', klass='questiontext'):
-                        self.mdToHtml(self.text)
+                        self.mdToHtml(self.text,doc)
                     self.answers.toHTML(doc)
             if feedbacks:
                 with doc.tag('div', klass='questiontext'):
-                    self.mdToHtml(self.text)
+                    self.mdToHtml(self.text,doc)
                 self.answers.toHTMLFB(doc)
                 if self.generalFeedback != '':
                     with doc.tag('div', klass='global_feedback'):
@@ -510,7 +510,7 @@ class Question:
                         doc.asis('<b><em>Feedback:</em></b><br/>'+gf)
         return doc
 
-    def mdToHtml(self,text):
+    def mdToHtml(self,text,doc):
         """
         Transform txt in markdown in html
         """
