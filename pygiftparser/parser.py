@@ -492,28 +492,29 @@ class Question:
         with doc.tag('div', klass='question'):
             with doc.tag('h3', klass='questiontitle'):
                 doc.text(self.title)
-            if (not feedbacks):
-                if self.tail !='' :
-                    with doc.tag('span', klass='questionTextInline'):
-                        doc.asis(markupRendering(self.text,self.markup))
-                        doc.text(' ')
-                    with doc.tag('span', klass='questionAnswersInline'):
-                        self.answers.toHTML(doc)
-                    doc.text(' ')
-                    doc.asis(markupRendering(self.tail,self.markup))
-                else:
-                    with doc.tag('div', klass='questionText'):
-                        with doc.tag('p'):
+            with doc.tag('form', action = ""):
+                if (not feedbacks):
+                    if self.tail !='' :
+                        with doc.tag('span', klass='questionTextInline'):
                             doc.asis(markupRendering(self.text,self.markup))
-                        with doc.tag('div', klass='questionAnswers'):
+                            doc.text(' ')
+                        with doc.tag('span', klass='questionAnswersInline'):
                             self.answers.toHTML(doc)
-            if feedbacks:
-                self.answers.toHTMLFB(doc)
-                if self.generalFeedback != '':
-                    with doc.tag('div', klass='global_feedback'):
-                        doc.asis('<b><em>Feedback:</em></b>')
-                        with doc.tag('p'):
-                            doc.asis(markupRendering(self.generalFeedback,self.markup))
+                        doc.text(' ')
+                        doc.asis(markupRendering(self.tail,self.markup))
+                    else:
+                        with doc.tag('div', klass='questionText'):
+                            with doc.tag('p'):
+                                doc.asis(markupRendering(self.text,self.markup))
+                            with doc.tag('div', klass='questionAnswers'):
+                                self.answers.toHTML(doc)
+                if feedbacks:
+                    self.answers.toHTMLFB(doc)
+                    if self.generalFeedback != '':
+                        with doc.tag('div', klass='global_feedback'):
+                            doc.asis('<b><em>Feedback:</em></b>')
+                            with doc.tag('p'):
+                                doc.asis(markupRendering(self.generalFeedback,self.markup))
         return doc
 
     def myprint(self):
