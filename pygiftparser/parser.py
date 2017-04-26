@@ -490,7 +490,8 @@ class Question:
                 if (not feedbacks):
                     if self.tail !='' :
                         with doc.tag('span', klass='questionTextInline'):
-                            doc.asis(markupRendering(self.text,self.markup))
+                            html_text = markdown.markdown(self.text, MARKDOWN_EXT, output_format='xhtml')
+                            doc.asis(markupRendering(html_text,self.markup))
                             doc.text(' ')
                         with doc.tag('span', klass='questionAnswersInline'):
                             self.answers.toHTML(doc)
