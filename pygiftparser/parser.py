@@ -175,14 +175,16 @@ class MatchingSet(AnswerSet):
             for a in self.answers:
                 with doc.tag('tr'):
                     with doc.tag('td'):
-                        doc.text(a.question)
+                        with doc.tag('p'):
+                            doc.text(a.question)
                     with doc.tag('td'):
                         # should be distinct to _charset_ and isindex,...
                         n = self.question.getId() + a.question
                         with doc.tag('select', name= n):
                             for a in self.possibleAnswers:
                                 with doc.tag('option'):
-                                    doc.text(a)
+                                    with doc.tag('p'):
+                                        doc.text(a)
 
     def toHTMLFB(self,doc):
         with doc.tag('div', klass='groupedAnswerFeedback'):
