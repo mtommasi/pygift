@@ -140,7 +140,7 @@ class NumericAnswerSet(AnswerSet):
             with doc.tag('ul'):
                 for a in self.answers:
                     if a.fraction==100:
-                        aklass="correct"
+                        aklass="right_answer"
                     elif a.fraction >0:
                         aklass="partial"
                     else:
@@ -188,7 +188,7 @@ class MatchingSet(AnswerSet):
         with doc.tag('div', klass='groupedAnswerFeedback'):
             with doc.tag('ul'):
                 for a in self.answers:
-                    with doc.tag('li', klass="correct"):
+                    with doc.tag('li', klass="right_answer"):
                         doc.text(a.question)
                         doc.asis(" &#8669; ")
                         doc.text(a.answer)
@@ -219,7 +219,7 @@ class ShortSet(ChoicesSet):
         with doc.tag('div', klass='groupedAnswerFeedback'):
             with doc.tag('ul'):
                 for a in self.answers:
-                    with doc.tag('li', klass="correct"):
+                    with doc.tag('li', klass="right_answer"):
                         doc.text(a.answer)
                         if a.feedback:
                             doc.asis(" &#8669; "+markupRendering(a.feedback,self.question.markup))
@@ -240,7 +240,7 @@ class SelectSet(ChoicesSet):
             with doc.tag("ul"):
                 for a in self.answers:
                     if a.fraction==100:
-                        aklass="correct"
+                        aklass="right_answer"
                     elif a.fraction >0:
                         aklass="partial"
                     else:
@@ -261,7 +261,7 @@ class MultipleChoicesSet(ChoicesSet):
         return total >= 99 and total <= 100
 
     def toHTML(self,doc):
-        with doc.tag('ul'):
+        with doc.tag('ul', klass='multichoice'):
             for a in self.answers:
                 with doc.tag('li'):
                     doc.input(name = self.question.getId(), type = 'checkbox')
@@ -269,10 +269,10 @@ class MultipleChoicesSet(ChoicesSet):
 
     def toHTMLFB(self,doc):
         with doc.tag('div', klass='groupedAnswerFeedback'):
-            with doc.tag('ul'):
+            with doc.tag('ul', klass='multichoice'):
                 for a in self.answers:
                     if a.fraction==100:
-                        aklass="correct"
+                        aklass="right_answer"
                     elif a.fraction >0:
                         aklass="partial"
                     else:
