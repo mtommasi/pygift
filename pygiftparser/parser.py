@@ -491,32 +491,33 @@ class Question:
             if (not feedbacks):
                 if self.tail !='' :
                     with doc.tag('span', klass='questionTextInline'):
-                        html_text = markdown.markdown(self.text, MARKDOWN_EXT, output_format='xhtml')
-                        doc.asis(markupRendering(html_text,self.markup))
-                        doc.text(' ')
+                        self.mdToHtml(self.text)
                     with doc.tag('span', klass='questionAnswersInline'):
                         self.answers.toHTML(doc)
                     doc.text(' ')
                     doc.asis(markupRendering(self.tail,self.markup))
                 else:
                     with doc.tag('div', klass='questiontext'):
-                        with doc.tag('p'):
-                            html_text = markdown.markdown(self.text, MARKDOWN_EXT, output_format='xhtml')
-                            doc.asis(markupRendering(html_text,self.markup))
-                            doc.text(' ')
-                        self.answers.toHTML(doc)
+                        self.mdToHtml(self.text)
+                    self.answers.toHTML(doc)
             if feedbacks:
                 with doc.tag('div', klass='questiontext'):
-                    with doc.tag('p'):
-                        html_text = markdown.markdown(self.text, MARKDOWN_EXT, output_format='xhtml')
-                        doc.asis(markupRendering(html_text,self.markup))
-                        doc.text(' ')
+                    self.mdToHtml(self.text)
                 self.answers.toHTMLFB(doc)
                 if self.generalFeedback != '':
                     with doc.tag('div', klass='global_feedback'):
                         gf = markdown.markdown(self.generalFeedback, MARKDOWN_EXT, output_format='xhtml')
                         doc.asis('<b><em>Feedback:</em></b><br/>'+gf)
         return doc
+
+    def mdToHtml(self,text):
+        """
+        Transform txt in markdown in html
+        """
+        if not (text.isspace()):
+            html_text = markdown.markdown(text, MARKDOWN_EXT, output_format='xhtml')
+            doc.asis(markupRendering(html_text,self.markup))
+            doc.text(' ')
 
     def myprint(self):
         print ("=========Question=========")
