@@ -223,7 +223,8 @@ class ShortSet(ChoicesSet):
                     with doc.tag('li', klass="right_answer"):
                         doc.text(a.answer)
                         if a.feedback:
-                            doc.asis(" &#8669; "+markupRendering(a.feedback,self.question.markup))
+                            with doc.tag('p', klass='simpleFeedback'):
+                                doc.asis(" &#8669; "+markupRendering(a.feedback,self.question.markup))
 
 class SelectSet(ChoicesSet):
     """ One  choice in a list"""
@@ -251,7 +252,8 @@ class SelectSet(ChoicesSet):
                     with doc.tag('li', klass=aklass):
                         doc.text(a.answer)
                         if a.feedback:
-                            doc.asis(" &#8669; "+markupRendering(a.feedback,self.question.markup))
+                            with doc.tag('p', klass='simpleFeedback'):
+                                doc.asis(" &#8669; "+markupRendering(a.feedback,self.question.markup))
 
 class MultipleChoicesSet(ChoicesSet):
     """ One or more choices in a list"""
