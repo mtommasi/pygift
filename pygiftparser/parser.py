@@ -491,7 +491,7 @@ class Question:
         doc.asis('<!-- New question -->')
         with doc.tag('div', klass='question'):
             with doc.tag('h3', klass='questiontitle'):
-                doc.text(self.title + "\n")
+                doc.text(self.title)
             with doc.tag('form', action = ""):
                 if self.tail !='' :
                     with doc.tag('span', klass='questionTextInline'):
@@ -503,7 +503,8 @@ class Question:
                     doc.asis(markupRendering(self.tail,self.markup))
                 else:
                     with doc.tag('div', klass='questionText'):
-                        doc.asis(markupRendering(self.text,self.markup))
+                        with doc.tag('p'):
+                            doc.asis(markupRendering(self.text,self.markup))
                     with doc.tag('div', klass='questionAnswers'):
                         self.answers.toHTML(doc)
                 if feedbacks:
