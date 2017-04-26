@@ -144,7 +144,7 @@ class NumericAnswerSet(AnswerSet):
                     elif a.fraction >0:
                         aklass="partial"
                     else:
-                        aklass="incorrect"
+                        aklass="wrong_answer"
                     with doc.tag('li', klass=aklass):
                         doc.asis(a.toHTMLFB())
                         if a.feedback:
@@ -244,7 +244,7 @@ class SelectSet(ChoicesSet):
                     elif a.fraction >0:
                         aklass="partial"
                     else:
-                        aklass="incorrect"
+                        aklass="wrong_answer"
                     with doc.tag('li', klass=aklass):
                         doc.text(a.answer)
                         if a.feedback:
@@ -276,7 +276,7 @@ class MultipleChoicesSet(ChoicesSet):
                     elif a.fraction >0:
                         aklass="partial"
                     else:
-                        aklass="incorrect"
+                        aklass="wrong_answer"
                     with doc.tag('li', klass=aklass):
                         doc.text(a.answer)
                         if  a.feedback:
