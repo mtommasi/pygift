@@ -493,7 +493,7 @@ class Question:
             with doc.tag('h3', klass='questiontitle'):
                 doc.text(self.title)
             with doc.tag('form', action = ""):
-                if (not feedbacks)
+                if (not feedbacks):
                     if self.tail !='' :
                         with doc.tag('span', klass='questionTextInline'):
                             doc.asis(markupRendering(self.text,self.markup))
