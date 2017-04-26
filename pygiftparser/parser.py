@@ -507,7 +507,7 @@ class Question:
                 if feedbacks:
                     self.answers.toHTMLFB(doc)
                     if self.generalFeedback != '':
-                        with doc.tag('div', klass='questionGeneralFeedback'):
+                        with doc.tag('div', klass='global_feedback'):
                             doc.asis('<p><b>Feedback:</b></p>')
                             doc.asis(markupRendering(self.generalFeedback,self.markup))
         return doc
