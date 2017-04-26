@@ -498,9 +498,11 @@ class Question:
                         doc.text(' ')
                         doc.asis(markupRendering(self.tail,self.markup))
                     else:
-                        with doc.tag('div', klass='questionText'):
+                        with doc.tag('div', klass='questiontext'):
                             with doc.tag('p'):
-                                doc.asis(markupRendering(self.text,self.markup))
+                                html_text = markdown.markdown(self.text, MARKDOWN_EXT, output_format='xhtml')
+                                doc.asis(markupRendering(html_text,self.markup))
+                                doc.text(' ')
                             with doc.tag('div', klass='questionAnswers'):
                                 self.answers.toHTML(doc)
                 if feedbacks:
