@@ -516,7 +516,7 @@ class Question:
                     self.answers.toHTMLFB(doc)
                     if self.generalFeedback != '':
                         with doc.tag('div', klass='global_feedback'):
-                            gf = markdown.markdown(self.text, MARKDOWN_EXT, output_format='xhtml')
+                            gf = markdown.markdown(self.generalFeedback, MARKDOWN_EXT, output_format='xhtml')
                             doc.asis('<b><em>Feedback:</em></b><br/>'+gf)
         return doc
 
