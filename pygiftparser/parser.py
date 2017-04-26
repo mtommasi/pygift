@@ -148,8 +148,8 @@ class NumericAnswerSet(AnswerSet):
                     with doc.tag('li', klass=aklass):
                         doc.asis(a.toHTMLFB())
                         if a.feedback:
-                            with doc.tag('p', klass='simpleFeedback')
-                            doc.asis(" &#8669; "+markupRendering(a.feedback,self.question.markup))
+                            with doc.tag('p', klass='simpleFeedback'):
+                                doc.asis(" &#8669; "+markupRendering(a.feedback,self.question.markup))
 
 
 class MatchingSet(AnswerSet):
