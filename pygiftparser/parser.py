@@ -505,8 +505,7 @@ class Question:
                                 html_text = markdown.markdown(self.text, MARKDOWN_EXT, output_format='xhtml')
                                 doc.asis(markupRendering(html_text,self.markup))
                                 doc.text(' ')
-                            with doc.tag('div', klass='questionAnswers'):
-                                self.answers.toHTML(doc)
+                            self.answers.toHTML(doc)
                 if feedbacks:
                     with doc.tag('div', klass='questiontext'):
                         with doc.tag('p'):
