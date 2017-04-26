@@ -506,8 +506,8 @@ class Question:
                             with doc.tag('div', klass='questionAnswers'):
                                 self.answers.toHTML(doc)
                 if feedbacks:
-                    if self.tail !='' :
-                        with doc.tag('span', klass='questionTextInline'):
+                    with doc.tag('div', klass='questiontext'):
+                        with doc.tag('p'):
                             html_text = markdown.markdown(self.text, MARKDOWN_EXT, output_format='xhtml')
                             doc.asis(markupRendering(html_text,self.markup))
                             doc.text(' ')
