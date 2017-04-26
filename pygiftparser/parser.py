@@ -237,7 +237,7 @@ class SelectSet(ChoicesSet):
 
     def toHTMLFB(self,doc):
         with doc.tag('div', klass='groupedAnswerFeedback'):
-            with doc.tag("ul"):
+            with doc.tag("ul", klass='multichoice'):
                 for a in self.answers:
                     if a.fraction==100:
                         aklass="right_answer"
