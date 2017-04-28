@@ -485,7 +485,7 @@ class Question:
         if doc == None : doc=yattag.Doc()
         doc.asis('\n')
         doc.asis('<!-- New question -->')
-        with doc.tag('div', klass='question'):
+        with doc.tag('form', klass='question'):
             with doc.tag('h3', klass='questiontitle'):
                 doc.text(self.title)
             if (not feedbacks):
