@@ -132,7 +132,7 @@ class TrueFalseSet(AnswerSet):
 
     def toHTMLFB(self,doc):
         with doc.tag('div', klass='answerFeedback'):
-            doc.text(self.answer)
+            mdToHtml(self.answer,doc)
         if self.feedbackCorrect :
             with doc.tag('div', klass='correct_answer'):
                 doc.asis(markupRendering(self.feedbackCorrect,self.question.markup))
@@ -204,7 +204,7 @@ class MatchingSet(AnswerSet):
                     with doc.tag('li', klass="right_answer"):
                         doc.text(a.question)
                         doc.asis(" &#8669; ")
-                        doc.text(a.answer)
+                        mdToHtml(a.answer,doc)
 
 class ChoicesSet(AnswerSet):
     """ One or many choices in a list (Abstract)"""
@@ -233,7 +233,7 @@ class ShortSet(ChoicesSet):
             with doc.tag('ul'):
                 for a in self.answers:
                     with doc.tag('li', klass="right_answer"):
-                        doc.text(a.answer)
+                        mdToHtml(a.answer,doc)
                         if a.feedback:
                             doc.asis(" &#8669; "+markupRendering(a.feedback,self.question.markup))
 
@@ -248,7 +248,7 @@ class SelectSet(ChoicesSet):
                 for a in self.answers:
                     with doc.tag("li"):
                         doc.input(name = "name", type = 'radio')
-                        doc.text(a.answer)
+                        mdToHtml(a.answer,doc)
 
     def toHTMLFB(self,doc):
         with doc.tag('div', klass='groupedAnswerFeedback'):
@@ -259,7 +259,7 @@ class SelectSet(ChoicesSet):
                     else:
                         aklass="wrong_answer"
                     with doc.tag('li', klass=aklass):
-                        doc.text(a.answer)
+                        mdToHtml(a.answer,doc)
                         if a.feedback:
                             doc.asis(" &#8669; "+markupRendering(a.feedback,self.question.markup))
 
@@ -278,7 +278,7 @@ class MultipleChoicesSet(ChoicesSet):
             for a in self.answers:
                 with doc.tag('li'):
                     doc.input(name = self.question.getId(), type = 'checkbox')
-                    doc.text(a.answer)
+                    mdToHtml(a.answer,doc)
 
     def toHTMLFB(self,doc):
         with doc.tag('div', klass='groupedAnswerFeedback'):
@@ -289,7 +289,7 @@ class MultipleChoicesSet(ChoicesSet):
                     else:
                         aklass="wrong_answer"
                     with doc.tag('li', klass=aklass):
-                        doc.text(a.answer)
+                        mdToHtml(a.answer,doc)
                         if  a.feedback:
                             doc.asis(" &#8669; "+markupRendering(a.feedback,self.question.markup))
 
