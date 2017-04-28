@@ -520,7 +520,7 @@ class Question:
         if not (text.isspace()):
             html_text = markdown.markdown(text, MARKDOWN_EXT, output_format='xhtml')
             html_text = utils.add_target_blank(html_text)
-            doc.asis(markupRendering(html_text,self.markup))
+            doc.asis(html_text)
             doc.text(' ')
 
     def myprint(self):
