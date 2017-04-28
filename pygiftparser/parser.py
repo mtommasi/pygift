@@ -509,8 +509,9 @@ class Question:
                 self.answers.toHTMLFB(doc)
                 if self.generalFeedback != '':
                     with doc.tag('div', klass='global_feedback'):
-                        gf = markdown.markdown(self.generalFeedback, MARKDOWN_EXT, output_format='xhtml')
-                        doc.asis('<b><em>Feedback:</em></b><br/>'+gf)
+                        # gf = markdown.markdown(self.generalFeedback, MARKDOWN_EXT, output_format='xhtml')
+                        doc.asis('<b><em>Feedback:</em></b><br/>')
+                        self.mdToHtml(self.generalFeedback, doc)
         return doc
 
     def mdToHtml(self,text,doc):
