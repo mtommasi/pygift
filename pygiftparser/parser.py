@@ -64,6 +64,16 @@ def stripMatch(match,s):
     else:
         return ""
 
+def mdToHtml(self,text,doc):
+    """
+    Transform txt in markdown to html
+    """
+    if not (text.isspace()):
+        html_text = markdown.markdown(text, MARKDOWN_EXT, output_format='xhtml')
+        html_text = utils.add_target_blank(html_text)
+        doc.asis(html_text)
+        doc.text(' ')
+
 ############# Sets of answers ###############
 # Can be a singleton, empty or not or just the emptyset!
 
@@ -494,35 +504,25 @@ class Question:
             if (not feedbacks):
                 if self.tail !='' :
                     with doc.tag('span', klass='questionTextInline'):
-                        self.mdToHtml(self.text,doc)
+                        mdToHtml(self.text,doc)
                     with doc.tag('span', klass='questionAnswersInline'):
                         self.answers.toHTML(doc)
                     doc.text(' ')
                     doc.asis(markupRendering(self.tail,self.markup))
                 else:
                     with doc.tag('div', klass='questiontext'):
-                        self.mdToHtml(self.text,doc)
+                        mdToHtml(self.text,doc)
                     self.answers.toHTML(doc)
             if feedbacks:
                 with doc.tag('div', klass='questiontext'):
-                    self.mdToHtml(self.text,doc)
+                    mdToHtml(self.text,doc)
                 self.answers.toHTMLFB(doc)
                 if self.generalFeedback != '':
                     with doc.tag('div', klass='global_feedback'):
                         # gf = markdown.markdown(self.generalFeedback, MARKDOWN_EXT, output_format='xhtml')
                         doc.asis('<b><em>Feedback:</em></b><br/>')
-                        self.mdToHtml(self.generalFeedback, doc)
+                        mdToHtml(self.generalFeedback, doc)
         return doc
-
-    def mdToHtml(self,text,doc):
-        """
-        Transform txt in markdown in html
-        """
-        if not (text.isspace()):
-            html_text = markdown.markdown(text, MARKDOWN_EXT, output_format='xhtml')
-            html_text = utils.add_target_blank(html_text)
-            doc.asis(html_text)
-            doc.text(' ')
 
     def myprint(self):
         print ("=========Question=========")
