@@ -10,7 +10,7 @@ _ = i18n.language.gettext
 
 # TODOS:
 # - unittest
-# MARKDOWN_EXT = ['markdown.extensions.extra', 'markdown.extensions.nl2br', 'superscript']
+MARKDOWN_EXT = ['markdown.extensions.extra', 'markdown.extensions.nl2br', 'superscript']
 
 # Url and blank lines (moodle format)
 reURL=re.compile(r"(http://[^ ]+)",re.M)
@@ -23,7 +23,7 @@ OPTIONALFEEDBACK2='(#(?P<feedback2>'+ANYCHAR+'*))?'
 GENERALFEEDBACK='(####(\[(?P<gf_markup>.*?)\])*(?P<generalfeedback>.*))?'
 NUMERIC='[\d]+(\.[\d]+)?'
 
-MARKDOWN_EXT = ['markdown.extensions.extra', 'superscript']
+# MARKDOWN_EXT = ['markdown.extensions.extra', 'superscript']
 
 # Regular Expressions
 reSepQuestions=re.compile(r'^\s*$')
@@ -508,6 +508,7 @@ class Question:
                     with doc.tag('div', klass='global_feedback'):
                         gf = markdown.markdown(self.generalFeedback, MARKDOWN_EXT, output_format='xhtml')
                         doc.asis('<b><em>Feedback:</em></b><br/>'+gf)
+        self.gift_src = doc.getvalue()
         return doc
 
     def mdToHtml(self,text,doc):
@@ -516,6 +517,7 @@ class Question:
         """
         if not (text.isspace()):
             html_text = markdown.markdown(text, MARKDOWN_EXT, output_format='xhtml')
+            html_text = utils.add_target_blank(html_text)
             doc.asis(markupRendering(html_text,self.markup))
             doc.text(' ')
 
