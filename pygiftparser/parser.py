@@ -511,7 +511,6 @@ class Question:
                     with doc.tag('div', klass='global_feedback'):
                         gf = markdown.markdown(self.generalFeedback, MARKDOWN_EXT, output_format='xhtml')
                         doc.asis('<b><em>Feedback:</em></b><br/>'+gf)
-        self.gift_src = doc.getvalue()
         return doc
 
     def mdToHtml(self,text,doc):
