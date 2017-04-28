@@ -6,6 +6,9 @@ import yattag
 import markdown
 from pygiftparser import i18n
 import sys
+sys.path.insert(0, "../../")
+import utils
+from src import utils
 _ = i18n.language.gettext
 
 # TODOS:
