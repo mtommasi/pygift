@@ -64,7 +64,7 @@ def stripMatch(match,s):
     else:
         return ""
 
-def mdToHtml(self,text,doc):
+def mdToHtml(text,doc):
     """
     Transform txt in markdown to html
     """
