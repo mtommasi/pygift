@@ -3,6 +3,7 @@
 import logging
 import re
 import yattag
+import uuid
 import markdown
 from pygiftparser import i18n
 import sys
