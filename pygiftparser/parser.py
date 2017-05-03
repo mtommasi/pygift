@@ -485,7 +485,7 @@ class Question:
             elif short:
                 self.answers = ShortSet(self,answers)
             elif select:
-                self.type = 'MULTICHOICE'
+                # self.type = 'MULTICHOICE'
                 self.answers = SelectSet(self,answers)
             else:
                 self.type = 'MULTIANSWER'
