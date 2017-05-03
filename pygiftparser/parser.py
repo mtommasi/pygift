@@ -488,7 +488,7 @@ class Question:
                 # self.type = 'MULTICHOICE'
                 self.answers = SelectSet(self,answers)
             else:
-                self.type = 'MULTIANSWER'
+                # self.type = 'MULTIANSWER'
                 self.answers = MultipleChoicesSet(self,answers)
                 self.valid = self.answers.checkValidity()
         else:
