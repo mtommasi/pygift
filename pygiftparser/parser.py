@@ -360,7 +360,7 @@ class Question:
         self.id = uuid.uuid4()
         self.source = source
         self.full = full
-        self.category = cat
+        self.type = cat
         self.valid = True
         self.tail = ''
         self.generalFeedback = ""
@@ -454,6 +454,7 @@ class Question:
         # True False
         match = reAnswerTrueFalse.match(answer)
         if match:
+            self.type = 'TRUEFALSE'
             self.answers = TrueFalseSet(self,match)
             return
 
@@ -484,8 +485,10 @@ class Question:
             elif short:
                 self.answers = ShortSet(self,answers)
             elif select:
+                self.type = 'MULTICHOICE'
                 self.answers = SelectSet(self,answers)
             else:
+                self.type = 'MULTIANSWER'
                 self.answers = MultipleChoicesSet(self,answers)
                 self.valid = self.answers.checkValidity()
         else:
