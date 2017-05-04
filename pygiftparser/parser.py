@@ -360,7 +360,7 @@ class Question:
         self.id = uuid.uuid4()
         self.source = source
         self.full = full
-        self.type = cat
+        # self.type = cat
         self.valid = True
         self.tail = ''
         self.generalFeedback = ""
@@ -454,7 +454,7 @@ class Question:
         # True False
         match = reAnswerTrueFalse.match(answer)
         if match:
-            self.type = 'TRUEFALSE'
+            # self.type = 'TRUEFALSE'
             self.answers = TrueFalseSet(self,match)
             return
 
