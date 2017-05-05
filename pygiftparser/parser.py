@@ -243,12 +243,11 @@ class SelectSet(ChoicesSet):
         ChoicesSet.__init__(self,question,answers)
 
     def toHTML(self,doc):
-        with doc.tag('div', klass='question'):
-            with doc.tag("ul", klass='multichoice'):
-                for a in self.answers:
-                    with doc.tag("li"):
-                        doc.input(name = "name", type = 'radio')
-                        doc.text(a.answer)
+        with doc.tag("ul", klass='multichoice'):
+            for a in self.answers:
+                with doc.tag("li"):
+                    doc.input(name = "name", type = 'radio')
+                    doc.text(a.answer)
 
     def toHTMLFB(self,doc):
         with doc.tag('div', klass='groupedAnswerFeedback'):
