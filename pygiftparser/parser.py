@@ -310,9 +310,7 @@ class SelectSet(ChoicesSet):
                         doc.text("answer")
                 if (a.feedback) and (len(a.feedback)> 1):
                     doc.asis("<choicehint>"+a.feedback+"</choicehint>")
-        self.toEDX = doc.getvalue()
-
-
+        return doc.getvalue()
 
 
 class MultipleChoicesSet(ChoicesSet):
