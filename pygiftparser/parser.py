@@ -85,6 +85,7 @@ class AnswerSet:
     def __init__(self,question):
         self.question = question
         self.valid = True
+        self.EDX = self.toEDX()
 
     def myprint(self):
         print (self.__class__)
