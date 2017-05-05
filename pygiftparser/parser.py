@@ -13,7 +13,7 @@ _ = i18n.language.gettext
 
 # TODOS:
 # - unittest
-MARKDOWN_EXT = ['markdown.extensions.extra', 'markdown.extensions.nl2br', 'superscript']
+# MARKDOWN_EXT = ['markdown.extensions.extra', 'markdown.extensions.nl2br', 'superscript']
 
 # Url and blank lines (moodle format)
 reURL=re.compile(r"(http://[^ ]+)",re.M)
@@ -26,7 +26,7 @@ OPTIONALFEEDBACK2='(#(?P<feedback2>'+ANYCHAR+'*))?'
 GENERALFEEDBACK='(####(\[(?P<gf_markup>.*?)\])*(?P<generalfeedback>.*))?'
 NUMERIC='[\d]+(\.[\d]+)?'
 
-# MARKDOWN_EXT = ['markdown.extensions.extra', 'superscript']
+MARKDOWN_EXT = ['markdown.extensions.extra', 'superscript']
 
 # Regular Expressions
 reSepQuestions=re.compile(r'^\s*$')
