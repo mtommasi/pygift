@@ -5,6 +5,7 @@ import re
 import yattag
 import uuid
 import markdown
+import xml.etree.cElementTree as ET
 from pygiftparser import i18n
 import sys
 sys.path.insert(0, "../../")
@@ -266,6 +267,22 @@ class SelectSet(ChoicesSet):
                         if a.feedback:
                             doc.asis(" &#8669; "+markupRendering(a.feedback,self.question.markup))
 
+    def toEDX(self):
+        rmcr = ET.Element("multiplechoiceresponse")
+        cg = ET.SubElement(rmcr,'choicegroupe', type="MultipleChoice")
+        for a in self.answers:
+            if a.fraction>0:
+                korrect = 'true'
+            else :
+                korrect = 'false'
+            choice = (ET.SubElement(cg, 'choice', correct=korrect)
+            choice.text = a.answer
+            if (a.feedback) and (len(a.feedback)> 1):
+                ET.SubElement(choice, 'choicehint').text = a.feedback
+
+
+
+
 class MultipleChoicesSet(ChoicesSet):
     """ One or more choices in a list"""
     def __init__(self,question,answers):
@@ -364,7 +381,7 @@ class Question:
         self.id = uuid.uuid4()
         self.source = source
         self.full = full
-        # self.type = cat
+        self.cat = cat
         self.valid = True
         self.tail = ''
         self.generalFeedback = ""
@@ -458,7 +475,6 @@ class Question:
         # True False
         match = reAnswerTrueFalse.match(answer)
         if match:
-            # self.type = 'TRUEFALSE'
             self.answers = TrueFalseSet(self,match)
             return
 
@@ -489,10 +505,8 @@ class Question:
             elif short:
                 self.answers = ShortSet(self,answers)
             elif select:
-                self.type = 'MULTICHOICE'
                 self.answers = SelectSet(self,answers)
             else:
-                # self.type = 'MULTIANSWER'
                 self.answers = MultipleChoicesSet(self,answers)
                 self.valid = self.answers.checkValidity()
         else:
@@ -539,9 +553,7 @@ class Question:
         if not self.valid :
             logging.warning (INVALID_FORMAT_QUESTION ) # placement automatique du contenu de body dans une sous-section cours
             return ''
-        doc = yattag.Doc()
-        doc.asis('\n')
-        self.answers.toEDX(doc)
+        self.answers.toEDX()
 
     def myprint(self):
         print ("=========Question=========")
