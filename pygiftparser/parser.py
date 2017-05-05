@@ -307,7 +307,7 @@ class SelectSet(ChoicesSet):
                     else :
                         korrect = 'false'
                     with doc.tag("choice", correct=korrect):
-                        doc.text("answer")
+                        doc.text(a.answer)
                 if (a.feedback) and (len(a.feedback)> 1):
                     doc.asis("<choicehint>"+a.feedback+"</choicehint>")
         return doc.getvalue()
