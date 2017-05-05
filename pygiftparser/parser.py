@@ -85,7 +85,7 @@ class AnswerSet:
     def __init__(self,question):
         self.question = question
         self.valid = True
-        self.EDX = self.toEDX()
+        self.toEDX()
 
     def myprint(self):
         print (self.__class__)
@@ -310,7 +310,7 @@ class SelectSet(ChoicesSet):
                         doc.text("answer")
                 if (a.feedback) and (len(a.feedback)> 1):
                     doc.asis("<choicehint>"+a.feedback+"</choicehint>")
-        return doc.getvalue()
+        self.toEDX = doc.getvalue()
 
 
 
