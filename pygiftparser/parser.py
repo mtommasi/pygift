@@ -19,6 +19,9 @@ MARKDOWN_EXT = ['markdown.extensions.extra', 'markdown.extensions.nl2br', 'super
 reURL=re.compile(r"(http://[^ ]+)",re.M)
 reNewLine=re.compile(r'\n\n',re.M)
 
+#WARNING MESSAGES
+INVALID_FORMAT_QUESTION = "Vous avez saisi un quizz invalide"
+
 # Sub regular expressions
 ANYCHAR=r'([^\\=~#]|(\\.))'
 OPTIONALFEEDBACK='(#(?P<feedback>'+ANYCHAR+'*))?'
@@ -528,6 +531,17 @@ class Question:
                         doc.asis('<b><em>Feedback:</em></b><br/>')
                         mdToHtml(self.generalFeedback, doc)
         return doc
+
+    def toEDX(self):
+        """
+        produces an XML fragment for EDX
+        """
+        if not self.valid :
+            logging.warning (INVALID_FORMAT_QUESTION ) # placement automatique du contenu de body dans une sous-section cours
+            return ''
+        doc = yattag.Doc()
+        doc.asis('\n')
+        self.answers.toEDX(doc)
 
     def myprint(self):
         print ("=========Question=========")
