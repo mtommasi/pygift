@@ -101,6 +101,9 @@ class Essay(AnswerSet):
     def toHTMLFB(self, doc):
         pass
 
+    def toEDX(self):
+        pass
+
 
 class Description(AnswerSet):
     """ Emptyset, nothing!"""
@@ -111,6 +114,9 @@ class Description(AnswerSet):
         return
     def toHTMLFB(self,doc):
         return
+
+    def toEDX(self):
+        pass
 
 
 class TrueFalseSet(AnswerSet):
@@ -144,6 +150,8 @@ class TrueFalseSet(AnswerSet):
             with doc.tag('div', klass='wrong_answer'):
                 doc.asis(markupRendering(self.feedbackWrong,self.question.markup))
 
+    def toEDX(self):
+        pass
 
 class NumericAnswerSet(AnswerSet):
     """ """
@@ -167,6 +175,8 @@ class NumericAnswerSet(AnswerSet):
                         if a.feedback:
                             doc.asis(" &#8669; "+markupRendering(a.feedback,self.question.markup))
 
+    def toEDX(self):
+        pass
 
 class MatchingSet(AnswerSet):
     """  a mapping (list of pairs) """
@@ -210,6 +220,9 @@ class MatchingSet(AnswerSet):
                         doc.asis(" &#8669; ")
                         doc.text(a.answer)
 
+    def toEDX(self):
+        pass
+
 class ChoicesSet(AnswerSet):
     """ One or many choices in a list (Abstract)"""
     def __init__(self,question,answers):
@@ -222,6 +235,8 @@ class ChoicesSet(AnswerSet):
             a.myprint()
             print ('~~~~~')
 
+    def toEDX(self):
+        pass
 
 
 class ShortSet(ChoicesSet):
@@ -240,6 +255,9 @@ class ShortSet(ChoicesSet):
                         doc.text(a.answer)
                         if a.feedback:
                             doc.asis(" &#8669; "+markupRendering(a.feedback,self.question.markup))
+
+    def toEDX(self):
+        pass
 
 class SelectSet(ChoicesSet):
     """ One  choice in a list"""
@@ -282,7 +300,6 @@ class SelectSet(ChoicesSet):
 
 
 
-
 class MultipleChoicesSet(ChoicesSet):
     """ One or more choices in a list"""
     def __init__(self,question,answers):
@@ -314,6 +331,8 @@ class MultipleChoicesSet(ChoicesSet):
                         if  a.feedback:
                             doc.asis(" &#8669; "+markupRendering(a.feedback,self.question.markup))
 
+    def toEDX(self):
+        pass
 
 ################# Single answer ######################
 class Answer:
