@@ -275,7 +275,7 @@ class SelectSet(ChoicesSet):
                 korrect = 'true'
             else :
                 korrect = 'false'
-            choice = (ET.SubElement(cg, 'choice', correct=korrect)
+            choice = ET.SubElement(cg, 'choice', correct=korrect)
             choice.text = a.answer
             if (a.feedback) and (len(a.feedback)> 1):
                 ET.SubElement(choice, 'choicehint').text = a.feedback
