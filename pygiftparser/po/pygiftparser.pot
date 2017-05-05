@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-01-17 18:49+0100\n"
+"POT-Creation-Date: 2017-05-05 11:38+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,14 +17,22 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: pygift.py:67
+#: parser.py:94
 msgid "Your answer here"
 msgstr ""
 
-#: pygift.py:92
+#: parser.py:128
 msgid "True"
 msgstr ""
 
-#: pygift.py:95
+#: parser.py:131
 msgid "False"
+msgstr ""
+
+#: parser.py:319
+msgid "Between"
+msgstr ""
+
+#: parser.py:319
+msgid "and"
 msgstr ""
