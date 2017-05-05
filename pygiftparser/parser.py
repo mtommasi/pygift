@@ -26,7 +26,7 @@ OPTIONALFEEDBACK2='(#(?P<feedback2>'+ANYCHAR+'*))?'
 GENERALFEEDBACK='(####(\[(?P<gf_markup>.*?)\])*(?P<generalfeedback>.*))?'
 NUMERIC='[\d]+(\.[\d]+)?'
 
-MARKDOWN_EXT = ['markdown.extensions.extra', 'superscript']
+# MARKDOWN_EXT = ['markdown.extensions.extra', 'superscript']
 
 # Regular Expressions
 reSepQuestions=re.compile(r'^\s*$')
