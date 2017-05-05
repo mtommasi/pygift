@@ -585,7 +585,6 @@ class Question:
         if not self.valid :
             logging.warning (INVALID_FORMAT_QUESTION ) # placement automatique du contenu de body dans une sous-section cours
             return ''
-        print("coucou")
         return self.answers.toEDX()
 
     def myprint(self):
