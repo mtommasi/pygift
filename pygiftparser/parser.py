@@ -274,11 +274,12 @@ class MultipleChoicesSet(ChoicesSet):
         return total >= 99 and total <= 100
 
     def toHTML(self,doc):
-        with doc.tag('ul', klass='multianswer'):
-            for a in self.answers:
-                with doc.tag('li'):
-                    doc.input(name = self.question.getId(), type = 'checkbox')
-                    doc.text(a.answer)
+        with doc.tag('div', klass='groupedAnswer'):
+            with doc.tag('ul', klass='multianswer'):
+                for a in self.answers:
+                    with doc.tag('li'):
+                        doc.input(name = self.question.getId(), type = 'checkbox')
+                        doc.text(a.answer)
 
     def toHTMLFB(self,doc):
         with doc.tag('div', klass='groupedAnswerFeedback'):
