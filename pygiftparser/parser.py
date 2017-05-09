@@ -99,8 +99,8 @@ class AnswerSet:
         with doc.tag("problem", display_name=self.question.title, max_attempts="1"):
             with doc.tag("legend"):
                 mdToHtml(self.question.text,doc)
-                self.scriptEDX(doc)
-                self.ownEDX(doc)
+            self.scriptEDX(doc)
+            self.ownEDX(doc)
             if (self.question.generalFeedback):
                 with doc.tag("solution"):
                     with doc.tag("div", klass="detailed-solution"):
