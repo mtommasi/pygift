@@ -160,13 +160,19 @@ class TrueFalseSet(AnswerSet):
         with doc.tag("multiplechoiceresponse"):
             with doc.tag("choicegroupe", type="MultipleChoice"):
                 if self.feedbackCorrect :
-                    korrect = 'true'
+                    correct = 'true'
+                    wrong = 'false'
                 else :
-                    korrect = 'false'
-                with doc.tag("choice", correct=korrect):
-                    doc.text(a.answer)
-                if (a.feedback) and (len(a.feedback)> 1):
-                    doc.asis("<choicehint>"+a.feedback+"</choicehint>")
+                    correct = 'false'
+                    wrong = 'true'
+                with doc.tag("choice", correct=correct):
+                    doc.text('Vrai')
+                    if self.feedbackCorrect:
+                        doc.asis("<choicehint>"+self.feedbackCorrect+"</choicehint>")
+                with doc.tag("choice", correct=wrong):
+                    doc.text('Faux')
+                    if self.feedbackWrong:
+                        doc.asis("<choicehint>"+self.feedbackWrong+"</choicehint>")
         return doc.getvalue()
 
 class NumericAnswerSet(AnswerSet):
