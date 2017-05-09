@@ -152,7 +152,18 @@ class TrueFalseSet(AnswerSet):
                 doc.asis(markupRendering(self.feedbackWrong,self.question.markup))
 
     def toEDX(self):
-        pass
+        doc = yattag.Doc()
+        with doc.tag("multiplechoiceresponse"):
+            with doc.tag("choicegroupe", type="MultipleChoice"):
+                if self.feedbackCorrect :
+                    korrect = 'true'
+                else :
+                    korrect = 'false'
+                with doc.tag("choice", correct=korrect):
+                    doc.text(a.answer)
+                if (a.feedback) and (len(a.feedback)> 1):
+                    doc.asis("<choicehint>"+a.feedback+"</choicehint>")
+        return doc.getvalue()
 
 class NumericAnswerSet(AnswerSet):
     """ """
@@ -287,17 +298,6 @@ class SelectSet(ChoicesSet):
                             doc.asis(" &#8669; "+markupRendering(a.feedback,self.question.markup))
 
     def toEDX(self):
-        # rmcr = ET.Element("multiplechoiceresponse")
-        # cg = ET.SubElement(rmcr,'choicegroupe', type="MultipleChoice")
-        # for a in self.answers:
-        #     if a.fraction>0:
-        #         korrect = 'true'
-        #     else :
-        #         korrect = 'false'
-        #     choice = ET.SubElement(cg, 'choice', correct=korrect)
-        #     choice.text = a.answer
-        #     if (a.feedback) and (len(a.feedback)> 1):
-        #         ET.SubElement(choice, 'choicehint').text = a.feedback
         doc = yattag.Doc()
         with doc.tag("multiplechoiceresponse"):
             with doc.tag("choicegroupe", type="MultipleChoice"):
