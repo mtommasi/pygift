@@ -9,11 +9,11 @@ import xml.etree.cElementTree as ET
 from pygiftparser import i18n
 import sys
 import os
-dir = os.path.dirname(__file__)
-filename = os.path.join(dir, '../../')
-print filename
-
-from src import utils
+# dir = os.path.dirname(__file__)
+# filename = os.path.join(dir, '/../../')
+# print filename
+#
+# from src import utils
 _ = i18n.language.gettext
 
 # TODOS:
@@ -78,7 +78,7 @@ def mdToHtml(text,doc):
     """
     if not (text.isspace()):
         html_text = markdown.markdown(text, MARKDOWN_EXT, output_format='xhtml')
-        html_text = utils.add_target_blank(html_text)
+        # html_text = utils.add_target_blank(html_text)
         doc.asis(html_text)
         doc.text(' ')
 
