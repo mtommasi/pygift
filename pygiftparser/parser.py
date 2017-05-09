@@ -11,6 +11,7 @@ import sys
 import os
 dir = os.path.dirname(__file__)
 filename = os.path.join(dir, '../../')
+print filename
 
 from src import utils
 _ = i18n.language.gettext
