@@ -156,7 +156,7 @@ def checkAnswerEssay(expect, ans):
 
 
     def ownEDX(self,doc):
-        with dog.tag("customresponse", cfn="checkAnswerEssay"):
+        with doc.tag("customresponse", cfn="checkAnswerEssay"):
             doc.assis('<textline size="40" correct_answer="" label="Problem Text"/>')
 
 
