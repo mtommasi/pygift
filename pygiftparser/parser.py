@@ -162,7 +162,7 @@ class TrueFalseSet(AnswerSet):
             with doc.tag("legend"):
                 mdToHtml(self.question.text,doc)
             with doc.tag("multiplechoiceresponse"):
-                with doc.tag("choicegroupe", type="MultipleChoice"):
+                with doc.tag("choicegroup", type="MultipleChoice"):
                     if self.feedbackCorrect :
                         correct = 'true'
                         wrong = 'false'
@@ -177,6 +177,9 @@ class TrueFalseSet(AnswerSet):
                         doc.text('Faux')
                         if self.feedbackWrong:
                             doc.asis("<choicehint>"+self.feedbackWrong+"</choicehint>")
+            with doc.tag("solution"):
+                with doc.tag("div", class="detailed-solution"):
+                    mdToHtml(self.question.generalFeedback,doc)
         return doc.getvalue()
 
 class NumericAnswerSet(AnswerSet):
@@ -318,7 +321,7 @@ class SelectSet(ChoicesSet):
             with doc.tag("legend"):
                 mdToHtml(self.question.text,doc)
             with doc.tag("multiplechoiceresponse"):
-                with doc.tag("choicegroupe", type="MultipleChoice"):
+                with doc.tag("choicegroup", type="MultipleChoice"):
                     for a in self.answers:
                         if a.fraction>0:
                             korrect = 'true'
@@ -328,6 +331,9 @@ class SelectSet(ChoicesSet):
                                 doc.text(a.answer)
                     if (a.feedback) and (len(a.feedback)> 1):
                         doc.asis("<choicehint>"+a.feedback+"</choicehint>")
+            with doc.tag("solution"):
+                with doc.tag("div", class="detailed-solution"):
+                    mdToHtml(self.question.generalFeedback,doc)
         return doc.getvalue()
 
 
