@@ -310,18 +310,20 @@ class SelectSet(ChoicesSet):
 
     def toEDX(self):
         doc = yattag.Doc()
-        doc.text('max_attempts="1">')
-        with doc.tag("multiplechoiceresponse"):
-            with doc.tag("choicegroupe", type="MultipleChoice"):
-                for a in self.answers:
-                    if a.fraction>0:
-                        korrect = 'true'
-                    else :
-                        korrect = 'false'
-                    with doc.tag("choice", correct=korrect):
-                        doc.text(a.answer)
-                if (a.feedback) and (len(a.feedback)> 1):
-                    doc.asis("<choicehint>"+a.feedback+"</choicehint>")
+        with doc.tag("problem", display_name=q.title, max_attempts="1"):
+            with doc.tag("legend"):
+                mdToHtml(question.text,doc)
+            with doc.tag("multiplechoiceresponse"):
+                with doc.tag("choicegroupe", type="MultipleChoice"):
+                    for a in self.answers:
+                        if a.fraction>0:
+                            korrect = 'true'
+                        else :
+                            korrect = 'false'
+                            with doc.tag("choice", correct=korrect):
+                                doc.text(a.answer)
+                    if (a.feedback) and (len(a.feedback)> 1):
+                        doc.asis("<choicehint>"+a.feedback+"</choicehint>")
         return doc.getvalue()
 
 
