@@ -157,8 +157,7 @@ class TrueFalseSet(AnswerSet):
 
     def toEDX(self):
         doc = yattag.Doc()
-        with doc.tag("problem", display_name=self.question.title):
-            doc.text('max_attempts="1">')
+        with doc.tag("problem", display_name=self.question.title, max_attempts="1"):
             with doc.tag("legend"):
                 mdToHtml(self.question.text,doc)
             with doc.tag("multiplechoiceresponse"):
@@ -316,8 +315,7 @@ class SelectSet(ChoicesSet):
 
     def toEDX(self):
         doc = yattag.Doc()
-        with doc.tag("problem", display_name=self.question.title):
-            doc.text('max_attempts="1">')
+        with doc.tag("problem", display_name=self.question.title, max_attempts="1"):
             with doc.tag("legend"):
                 mdToHtml(self.question.text,doc)
             with doc.tag("multiplechoiceresponse"):
