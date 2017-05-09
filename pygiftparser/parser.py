@@ -9,7 +9,7 @@ import xml.etree.cElementTree as ET
 from pygiftparser import i18n
 import sys
 sys.path.insert(0, "../../")
-from src import utils
+import utils
 _ = i18n.language.gettext
 
 # TODOS:
