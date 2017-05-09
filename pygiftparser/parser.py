@@ -8,9 +8,11 @@ import markdown
 import xml.etree.cElementTree as ET
 from pygiftparser import i18n
 import sys
-sys.path.insert(0, "../../")
-print(sys.path)
-import utils
+import os
+dir = os.path.dirname(__file__)
+filename = os.path.join(dir, '../../')
+
+from src import utils
 _ = i18n.language.gettext
 
 # TODOS:
