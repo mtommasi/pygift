@@ -177,9 +177,10 @@ class TrueFalseSet(AnswerSet):
                         doc.text('Faux')
                         if self.feedbackWrong:
                             doc.asis("<choicehint>"+self.feedbackWrong+"</choicehint>")
-            with doc.tag("solution"):
-                with doc.tag("div", klass="detailed-solution"):
-                    mdToHtml(self.question.generalFeedback,doc)
+            if (self.question.generalFeedback):
+                with doc.tag("solution"):
+                    with doc.tag("div", klass="detailed-solution"):
+                        mdToHtml(self.question.generalFeedback,doc)
         return doc.getvalue()
 
 class NumericAnswerSet(AnswerSet):
@@ -331,9 +332,10 @@ class SelectSet(ChoicesSet):
                             doc.text(a.answer)
                             if (a.feedback) and (len(a.feedback)> 1):
                                 doc.asis("<choicehint>"+a.feedback+"</choicehint>")
-            with doc.tag("solution"):
-                with doc.tag("div", klass="detailed-solution"):
-                    mdToHtml(self.question.generalFeedback,doc)
+            if (self.question.generalFeedback):
+                with doc.tag("solution"):
+                    with doc.tag("div", klass="detailed-solution"):
+                        mdToHtml(self.question.generalFeedback,doc)
         return doc.getvalue()
 
 
@@ -369,7 +371,28 @@ class MultipleChoicesSet(ChoicesSet):
                             doc.asis(" &#8669; "+markupRendering(a.feedback,self.question.markup))
 
     def toEDX(self):
-        pass
+        doc = yattag.Doc()
+        doc.asis("<!-- MultipleAnswer -->")
+        with doc.tag("problem", display_name=self.question.title, max_attempts="1"):
+            with doc.tag("legend"):
+                mdToHtml(self.question.text,doc)
+            with doc.tag("choiceresponse", partial_credit="EDC"):
+                with doc.tag("checkboxgroup"):
+                    for a in self.answers:
+                        if a.fraction>0:
+                            korrect = 'true'
+                        else :
+                            korrect = 'false'
+                        with doc.tag("choice", correct=korrect):
+                            doc.text(a.answer)
+                            if (a.feedback) and (len(a.feedback)> 1):
+                                with doc.tag("choicehint", selected="true"):
+                                    doc.text(a.feedback)
+            if (self.question.generalFeedback):
+                with doc.tag("solution"):
+                    with doc.tag("div", klass="detailed-solution"):
+                        mdToHtml(self.question.generalFeedback,doc)
+        return doc.getvalue()
 
 ################# Single answer ######################
 class Answer:
