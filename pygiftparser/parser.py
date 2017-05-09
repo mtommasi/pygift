@@ -9,6 +9,7 @@ import xml.etree.cElementTree as ET
 from pygiftparser import i18n
 import sys
 sys.path.insert(0, "../../")
+print(sys.path)
 import utils
 _ = i18n.language.gettext
 
