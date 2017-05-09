@@ -123,13 +123,13 @@ class Essay(AnswerSet):
     def scriptEDX(self,doc):
         with doc.tag("script", type="loncapa/python"):
             doc.asis("""
-import re
-def checkAnswerEssay(expect, ans):
-    response = re.search('', ans)
-    if response:
-        return 1
-    else:
-        return 0
+import re \n
+def checkAnswerEssay(expect, ans): \n
+    \t response = re.search('', ans) \n
+    \t if response:
+        \t \t return 1
+    \t else:
+        \t return 0
             """)
         doc.asis("<span id=\""+str(self.question.id)+"\"></span>")
         with doc.tag("script", type="text/javascript"):
