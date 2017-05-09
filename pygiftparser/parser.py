@@ -643,7 +643,7 @@ class Question:
         """
         if not self.valid :
             logging.warning (INVALID_FORMAT_QUESTION )
-            self.EDX ) "Winston, we have a problem"
+            self.EDX = "Winston, we have a problem"
         self.EDX = self.answers.toEDX()
 
     def myprint(self):
