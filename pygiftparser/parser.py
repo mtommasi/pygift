@@ -123,7 +123,6 @@ class Essay(AnswerSet):
     def scriptEDX(self,doc):
         pass
 
-
     def ownEDX(self,doc):
         with doc.tag("customresponse", cfn="checkAnswerEssay"):
             doc.asis('<textline size="40" correct_answer="" label="Problem Text"/>')
