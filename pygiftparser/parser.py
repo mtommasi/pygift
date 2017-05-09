@@ -136,7 +136,7 @@ def checkAnswerEssay(expect, ans):
             doc.asis("""
     /* The object here is to replace the single line input with a textarea */
    (function() {
-    var elem = $("#{self.question.id}")
+    var elem = $("#\""""+str(self.question.id)+"""\"}")
         .closest("div.problem")
         .find(":text");
     /* There's CSS in the LMS that controls the height, so we have to override here */
