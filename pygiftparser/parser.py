@@ -178,7 +178,7 @@ class TrueFalseSet(AnswerSet):
                         if self.feedbackWrong:
                             doc.asis("<choicehint>"+self.feedbackWrong+"</choicehint>")
             with doc.tag("solution"):
-                with doc.tag("div", class="detailed-solution"):
+                with doc.tag("div", klass="detailed-solution"):
                     mdToHtml(self.question.generalFeedback,doc)
         return doc.getvalue()
 
@@ -332,7 +332,7 @@ class SelectSet(ChoicesSet):
                     if (a.feedback) and (len(a.feedback)> 1):
                         doc.asis("<choicehint>"+a.feedback+"</choicehint>")
             with doc.tag("solution"):
-                with doc.tag("div", class="detailed-solution"):
+                with doc.tag("div", klass="detailed-solution"):
                     mdToHtml(self.question.generalFeedback,doc)
         return doc.getvalue()
 
