@@ -99,12 +99,14 @@ class AnswerSet:
         with doc.tag("problem", display_name=self.question.title, max_attempts="1"):
             with doc.tag("legend"):
                 mdToHtml(self.question.text,doc)
+                self.scriptEDX(doc)
                 self.ownEDX(doc)
             if (self.question.generalFeedback):
                 with doc.tag("solution"):
                     with doc.tag("div", klass="detailed-solution"):
                         mdToHtml(self.question.generalFeedback,doc)
         return doc.getvalue()
+
 
 class Essay(AnswerSet):
     """ Empty answer """
@@ -118,6 +120,41 @@ class Essay(AnswerSet):
     def toHTMLFB(self, doc):
         pass
 
+    def scriptEDX(self,doc):
+        with doc.tag("script", type="loncapa/python"):
+            doc.asis("""
+import re
+def checkAnswerEssay(expect, ans):
+    response = re.search('', ans)
+    if response:
+        return 1
+    else:
+        return 0
+            """)
+        doc.asis('<span id='+self.question.id+'></span>')
+        with doc.tag("script", type="text/javascript"):
+            doc.asis("""
+    /* The object here is to replace the single line input with a textarea */
+   (function() {
+    var elem = $("#{self.question.id}")
+        .closest("div.problem")
+        .find(":text");
+    /* There's CSS in the LMS that controls the height, so we have to override here */
+    var textarea = $('<textarea style="height:150px" rows="20" cols="70" />');
+    console.log(elem);
+    console.log(textarea);
+    //This is just a way to do an iterator in JS
+    for (attrib in {'id':null, 'name':null}) {
+        textarea.attr(attrib, elem.attr(attrib));
+    }
+    /* copy over the submitted value */
+    textarea.val(elem.val())
+    elem.replaceWith(textarea);
+
+   })();
+            """)
+
+
     def ownEDX(self,doc):
         pass
 
@@ -129,8 +166,12 @@ class Description(AnswerSet):
 
     def toHTML(self,doc):
         return
+
     def toHTMLFB(self,doc):
         return
+
+    def scriptEDX(self,doc):
+        pass
 
     def ownEDX(self,doc):
         pass
@@ -166,6 +207,9 @@ class TrueFalseSet(AnswerSet):
         if self.feedbackWrong :
             with doc.tag('div', klass='wrong_answer'):
                 doc.asis(markupRendering(self.feedbackWrong,self.question.markup))
+
+    def scriptEDX(self,doc):
+        pass
 
     def ownEDX(self, doc):
         with doc.tag("multiplechoiceresponse"):
@@ -210,6 +254,10 @@ class NumericAnswerSet(AnswerSet):
 
     def ownEDX(self,doc):
         pass
+
+    def scriptEDX(self,doc):
+        pass
+
 
 class MatchingSet(AnswerSet):
     """  a mapping (list of pairs) """
@@ -256,6 +304,10 @@ class MatchingSet(AnswerSet):
     def ownEDX(self,doc):
         pass
 
+    def scriptEDX(self,doc):
+        pass
+
+
 class ChoicesSet(AnswerSet):
     """ One or many choices in a list (Abstract)"""
     def __init__(self,question,answers):
@@ -289,6 +341,10 @@ class ShortSet(ChoicesSet):
 
     def ownEDX(self,doc):
         pass
+
+    def scriptEDX(self,doc):
+        pass
+
 
 class SelectSet(ChoicesSet):
     """ One  choice in a list"""
@@ -328,6 +384,9 @@ class SelectSet(ChoicesSet):
                         doc.text(a.answer)
                         if (a.feedback) and (len(a.feedback)> 1):
                             doc.asis("<choicehint>"+a.feedback+"</choicehint>")
+
+    def scriptEDX(self,doc):
+        pass
 
 
 class MultipleChoicesSet(ChoicesSet):
@@ -375,6 +434,9 @@ class MultipleChoicesSet(ChoicesSet):
                             with doc.tag("choicehint", selected="true"):
                                 doc.text(a.feedback)
 
+    def scriptEDX(self,doc):
+        pass
+        
 ################# Single answer ######################
 class Answer:
     """ one answer in a list"""
