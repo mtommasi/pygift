@@ -642,8 +642,8 @@ class Question:
         produces an XML fragment for EDX
         """
         if not self.valid :
-            logging.warning (INVALID_FORMAT_QUESTION )
-            self.EDX = "Winston, we have a problem"
+            logging.warning (INVALID_FORMAT_QUESTION ) #
+            return ''
         self.EDX = self.answers.toEDX()
 
     def myprint(self):
