@@ -4,6 +4,7 @@ import logging
 import re
 import yattag
 import uuid
+from unidecode import unidecode
 import markdown
 import xml.etree.cElementTree as ET
 from pygiftparser import i18n
@@ -131,7 +132,7 @@ def checkAnswerEssay(expect, ans):
     else:
         return 0
             """)
-        doc.asis(u"<span id="+self.question.id+"></span>")
+        doc.asis("<span id="+unidecode(self.question.id)+"></span>")
         with doc.tag("script", type="text/javascript"):
             doc.asis("""
     /* The object here is to replace the single line input with a textarea */
