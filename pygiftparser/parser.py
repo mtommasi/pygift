@@ -329,8 +329,8 @@ class SelectSet(ChoicesSet):
                             korrect = 'false'
                         with doc.tag("choice", correct=korrect):
                             doc.text(a.answer)
-                        if (a.feedback) and (len(a.feedback)> 1):
-                            doc.asis("<choicehint>"+a.feedback+"</choicehint>")
+                            if (a.feedback) and (len(a.feedback)> 1):
+                                doc.asis("<choicehint>"+a.feedback+"</choicehint>")
             with doc.tag("solution"):
                 with doc.tag("div", klass="detailed-solution"):
                     mdToHtml(self.question.generalFeedback,doc)
