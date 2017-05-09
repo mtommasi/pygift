@@ -157,6 +157,7 @@ class TrueFalseSet(AnswerSet):
 
     def toEDX(self):
         doc = yattag.Doc()
+        doc.text('max_attempts="1">')
         with doc.tag("multiplechoiceresponse"):
             with doc.tag("choicegroupe", type="MultipleChoice"):
                 if self.feedbackCorrect :
@@ -309,6 +310,7 @@ class SelectSet(ChoicesSet):
 
     def toEDX(self):
         doc = yattag.Doc()
+        doc.text('max_attempts="1">')
         with doc.tag("multiplechoiceresponse"):
             with doc.tag("choicegroupe", type="MultipleChoice"):
                 for a in self.answers:
