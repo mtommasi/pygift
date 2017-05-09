@@ -157,23 +157,25 @@ class TrueFalseSet(AnswerSet):
 
     def toEDX(self):
         doc = yattag.Doc()
-        doc.text('max_attempts="1">')
-        with doc.tag("multiplechoiceresponse"):
-            with doc.tag("choicegroupe", type="MultipleChoice"):
-                if self.feedbackCorrect :
-                    correct = 'true'
-                    wrong = 'false'
-                else :
-                    correct = 'false'
-                    wrong = 'true'
-                with doc.tag("choice", correct=correct):
-                    doc.text('Vrai')
-                    if self.feedbackCorrect:
-                        doc.asis("<choicehint>"+self.feedbackCorrect+"</choicehint>")
-                with doc.tag("choice", correct=wrong):
-                    doc.text('Faux')
-                    if self.feedbackWrong:
-                        doc.asis("<choicehint>"+self.feedbackWrong+"</choicehint>")
+        with doc.tag("problem", display_name=self.question.title, max_attempts="1"):
+            with doc.tag("legend"):
+                mdToHtml(self.question.text,doc)
+            with doc.tag("multiplechoiceresponse"):
+                with doc.tag("choicegroupe", type="MultipleChoice"):
+                    if self.feedbackCorrect :
+                        correct = 'true'
+                        wrong = 'false'
+                    else :
+                        correct = 'false'
+                        wrong = 'true'
+                    with doc.tag("choice", correct=correct):
+                        doc.text('Vrai')
+                        if self.feedbackCorrect:
+                            doc.asis("<choicehint>"+self.feedbackCorrect+"</choicehint>")
+                    with doc.tag("choice", correct=wrong):
+                        doc.text('Faux')
+                        if self.feedbackWrong:
+                            doc.asis("<choicehint>"+self.feedbackWrong+"</choicehint>")
         return doc.getvalue()
 
 class NumericAnswerSet(AnswerSet):
@@ -310,9 +312,9 @@ class SelectSet(ChoicesSet):
 
     def toEDX(self):
         doc = yattag.Doc()
-        with doc.tag("problem", display_name=q.title, max_attempts="1"):
+        with doc.tag("problem", display_name=self.question.title, max_attempts="1"):
             with doc.tag("legend"):
-                mdToHtml(question.text,doc)
+                mdToHtml(self.question.text,doc)
             with doc.tag("multiplechoiceresponse"):
                 with doc.tag("choicegroupe", type="MultipleChoice"):
                     for a in self.answers:
