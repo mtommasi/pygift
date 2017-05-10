@@ -509,7 +509,7 @@ class Question:
         if not match:
             # it is a description
             self.answers = Description(None)
-            # self.__parseHead(source)
+            self.__parseHead(source)
         else:
             self.tail=stripMatch(match,'tail')
             self.__parseHead(match.group('head'))
