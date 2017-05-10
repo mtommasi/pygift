@@ -139,14 +139,14 @@ def checkAnswerEssay(expect, ans):
             """)
         doc.asis('<span id="'+str(self.question.id)+'"></span>')
         with doc.tag("script", type="text/javascript"):
-            doc.text(u"""
+            doc.text("""
     /* The object here is to replace the single line input with a textarea */
     (function() {
     var elem = $("#"""+str(self.question.id)+"""")
         .closest("div.problem")
         .find(":text");
     /* There's CSS in the LMS that controls the height, so we have to override here */
-    var textarea = $('&#139textarea style="height:150px" rows="20" cols="70"/&#155');
+    var textarea = $('<textarea style="height:150px" rows="20" cols="70"/>');
     console.log(elem);
     console.log(textarea);
     //This is just a way to do an iterator in JS
