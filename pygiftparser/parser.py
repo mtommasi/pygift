@@ -37,7 +37,7 @@ NUMERIC='[\d]+(\.[\d]+)?'
 # MARKDOWN_EXT = ['markdown.extensions.extra', 'superscript']
 
 # Regular Expressions
-reSepQuestions=re.compile(r'^\s*$')
+reSepQuestions=re.compile(r'^\n\n\s*$')
 reComment=re.compile(r'^//.*$')
 reCategory=re.compile(r'^\$CATEGORY: (?P<cat>[/\w$]*)')
 
