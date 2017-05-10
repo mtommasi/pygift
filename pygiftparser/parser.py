@@ -512,7 +512,7 @@ class Question:
             self.__parseHead(source)
         else:
             self.tail=stripMatch(match,'tail')
-            self.__parseHead(match.group('head'))
+            # self.__parseHead(match.group('head'))
             self.generalFeedback = stripMatch(match,'generalfeedback')
             # replace \n
             self.generalFeedback = re.sub(r'\\n','\n',self.generalFeedback)
