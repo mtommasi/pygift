@@ -77,6 +77,7 @@ def mdToHtml(text,doc):
     Transform txt in markdown to html
     """
     if not (text.isspace()):
+        text = re.sub(r'\\n','\n',text)
         html_text = markdown.markdown(text, MARKDOWN_EXT, output_format='xhtml')
         # html_text = utils.add_target_blank(html_text)
         doc.asis(html_text)
