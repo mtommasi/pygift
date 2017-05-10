@@ -146,7 +146,7 @@ def checkAnswerEssay(expect, ans):
         .closest("div.problem")
         .find(":text");
     /* There's CSS in the LMS that controls the height, so we have to override here */
-    var textarea = $(\'<textarea style="height:150px" rows="20" cols="70"/>\');
+    var textarea = $('&#139textarea style="height:150px" rows="20" cols="70"/&#155');
     console.log(elem);
     console.log(textarea);
     //This is just a way to do an iterator in JS
