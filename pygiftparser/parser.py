@@ -127,7 +127,7 @@ class Essay(AnswerSet):
         pass
 
     def scriptEDX(self,doc):
-        with doc.tag("script", type="loncapa/python">):
+        with doc.tag("script", type="loncapa/python"):
             doc.text("""
 import re
 def checkAnswerEssay(expect, ans):
