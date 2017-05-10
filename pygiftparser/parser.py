@@ -140,24 +140,24 @@ def checkAnswerEssay(expect, ans):
         doc.asis('<span id="'+str(self.question.id)+'"></span>')
         with doc.tag("script", type="text/javascript"):
             doc.text("""
-/* The object here is to replace the single line input with a textarea */
-(function() {
-var elem = $("#"""+str(self.question.id)+""""")
-    .closest("div.problem")
-    .find(":text");
-/* There's CSS in the LMS that controls the height, so we have to override here */
-var textarea = $('<textarea style="height:150px" rows="20" cols="70" />');
-console.log(elem);
-console.log(textarea);
-//This is just a way to do an iterator in JS
-for (attrib in {'id':null, 'name':null}) {
-textarea.attr(attrib, elem.attr(attrib));
-}
-/* copy over the submitted value */
-textarea.val(elem.val())
-elem.replaceWith(textarea);
+    /* The object here is to replace the single line input with a textarea */
+    (function() {
+    var elem = $("#"""+str(self.question.id)+""""")
+        .closest("div.problem")
+        .find(":text");
+    /* There's CSS in the LMS that controls the height, so we have to override here */
+    var textarea = $('&lt;textarea style="height:150px" rows="20" cols="70" /&gt;');
+    console.log(elem);
+    console.log(textarea);
+    //This is just a way to do an iterator in JS
+    for (attrib in {'id':null, 'name':null}) {
+        textarea.attr(attrib, elem.attr(attrib));
+    }
+    /* copy over the submitted value */
+    textarea.val(elem.val())
+    elem.replaceWith(textarea);
 
-})();
+    })();
             """)
 
     def ownEDX(self,doc):
