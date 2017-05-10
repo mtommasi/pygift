@@ -497,6 +497,7 @@ class Question:
         self.tail = ''
         self.generalFeedback = ""
         self.parse(source)
+        self.EDX = ''
 
     def getId(self):
         """ get Identifier for the question"""
