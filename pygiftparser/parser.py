@@ -497,7 +497,6 @@ class Question:
         self.tail = ''
         self.generalFeedback = ""
         self.parse(source)
-        self.EDX = ''
 
     def getId(self):
         """ get Identifier for the question"""
@@ -665,7 +664,7 @@ class Question:
         if not self.valid :
             logging.warning (INVALID_FORMAT_QUESTION ) #
             return ''
-        self.EDX = self.answers.toEDX()
+        return self.answers.toEDX()
 
     def myprint(self):
         print ("=========Question=========")
