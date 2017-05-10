@@ -107,6 +107,12 @@ class AnswerSet:
                         mdToHtml(self.question.generalFeedback,doc)
         return doc.getvalue()
 
+    def ownEDX(self,doc):
+        pass
+
+    def scriptEDX(self,doc):
+        pass
+
 
 class Essay(AnswerSet):
     """ Empty answer """
@@ -138,12 +144,6 @@ class Description(AnswerSet):
 
     def toHTMLFB(self,doc):
         return
-
-    def scriptEDX(self,doc):
-        pass
-
-    def ownEDX(self,doc):
-        pass
 
 
 class TrueFalseSet(AnswerSet):
@@ -177,8 +177,6 @@ class TrueFalseSet(AnswerSet):
             with doc.tag('div', klass='wrong_answer'):
                 doc.asis(markupRendering(self.feedbackWrong,self.question.markup))
 
-    def scriptEDX(self,doc):
-        pass
 
     def ownEDX(self, doc):
         with doc.tag("multiplechoiceresponse"):
@@ -273,9 +271,6 @@ class MatchingSet(AnswerSet):
     def ownEDX(self,doc):
         pass
 
-    def scriptEDX(self,doc):
-        pass
-
 
 class ChoicesSet(AnswerSet):
     """ One or many choices in a list (Abstract)"""
@@ -311,8 +306,6 @@ class ShortSet(ChoicesSet):
     def ownEDX(self,doc):
         pass
 
-    def scriptEDX(self,doc):
-        pass
 
 
 class SelectSet(ChoicesSet):
@@ -354,8 +347,6 @@ class SelectSet(ChoicesSet):
                         if (a.feedback) and (len(a.feedback)> 1):
                             doc.asis("<choicehint>"+a.feedback+"</choicehint>")
 
-    def scriptEDX(self,doc):
-        pass
 
 
 class MultipleChoicesSet(ChoicesSet):
@@ -403,8 +394,6 @@ class MultipleChoicesSet(ChoicesSet):
                             with doc.tag("choicehint", selected="true"):
                                 doc.text(a.feedback)
 
-    def scriptEDX(self,doc):
-        pass
 
 ################# Single answer ######################
 class Answer:
