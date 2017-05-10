@@ -101,7 +101,7 @@ class AnswerSet:
                 mdToHtml(self.question.text,doc)
             self.scriptEDX(doc)
             self.ownEDX(doc)
-            if (self.question.generalFeedback):
+            if (len(self.question.generalFeedback) > 1):
                 with doc.tag("solution"):
                     with doc.tag("div", klass="detailed-solution"):
                         mdToHtml(self.question.generalFeedback,doc)
