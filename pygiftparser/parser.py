@@ -139,7 +139,7 @@ def checkAnswerEssay(expect, ans):
             """)
         doc.asis('<span id="'+str(self.question.id)+'"></span>')
         with doc.tag("script", type="text/javascript"):
-            doc.text("""
+            doc.text(u"""
     /* The object here is to replace the single line input with a textarea */
     (function() {
     var elem = $("#"""+str(self.question.id)+"""")
