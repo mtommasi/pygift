@@ -720,7 +720,6 @@ def parseFile(f):
                 category = newCategory
                 newCategory = None
             else:
-                print(line)
                 if cleanedSource != "":
                     # this is the end of a question
                     questions.append(Question(cleanedSource,fullSource,category))
