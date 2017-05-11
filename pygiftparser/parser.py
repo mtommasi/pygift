@@ -720,11 +720,11 @@ def parseFile(f):
                 category = newCategory
                 newCategory = None
             else:
-                if line != '\\n':
-                    if cleanedSource != "":
-                        # this is the end of a question
-                        questions.append(Question(cleanedSource,fullSource,category))
-                    cleanedSource = fullSource = ""
+                print(line)
+                if cleanedSource != "":
+                    # this is the end of a question
+                    questions.append(Question(cleanedSource,fullSource,category))
+                cleanedSource = fullSource = ""
         else:
             # it is not a blank line : is it a category definition?
             match = reCategory.match(line)
