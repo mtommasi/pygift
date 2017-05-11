@@ -61,7 +61,7 @@ reAnswerNumericExpression = re.compile(r'\s*(?P<val1>'+NUMERIC+')((?P<op>:|\.\.)
 reAnswerMultipleChoices = re.compile(r'\s*(?P<sign>=|~)(%(?P<fraction>-?'+NUMERIC+')%)?(?P<answer>('+ANYCHAR+')*)'+OPTIONALFEEDBACK)
 
 # True False
-reAnswerTrueFalse = re.compile(r'^\s*(?P<answer>(T(RUE)?)*|(F(ALSE)?))\s'+OPTIONALFEEDBACK+OPTIONALFEEDBACK2)
+reAnswerTrueFalse = re.compile(r'^\s*(?P<answer>(T(RUE)?)|(F(ALSE)?))\s*'+OPTIONALFEEDBACK+OPTIONALFEEDBACK2)
 
 # Match (applies on 'answer' part of the reAnswerMultipleChoices pattern
 reMatch = re.compile(r'(?P<question>.*)->(?P<answer>.*)')
