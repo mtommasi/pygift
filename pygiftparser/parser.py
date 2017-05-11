@@ -22,7 +22,7 @@ MARKDOWN_EXT = ['markdown.extensions.extra', 'markdown.extensions.nl2br', 'super
 
 # Url and blank lines (moodle format)
 reURL=re.compile(r"(http://[^ ]+)",re.M)
-reNewLine=re.compile(r'\n\n',re.M)
+reNewLine=re.compile(r'\n\n\n',re.M)
 
 #WARNING MESSAGES
 INVALID_FORMAT_QUESTION = "Vous avez saisi un quizz invalide"
