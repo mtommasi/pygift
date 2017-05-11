@@ -22,7 +22,7 @@ MARKDOWN_EXT = ['markdown.extensions.extra', 'markdown.extensions.nl2br', 'super
 
 # Url and blank lines (moodle format)
 reURL=re.compile(r"(http://[^ ]+)",re.M)
-reNewLine=re.compile(r'\n\n\n',re.M)
+reNewLine=re.compile(r'\n\n',re.M)
 
 #WARNING MESSAGES
 INVALID_FORMAT_QUESTION = "Vous avez saisi un quizz invalide"
@@ -720,10 +720,11 @@ def parseFile(f):
                 category = newCategory
                 newCategory = None
             else:
-                if cleanedSource != "":
-                    # this is the end of a question
-                    questions.append(Question(cleanedSource,fullSource,category))
-                cleanedSource = fullSource = ""
+                if line != '\\n':
+                    if cleanedSource != "":
+                        # this is the end of a question
+                        questions.append(Question(cleanedSource,fullSource,category))
+                    cleanedSource = fullSource = ""
         else:
             # it is not a blank line : is it a category definition?
             match = reCategory.match(line)
