@@ -263,7 +263,7 @@ class NumericAnswerSet(AnswerSet):
         fstAnswer = correctAnswer[0]
         with doc.tag('numericalresponse', answer = '\"'+str(fstAnswer.value)+'\"'):
             if not(fstAnswer.fraction == 0):
-                doc.asis("<responseparam type='tolerance' default='"+fstAnswer.fraction+"' />")
+                doc.asis("<responseparam type='tolerance' default='"+str(fstAnswer.fraction)+"' />")
             doc.asis("<formulaequationinput />")
 
 
