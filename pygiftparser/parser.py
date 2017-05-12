@@ -457,9 +457,9 @@ class NumericAnswer(Answer):
         return str(self.value)+"&#177;"+str(self.tolerance)
 
     def ownEDX(self, doc):
-        with doc.tag('numericalresponse', answer = str(fstAnswer.value)):
-            if fstAnswer.tolerance != 0.0:
-                doc.asis("<responseparam type='tolerance' default='"+str(fstAnswer.tolerance)+"' />")
+        with doc.tag('numericalresponse', answer = str(self.value)):
+            if self.tolerance != 0.0:
+                doc.asis("<responseparam type='tolerance' default='"+str(self.tolerance)+"' />")
             doc.asis("<formulaequationinput />")
 
 class NumericAnswerMinMax(Answer):
