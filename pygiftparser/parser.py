@@ -54,7 +54,7 @@ reAnswer=re.compile(r'^(?P<head>.*[^\\]){\s*(?P<answer>.*?[^\\]?)'+GENERALFEEDBA
 # numeric answers
 reAnswerNumeric=re.compile(r'^#[^#]')
 reAnswerNumericValue = re.compile(r'\s*(?P<value>'+NUMERIC+')(:(?P<tolerance>'+NUMERIC+'))?'+OPTIONALFEEDBACK)
-reAnswerNumericInterval=re.compile(r'\s*(?P<min>'+NUMERIC+')(\.\.(?P<max>'+NUMERIC+'))?'+OPTIONALFEEDBACK)
+reAnswerNumericInterval=re.compile(r'\s*(?P<min>'+NUMERIC+')(\.\.(?P<max>'+NUMERIC+'))'+OPTIONALFEEDBACK)
 reAnswerNumericExpression = re.compile(r'\s*(?P<val1>'+NUMERIC+')((?P<op>:|\.\.)(?P<val2>'+NUMERIC+'))?'+OPTIONALFEEDBACK)
 
 # Multiple choices only ~ symbols
