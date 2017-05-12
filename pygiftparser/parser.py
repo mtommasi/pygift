@@ -261,7 +261,7 @@ class NumericAnswerSet(AnswerSet):
             logging.warning('')
             return
         elif len(correctAnswer) == 1:
-            correctAnswer[0].ownEDX(self,doc)
+            correctAnswer[0].ownEDX(doc)
 
 
     # def scriptEDX(self,doc):
