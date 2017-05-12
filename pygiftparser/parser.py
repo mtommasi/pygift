@@ -557,11 +557,11 @@ class Question:
 
     def __parseNumericText(self,text):
         m=reAnswerNumericValue.match(text)
+        print("coucou")
         if m:
             a = NumericAnswer(m)
         else:
             m = reAnswerNumericInterval.match(text)
-            print("coucou")
             if m:
                 a = NumericAnswerMinMax(m)
             else :
