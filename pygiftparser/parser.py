@@ -254,13 +254,13 @@ class NumericAnswerSet(AnswerSet):
     def ownEDX(self,doc):
         #FIXME : Problème pour le multi answer NUMERIC, ne gère qu'une réponse
         correctAnswer = []
+        print("coucou")
         for a in self.answers:
             if a.fraction > 0:
                 correctAnswer.append(a)
         if len(correctAnswer) == 0:
             logging.warning('')
             return
-        print("coucou")
         fstAnswer = correctAnswer[0]
         with doc.tag('numericalresponse', answer = '\"'+fstAnswer+'\"'):
             if not(fstAnswer.fraction == 0):
