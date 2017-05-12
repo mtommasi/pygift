@@ -561,6 +561,7 @@ class Question:
             a = NumericAnswer(m)
         else:
             m = reAnswerNumericInterval.match(text)
+            print("coucou")
             if m:
                 a = NumericAnswerMinMax(m)
             else :
