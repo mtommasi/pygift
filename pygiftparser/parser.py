@@ -318,8 +318,8 @@ class MatchingSet(AnswerSet):
                 doc.text(a.question+" ")
                 with doc.tag('optionresponse'):
                     options = '('
-                    for a in self.possibleAnswers:
-                        options += a+','
+                    for a2 in self.possibleAnswers:
+                        options += a2+','
                     options += ')'
                     doc.asis("<optioninput label="+a.question+" options="+options+" ></optioninput")
 
