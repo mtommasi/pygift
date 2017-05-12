@@ -317,11 +317,11 @@ class MatchingSet(AnswerSet):
             with doc.tag('h2'):
                 doc.text(a.question+" ")
                 with doc.tag('optionresponse'):
-                    options = '('
+                    options = '\"('
                     for a2 in self.possibleAnswers:
-                        options += str(a2)+','
-                    options += ')'
-                    doc.asis("<optioninput label="+str(a.question)+" options="+options+" ></optioninput")
+                        options += "'"+a2+"'"+','
+                    options += ')\"'
+                    doc.asis("<optioninput label=\""+a.question+"\" options="+options+" ></optioninput")
 
 
 
