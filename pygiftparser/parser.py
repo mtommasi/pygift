@@ -455,7 +455,7 @@ class NumericAnswer(Answer):
         if match.group('tolerance'):
             print(match.group('tolerance'))
             self.tolerance = float( match.group('tolerance') )
-            print(self.tolerance)
+            print(str(self.tolerance))
         else:
             self.tolerance = 0
     def toHTMLFB(self):
