@@ -321,7 +321,7 @@ class MatchingSet(AnswerSet):
                 for a2 in self.possibleAnswers:
                     options += "'"+a2+"'"+','
                 options += ')\"'
-                doc.asis("<optioninput label=\""+a.question+"\" options="+options+"  correct=\""a.answer"\" ></optioninput>")
+                doc.asis("<optioninput label=\""+a.question+"\" options="+options+"  correct=\""+a.answer+"\" ></optioninput>")
 
 
 
