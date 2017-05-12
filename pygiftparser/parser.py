@@ -252,10 +252,25 @@ class NumericAnswerSet(AnswerSet):
                             doc.asis(" &#8669; "+markupRendering(a.feedback,self.question.markup))
 
     def ownEDX(self,doc):
-        pass
+        #FIXME : Problème pour le multi answer NUMERIC, ne gère qu'une réponse
+        correctAnswer = []
+        for a in self.answers:
+            if a.fraction > 0:
+                correctAnswer.append(a)
+        if len(correctAnswer) == 0:
+            logging.warning('')
+            return
+        fstAnswer = correctAnswer[0]
+        with doc.tag('numericalresponse', answer = '\"'+fstAnswer+'\"'):
+            if not(fstAnswer.fraction == 0):
+                dos.asis("<responseparam type='tolerance' default='"+fstAnswer.fraction+"' />")
+            dos.asis("<formulaequationinput />")
 
-    def scriptEDX(self,doc):
-        pass
+
+    # def scriptEDX(self,doc):
+    #     with doc.tag('script', type="loncapa/python"):
+    #         doc.text("computed_response = math.sqrt(math.fsum([math.pow(math.pi,2), math.pow(math.e,2)]))")
+
 
 
 class MatchingSet(AnswerSet):
@@ -425,6 +440,7 @@ class MultipleChoicesSet(ChoicesSet):
                         if (a.feedback) and (len(a.feedback)> 1):
                             with doc.tag("choicehint", selected="true"):
                                 doc.text(a.answer+" : "+a.feedback)
+
 
 
 ################# Single answer ######################
