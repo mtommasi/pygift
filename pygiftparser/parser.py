@@ -258,9 +258,9 @@ class NumericAnswerSet(AnswerSet):
             if a.fraction > 0:
                 correctAnswer.append(a)
         if len(correctAnswer) == 0:
-            print(coucou)
             logging.warning('')
             return
+        print("coucou")
         fstAnswer = correctAnswer[0]
         with doc.tag('numericalresponse', answer = '\"'+fstAnswer+'\"'):
             if not(fstAnswer.fraction == 0):
