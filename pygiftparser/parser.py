@@ -101,7 +101,6 @@ class AnswerSet:
             with doc.tag("legend"):
                 mdToHtml(self.question.text,doc)
             self.scriptEDX(doc)
-            print("coucou")
             self.ownEDX(doc)
             if (len(self.question.generalFeedback) > 1):
                 with doc.tag("solution"):
@@ -262,7 +261,7 @@ class NumericAnswerSet(AnswerSet):
             logging.warning('')
             return
         fstAnswer = correctAnswer[0]
-        with doc.tag('numericalresponse', answer = '\"'+fstAnswer+'\"'):
+        with doc.tag('numericalresponse', answer = '\"'+str(fstAnswer.value)+'\"'):
             if not(fstAnswer.fraction == 0):
                 dos.asis("<responseparam type='tolerance' default='"+fstAnswer.fraction+"' />")
             dos.asis("<formulaequationinput />")
