@@ -557,8 +557,8 @@ class Question:
 
     def __parseNumericText(self,text):
         m=reAnswerNumericValue.match(text)
-        print("coucou")
         if m:
+            print("coucou")
             a = NumericAnswer(m)
         else:
             m = reAnswerNumericInterval.match(text)
