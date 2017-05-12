@@ -313,7 +313,16 @@ class MatchingSet(AnswerSet):
                         doc.text(a.answer)
 
     def ownEDX(self,doc):
-        pass
+        for a in self.answers:
+            with doc.tag('h2'):
+                doc.text(a.question+" ")
+                with doc.tag('optionresponse'):
+                    options = '('
+                    for a in self.possibleAnswers:
+                        options += a+','
+                    options += ')'
+                    doc.asis("<optioninput label="+a.question+" options="+options+" ></optioninput")
+
 
 
 class ChoicesSet(AnswerSet):
