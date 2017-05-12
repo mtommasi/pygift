@@ -263,8 +263,8 @@ class NumericAnswerSet(AnswerSet):
         fstAnswer = correctAnswer[0]
         with doc.tag('numericalresponse', answer = '\"'+str(fstAnswer.value)+'\"'):
             if not(fstAnswer.fraction == 0):
-                dos.asis("<responseparam type='tolerance' default='"+fstAnswer.fraction+"' />")
-            dos.asis("<formulaequationinput />")
+                doc.asis("<responseparam type='tolerance' default='"+fstAnswer.fraction+"' />")
+            doc.asis("<formulaequationinput />")
 
 
     # def scriptEDX(self,doc):
