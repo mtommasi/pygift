@@ -453,7 +453,7 @@ class NumericAnswer(Answer):
     def __init__(self,match):
         self.value = float(match.group('value'))
         if match.group('tolerance'):
-            print("coucou")
+            print(match.group('tolerance'))
             self.tolerance = float( match.group('tolerance') )
         else:
             self.tolerance = 0
