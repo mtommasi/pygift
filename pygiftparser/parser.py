@@ -260,11 +260,8 @@ class NumericAnswerSet(AnswerSet):
         if len(correctAnswer) == 0:
             logging.warning('')
             return
-        fstAnswer = correctAnswer[0]
-        with doc.tag('numericalresponse', answer = str(fstAnswer.value)):
-            if fstAnswer.tolerance != 0.0:
-                doc.asis("<responseparam type='tolerance' default='"+str(fstAnswer.tolerance)+"' />")
-            doc.asis("<formulaequationinput />")
+        elif len(correctAnswer) == 1:
+            correctAnswer[0].ownEDX(self,doc)
 
 
     # def scriptEDX(self,doc):
@@ -459,12 +456,22 @@ class NumericAnswer(Answer):
     def toHTMLFB(self):
         return str(self.value)+"&#177;"+str(self.tolerance)
 
+    def ownEDX(self, doc):
+        with doc.tag('numericalresponse', answer = str(fstAnswer.value)):
+            if fstAnswer.tolerance != 0.0:
+                doc.asis("<responseparam type='tolerance' default='"+str(fstAnswer.tolerance)+"' />")
+            doc.asis("<formulaequationinput />")
+
 class NumericAnswerMinMax(Answer):
     def __init__(self,match):
         self.mini = match.group('min')
         self.maxi = match.group('max')
     def toHTMLFB(self):
         return _('Between')+" "+str(self.mini)+" "+_('and')+" "+str(self.maxi)
+
+    def ownEDX(self, doc):
+        with doc.tag('numericalresponse', answer = "["+str(self.mini)+","+str(self.maxi)+"]"):
+            doc.asis("<formulaequationinput />")
 
 
 class AnswerInList(Answer):
