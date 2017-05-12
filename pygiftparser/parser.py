@@ -556,14 +556,23 @@ class Question:
         self.text = re.sub(r'\\n','\n',self.text)
 
     def __parseNumericText(self,text):
-        m=reAnswerNumericValue.match(text)
-        if m:
-            print("coucou")
-            a = NumericAnswer(m)
-        else:
-            m = reAnswerNumericInterval.match(text)
+        # m=reAnswerNumericValue.match(text)
+        # if m:
+        #     a = NumericAnswer(m)
+        # else:
+        #     m = reAnswerNumericInterval.match(text)
+        #     if m:
+        #         a = NumericAnswerMinMax(m)
+        #     else :
+        #         self.valid = False
+        #         return None
+        m = reAnswerNumericInterval.match(text)
+        if m :
+             a = NumericAnswerMinMax(m)
+        else :
+            m = reAnswerNumericValue.match(text)
             if m:
-                a = NumericAnswerMinMax(m)
+                a = NumericAnswer(m)
             else :
                 self.valid = False
                 return None
