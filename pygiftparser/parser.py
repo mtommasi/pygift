@@ -101,6 +101,7 @@ class AnswerSet:
             with doc.tag("legend"):
                 mdToHtml(self.question.text,doc)
             self.scriptEDX(doc)
+            print("coucou")
             self.ownEDX(doc)
             if (len(self.question.generalFeedback) > 1):
                 with doc.tag("solution"):
@@ -254,7 +255,6 @@ class NumericAnswerSet(AnswerSet):
     def ownEDX(self,doc):
         #FIXME : Problème pour le multi answer NUMERIC, ne gère qu'une réponse
         correctAnswer = []
-        print("coucou")
         for a in self.answers:
             if a.fraction > 0:
                 correctAnswer.append(a)
