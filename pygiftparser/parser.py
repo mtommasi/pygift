@@ -319,9 +319,9 @@ class MatchingSet(AnswerSet):
                 with doc.tag('optionresponse'):
                     options = '('
                     for a2 in self.possibleAnswers:
-                        options += a2+','
+                        options += str(a2)+','
                     options += ')'
-                    doc.asis("<optioninput label="+a.question+" options="+options+" ></optioninput")
+                    doc.asis("<optioninput label="+str(a.question)+" options="+options+" ></optioninput")
 
 
 
