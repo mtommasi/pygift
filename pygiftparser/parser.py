@@ -261,7 +261,7 @@ class NumericAnswerSet(AnswerSet):
             logging.warning('')
             return
         fstAnswer = correctAnswer[0]
-        with doc.tag('numericalresponse', answer = '\"'+str(fstAnswer.value)+'\"'):
+        with doc.tag('numericalresponse', answer = str(fstAnswer.value)):
             if fstAnswer.tolerance != 0.0:
                 doc.asis("<responseparam type='tolerance' default='"+str(fstAnswer.tolerance)+"' />")
             doc.asis("<formulaequationinput />")
