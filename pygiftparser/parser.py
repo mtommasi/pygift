@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 #-*- coding: utf-8 -*-
 import logging
+import random
 import re
 import yattag
 import uuid
@@ -299,6 +300,7 @@ class MatchingSet(AnswerSet):
                         # should be distinct to _charset_ and isindex,...
                         n = self.question.getId() + a.question
                         with doc.tag('select', name= n):
+                            random.shuffle(possibleAnswers)
                             for a in self.possibleAnswers:
                                 with doc.tag('option'):
                                     doc.text(" "+a)
@@ -318,6 +320,7 @@ class MatchingSet(AnswerSet):
                 doc.text(a.question+" ")
             with doc.tag('optionresponse'):
                 options = '\"('
+                random.shuffle(possibleAnswers)
                 for a2 in self.possibleAnswers:
                     options += "'"+a2+"'"+','
                 options += ')\"'
