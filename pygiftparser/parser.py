@@ -258,6 +258,7 @@ class NumericAnswerSet(AnswerSet):
             if a.fraction > 0:
                 correctAnswer.append(a)
         if len(correctAnswer) == 0:
+            print(coucou)
             logging.warning('')
             return
         fstAnswer = correctAnswer[0]
