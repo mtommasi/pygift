@@ -262,7 +262,7 @@ class NumericAnswerSet(AnswerSet):
             return
         fstAnswer = correctAnswer[0]
         with doc.tag('numericalresponse', answer = '\"'+str(fstAnswer.value)+'\"'):
-            if not(fstAnswer.fraction == 0):
+            if fstAnswer.fraction != 0.0:
                 doc.asis("<responseparam type='tolerance' default='"+str(fstAnswer.fraction)+"' />")
             doc.asis("<formulaequationinput />")
 
@@ -453,9 +453,7 @@ class NumericAnswer(Answer):
     def __init__(self,match):
         self.value = float(match.group('value'))
         if match.group('tolerance'):
-            print(match.group('tolerance'))
             self.tolerance = float( match.group('tolerance') )
-            print(str(self.tolerance))
         else:
             self.tolerance = 0
     def toHTMLFB(self):
