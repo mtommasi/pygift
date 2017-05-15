@@ -122,7 +122,7 @@ class AnswerSet:
                     with tag('response_label', ident='answer_'+str(self.question.id)+'_'+str(id_a)):
                         with tag('material'):
                             with tag('mattext', texttype="text/html"):
-                                text(answer['answer_text'])
+                                text(answer.answer)
 
     def ownEDX(self,doc):
         pass
