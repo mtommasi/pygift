@@ -118,7 +118,7 @@ class AnswerSet:
     def cardinaliteIMS(self,doc,tag,text,rcardinality='Single'):
         with tag('response_lid', rcardinality=rcardinality, ident='response_'+str(self.question.id)):
             with tag('render_choice', shuffle='No'):
-                for id_a, answer in enumerate(self.question.answers):
+                for id_a, answer in enumerate(self.answers):
                     with tag('response_label', ident='answer_'+str(self.question.id)+'_'+str(id_a)):
                         with tag('material'):
                             with tag('mattext', texttype="text/html"):
@@ -360,7 +360,7 @@ class ChoicesSet(AnswerSet):
             print ('~~~~~')
 
     def listInteractions(self,doc,tag,text):
-        for id_a, answer in enumerate(self.question.answers):
+        for id_a, answer in enumerate(self.answers):
             score = 0
             if answer['is_right']:
                 title = 'Correct'
@@ -493,7 +493,7 @@ class MultipleChoicesSet(ChoicesSet):
         with tag('respcondition', title="Correct", kontinue='No'):
             with tag('conditionvar'):
                 with tag('and'):
-                    for id_a, answer in enumerate(self.question.answers):
+                    for id_a, answer in enumerate(self.answers):
                         score = 0
                         try:
                             score = answer.fraction
@@ -509,7 +509,7 @@ class MultipleChoicesSet(ChoicesSet):
             with tag('setvar', varname='SCORE', action='Set'):
                 text('100')
             doc.stag('displayfeedback', feedbacktype='Response', linkrefid='general_fb')
-        for id_a, answer in enumerate(self.question.answers):
+        for id_a, answer in enumerate(self.answers):
             with tag('respcondition', kontinue='No'):
                 with tag('conditionvar'):
                     with tag('varequal', respident='response_'+str(self.question.id), case="Yes"):
