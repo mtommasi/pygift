@@ -138,7 +138,7 @@ class Essay(AnswerSet):
         pass
 
     def toEDX(self):
-        AnswerSet.toEDX(self,'unlimited')
+        return AnswerSet.toEDX(self,'unlimited')
 
     def scriptEDX(self,doc):
         with doc.tag("script", type="loncapa/python"):
