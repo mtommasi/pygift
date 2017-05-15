@@ -6,15 +6,9 @@ import re
 import yattag
 import uuid
 import markdown
-import xml.etree.cElementTree as ET
 from pygiftparser import i18n
 import sys
-import os
-# dir = os.path.dirname(__file__)
-# filename = os.path.join(dir, '/../../')
-# print filename
-#
-# from src import utils
+
 _ = i18n.language.gettext
 
 # TODOS:
@@ -35,10 +29,6 @@ OPTIONALFEEDBACK2='(#(?P<feedback2>'+ANYCHAR+'*))?'
 GENERALFEEDBACK='(####(\[(?P<gf_markup>.*?)\])*(?P<generalfeedback>.*))?'
 NUMERIC='[\d]+(\.[\d]+)?'
 
-#IMS
-HEADER_TEST = """<?xml version="1.0" encoding="UTF-8"?>
-    <questestinterop xmlns="http://www.imsglobal.org/xsd/ims_qtiasiv1p2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemalocation="http://www.imsglobal.org/xsd/ims_qtiasiv1p2 http://www.imsglobal.org/profile/cc/ccv1p1/ccv1p1_qtiasiv1p2p1_v1p0.xsd">
-    """
 
 # Regular Expressions
 reSepQuestions=re.compile(r'^\s*$')
@@ -99,24 +89,40 @@ class AnswerSet:
     def myprint(self):
         print (self.__class__)
 
-    def toEDX(self, essay = "1"):
+    def toEDX(self, max_att = "1"):
         doc = yattag.Doc()
-        with doc.tag("problem", display_name=self.question.title, max_attempts=essay):
+        with doc.tag("problem", display_name=self.question.title, max_attempts=max_att):
             with doc.tag("legend"):
                 mdToHtml(self.question.text,doc)
             self.scriptEDX(doc)
             self.ownEDX(doc)
+            # FIXME : Ajouter un warning ici si rien n'est renvoyé
             if (len(self.question.generalFeedback) > 1):
                 with doc.tag("solution"):
                     with doc.tag("div", klass="detailed-solution"):
                         mdToHtml(self.question.generalFeedback,doc)
         return doc.getvalue()
 
-    def toIMS(self):
-        doc, tag, text = Doc().tagtext()
-        doc.asis(HEADER_TEST+'\n')
+    def toHTML(self,doc):
+        pass
 
+    def toHTMLFB(self,doc):
+        pass
 
+    def listInteractions(self,doc,tag,text):
+        pass
+
+    def possiblesAnswersIMS(self,doc,tag,text):
+        pass
+
+    def cardinaliteIMS(self,doc,tag,text,rcardinality='Single'):
+        with tag('response_lid', rcardinality=rcardinality, ident='response_'+str(self.question.id)):
+            with tag('render_choice', shuffle='No'):
+                for id_a, answer in enumerate(self.question.answers):
+                    with tag('response_label', ident='answer_'+str(self.question.id)+'_'+str(id_a)):
+                        with tag('material'):
+                            with tag('mattext', texttype="text/html"):
+                                text(answer['answer_text'])
 
     def ownEDX(self,doc):
         pass
@@ -134,8 +140,9 @@ class Essay(AnswerSet):
         with doc.tag('textarea',name=self.question.getId(),placeholder=_('Your answer here')):
             doc.text('')
 
-    def toHTMLFB(self, doc):
-        pass
+    def possiblesAnswersIMS(self,doc,tag,text):
+        with doc.tag('response_str', rcardinality='Single', ident='response_'+str(self.question.id)):
+            doc.stag('render_fib', rows=5, prompt='Box', fibtype="String")
 
     def toEDX(self):
         return AnswerSet.toEDX(self,'unlimited')
@@ -352,6 +359,23 @@ class ChoicesSet(AnswerSet):
             a.myprint()
             print ('~~~~~')
 
+    def listInteractions(self,doc,tag,text):
+        for id_a, answer in enumerate(self.question.answers):
+            score = 0
+            if answer['is_right']:
+                title = 'Correct'
+                score = 100
+            else:
+                title = ''
+                score = answer.fraction
+            with tag('respcondition', title=title):
+                with tag('conditionvar'):
+                    with tag('varequal', respident='response_'+str(self.question.id)): # respoident is id of response_lid element
+                        text('answer_'+str(self.question.id)+'_'+str(id_a))
+                with tag('setvar', varname='SCORE', action='Set'):
+                    text(score)
+                doc.stag('displayfeedback', feedbacktype='Response', linkrefid='feedb_'+str(id_a))
+
 
 
 class ShortSet(ChoicesSet):
@@ -461,6 +485,36 @@ class MultipleChoicesSet(ChoicesSet):
                         if (a.feedback) and (len(a.feedback)> 1):
                             with doc.tag("choicehint", selected="true"):
                                 doc.text(a.answer+" : "+a.feedback)
+
+    def cardinaliteIMS(self,doc,tag,text):
+        ChoicesSet.cardinaliteIMS(doc,'Multiple')
+
+    def listInteractions(self,doc,tag,text):
+        with tag('respcondition', title="Correct", kontinue='No'):
+            with tag('conditionvar'):
+                with tag('and'):
+                    for id_a, answer in enumerate(self.question.answers):
+                        score = 0
+                        try:
+                            score = answer.fraction
+                        except:
+                            pass
+                        if score <= 0:
+                            with tag('not'):
+                                with tag('varequal', case='Yes', respident='response_'+str(self.question.id)): # respoident is id of response_lid element
+                                    text('answer_'+str(self.question.id)+'_'+str(id_a))
+                        else:
+                            with tag('varequal', case='Yes', respident='response_'+str(self.question.id)): # respoident is id of response_lid element
+                                text('answer_'+str(self.question.id)+'_'+str(id_a))
+            with tag('setvar', varname='SCORE', action='Set'):
+                text('100')
+            doc.stag('displayfeedback', feedbacktype='Response', linkrefid='general_fb')
+        for id_a, answer in enumerate(self.question.answers):
+            with tag('respcondition', kontinue='No'):
+                with tag('conditionvar'):
+                    with tag('varequal', respident='response_'+str(self.question.id), case="Yes"):
+                        text('answer_'+str(self.question.id)+'_'+str(id_a))
+                doc.stag('displayfeedback', feedbacktype='Response', linkrefid='feedb_'+str(id_a))
 
 
 
