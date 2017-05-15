@@ -487,7 +487,7 @@ class MultipleChoicesSet(ChoicesSet):
                                 doc.text(a.answer+" : "+a.feedback)
 
     def cardinaliteIMS(self,doc,tag,text):
-        ChoicesSet.cardinaliteIMS(doc,'Multiple')
+        ChoicesSet.cardinaliteIMS(self,doc,'Multiple')
 
     def listInteractions(self,doc,tag,text):
         with tag('respcondition', title="Correct", kontinue='No'):
