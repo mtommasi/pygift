@@ -144,6 +144,9 @@ class Essay(AnswerSet):
         with doc.tag('response_str', rcardinality='Single', ident='response_'+str(self.question.id)):
             doc.stag('render_fib', rows=5, prompt='Box', fibtype="String")
 
+    def cardinaliteIMS(self,doc,tag,text):
+        pass
+
     def toEDX(self):
         return AnswerSet.toEDX(self,'unlimited')
 
