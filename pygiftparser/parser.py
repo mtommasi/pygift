@@ -362,7 +362,7 @@ class ChoicesSet(AnswerSet):
     def listInteractions(self,doc,tag,text):
         for id_a, answer in enumerate(self.answers):
             score = 0
-            if answer['is_right']:
+            if answer.fraction == 100:
                 title = 'Correct'
                 score = 100
             else:
