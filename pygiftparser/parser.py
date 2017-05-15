@@ -35,7 +35,10 @@ OPTIONALFEEDBACK2='(#(?P<feedback2>'+ANYCHAR+'*))?'
 GENERALFEEDBACK='(####(\[(?P<gf_markup>.*?)\])*(?P<generalfeedback>.*))?'
 NUMERIC='[\d]+(\.[\d]+)?'
 
-# MARKDOWN_EXT = ['markdown.extensions.extra', 'superscript']
+#IMS
+HEADER_TEST = """<?xml version="1.0" encoding="UTF-8"?>
+    <questestinterop xmlns="http://www.imsglobal.org/xsd/ims_qtiasiv1p2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemalocation="http://www.imsglobal.org/xsd/ims_qtiasiv1p2 http://www.imsglobal.org/profile/cc/ccv1p1/ccv1p1_qtiasiv1p2p1_v1p0.xsd">
+    """
 
 # Regular Expressions
 reSepQuestions=re.compile(r'^\s*$')
@@ -96,9 +99,9 @@ class AnswerSet:
     def myprint(self):
         print (self.__class__)
 
-    def toEDX(self):
+    def toEDX(self, essay = "1"):
         doc = yattag.Doc()
-        with doc.tag("problem", display_name=self.question.title, max_attempts="1"):
+        with doc.tag("problem", display_name=self.question.title, max_attempts=essay):
             with doc.tag("legend"):
                 mdToHtml(self.question.text,doc)
             self.scriptEDX(doc)
@@ -108,6 +111,12 @@ class AnswerSet:
                     with doc.tag("div", klass="detailed-solution"):
                         mdToHtml(self.question.generalFeedback,doc)
         return doc.getvalue()
+
+    def toIMS(self):
+        doc, tag, text = Doc().tagtext()
+        doc.asis(HEADER_TEST+'\n')
+
+
 
     def ownEDX(self,doc):
         pass
@@ -127,6 +136,9 @@ class Essay(AnswerSet):
 
     def toHTMLFB(self, doc):
         pass
+
+    def toEDX(self):
+        AnswerSet.toEDX(self,'unlimited')
 
     def scriptEDX(self,doc):
         with doc.tag("script", type="loncapa/python"):
