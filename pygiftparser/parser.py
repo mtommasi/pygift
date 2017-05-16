@@ -84,6 +84,7 @@ class AnswerSet:
     def __init__(self,question):
         self.question = question
         self.valid = True
+        self.cc_profile = 'ESSAY' # need in toIMS.py
 
 
     def myprint(self):
@@ -97,7 +98,6 @@ class AnswerSet:
         pass
 
 #IMS
-
     def listInteractionsIMS(self,doc,tag,text):
         pass
 
@@ -192,6 +192,7 @@ class Description(AnswerSet):
     """ Emptyset, nothing!"""
     def __init__(self,question):
         AnswerSet.__init__(self,question)
+        self.cc_profile = 'DESCRIPTION'
 
     def toHTML(self,doc):
         return
@@ -208,6 +209,7 @@ class TrueFalseSet(AnswerSet):
         self.answer = match.group('answer').startswith('T')
         self.feedbackWrong = stripMatch(match,"feedback")
         self.feedbackCorrect = stripMatch(match,"feedback2")
+        self.cc_profile = 'TRUEFALSE'
 
     def myprint(self):
         print (">TrueFalse:",self.answer,"--",self.feedbackWrong,"--",self.feedbackCorrect)
@@ -260,7 +262,6 @@ class TrueFalseSet(AnswerSet):
                                 text(self.feedbackWrong)
                             elif self.feedbackCorrect:
                                 text(self.feedbackCorrect)
-
 
 
 class NumericAnswerSet(AnswerSet):
@@ -319,6 +320,7 @@ class MatchingSet(AnswerSet):
         AnswerSet.__init__(self,question)
         self.answers = answers
         self.possibleAnswers = [a.answer for a in self.answers]
+        self.cc_profile = 'MATCH'
 
     def checkValidity(self):
         valid = True
@@ -423,6 +425,7 @@ class ShortSet(ChoicesSet):
     """ A single answer is expected but several solutions are possible """
     def __init__(self,question,answers):
         ChoicesSet.__init__(self,question,answers)
+        self.cc_profile = 'MISSINGWORD'
 
     def toHTML(self,doc):
         doc.input(name=self.question.getId(), type = 'text')
@@ -445,6 +448,7 @@ class SelectSet(ChoicesSet):
     """ One  choice in a list"""
     def __init__(self,question,answers):
         ChoicesSet.__init__(self,question,answers)
+        self.cc_profile = 'MULTICHOICE'
 
     def toHTML(self,doc):
         with doc.tag('div', klass='groupedAnswer'):
@@ -486,6 +490,7 @@ class MultipleChoicesSet(ChoicesSet):
     """ One or more choices in a list"""
     def __init__(self,question,answers):
         ChoicesSet.__init__(self,question,answers)
+        self.cc_profile = 'MULTIANSWER'
 
     def checkValidity(self):
         """ Check validity the sum f fractions should be 100 """
