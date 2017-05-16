@@ -104,18 +104,11 @@ class AnswerSet:
     def possiblesAnswersIMS(self,doc,tag,text):
         pass
 
-    def cardinaliteIMS(self,doc,tag,text,rcardinality='Single'):
-        with tag('response_lid', rcardinality=rcardinality, ident='response_'+str(self.question.id)):
-            with tag('render_choice', shuffle='No'):
-                for id_a, answer in enumerate(self.answers):
-                    with tag('response_label', ident='answer_'+str(self.question.id)+'_'+str(id_a)):
-                        with tag('material'):
-                            with tag('mattext', texttype="text/html"):
-                                text(answer.answer)
-
     def toIMSFB(self,doc,tag,text):
         pass
 
+    def cardinaliteIMS(self,doc,tag,text,rcardinality):
+        pass
 
 #EDX
     def toEDX(self, max_att = "1"):
@@ -397,6 +390,15 @@ class ChoicesSet(AnswerSet):
                 with tag('setvar', varname='SCORE', action='Set'):
                     text(score)
                 doc.stag('displayfeedback', feedbacktype='Response', linkrefid='feedb_'+str(id_a))
+
+    def cardinaliteIMS(self,doc,tag,text,rcardinality='Single'):
+        with tag('response_lid', rcardinality=rcardinality, ident='response_'+str(self.question.id)):
+            with tag('render_choice', shuffle='No'):
+                for id_a, answer in enumerate(self.answers):
+                    with tag('response_label', ident='answer_'+str(self.question.id)+'_'+str(id_a)):
+                        with tag('material'):
+                            with tag('mattext', texttype="text/html"):
+                                text(answer.answer)
 
     def toIMSFB(self,doc,tag,text):
         for id_a, answer in enumerate(self.answers):
