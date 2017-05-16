@@ -137,6 +137,9 @@ class AnswerSet:
                         mdToHtml(self.question.generalFeedback,doc)
         return doc.getvalue()
 
+    def toIMSFB(self,doc,tag,text):
+        pass
+
     def ownEDX(self,doc):
         pass
 
@@ -158,6 +161,9 @@ class Essay(AnswerSet):
             doc.stag('render_fib', rows=5, prompt='Box', fibtype="String")
 
     def cardinaliteIMS(self,doc,tag,text):
+        pass
+
+    def toIMSFB(self,doc,tag,text):
         pass
 
     def toEDX(self):
