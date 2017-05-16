@@ -685,6 +685,7 @@ class Question:
             self.text = textMarkup.strip()
         # replace \n
         self.text = re.sub(r'\\n','\n',self.text)
+        self.textHTML = markdown.markdown(self.text, MARKDOWN_EXT, output_format='xhtml')
 
     def __parseNumericText(self,text):
         # m=reAnswerNumericValue.match(text)
