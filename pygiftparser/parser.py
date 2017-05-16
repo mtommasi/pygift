@@ -66,7 +66,7 @@ def stripMatch(match,s):
     else:
         return ""
 
-def mdToHtml(text,doc):
+def mdToHtml(text,doc=None):
     """
     Transform txt in markdown to html
     """
@@ -74,8 +74,11 @@ def mdToHtml(text,doc):
         text = re.sub(r'\\n','\n',text)
         html_text = markdown.markdown(text, MARKDOWN_EXT, output_format='xhtml')
         # html_text = utils.add_target_blank(html_text)
-        doc.asis(html_text)
-        doc.text(' ')
+        if doc :
+            doc.asis(html_text)
+            doc.text(' ')
+        else :
+            html_text
 
 ############# Sets of answers ###############
 # Can be a singleton, empty or not or just the emptyset!
@@ -577,6 +580,7 @@ class NumericAnswer(Answer):
             self.tolerance = float( match.group('tolerance') )
         else:
             self.tolerance = 0
+
     def toHTMLFB(self):
         return str(self.value)+"&#177;"+str(self.tolerance)
 
@@ -590,6 +594,7 @@ class NumericAnswerMinMax(Answer):
     def __init__(self,match):
         self.mini = match.group('min')
         self.maxi = match.group('max')
+
     def toHTMLFB(self):
         return _('Between')+" "+str(self.mini)+" "+_('and')+" "+str(self.maxi)
 
@@ -664,6 +669,7 @@ class Question:
             self.generalFeedback = stripMatch(match,'generalfeedback')
             # replace \n
             self.generalFeedback = re.sub(r'\\n','\n',self.generalFeedback)
+            self.generalFeedbackHTML = mdToHtml(self.generalFeedback)
             self.__parseAnswer(match.group('answer'))
 
     def __parseHead(self,head):
@@ -688,16 +694,6 @@ class Question:
         self.textHTML = markdown.markdown(self.text, MARKDOWN_EXT, output_format='xhtml')
 
     def __parseNumericText(self,text):
-        # m=reAnswerNumericValue.match(text)
-        # if m:
-        #     a = NumericAnswer(m)
-        # else:
-        #     m = reAnswerNumericInterval.match(text)
-        #     if m:
-        #         a = NumericAnswerMinMax(m)
-        #     else :
-        #         self.valid = False
-        #         return None
         m = reAnswerNumericInterval.match(text)
         if m :
              a = NumericAnswerMinMax(m)
@@ -813,7 +809,7 @@ class Question:
                     with doc.tag('div', klass='global_feedback'):
                         # gf = markdown.markdown(self.generalFeedback, MARKDOWN_EXT, output_format='xhtml')
                         doc.asis('<b><em>Feedback:</em></b><br/>')
-                        mdToHtml(self.generalFeedback, doc)
+                        doc.asis(self.generalFeedbackHTML)
         return doc
 
     def toEDX(self):
