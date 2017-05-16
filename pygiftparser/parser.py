@@ -114,13 +114,8 @@ class AnswerSet:
                                 text(answer.answer)
 
     def toIMSFB(self,doc,tag,text):
-        for id_a, answer in enumerate(self.answers):
-            if a.feedback:
-                with tag('itemfeedback', ident='feedb_'+str(id_a)):
-                    with tag('flow_mat'):
-                        with tag('material'):
-                            with tag('mattext', texttype='text/html'):
-                                text(answer.feedback)
+        pass
+
 
 #EDX
     def toEDX(self, max_att = "1"):
@@ -136,9 +131,6 @@ class AnswerSet:
                     with doc.tag("div", klass="detailed-solution"):
                         mdToHtml(self.question.generalFeedback,doc)
         return doc.getvalue()
-
-    def toIMSFB(self,doc,tag,text):
-        pass
 
     def ownEDX(self,doc):
         pass
@@ -163,8 +155,6 @@ class Essay(AnswerSet):
     def cardinaliteIMS(self,doc,tag,text):
         pass
 
-    def toIMSFB(self,doc,tag,text):
-        pass
 
     def toEDX(self):
         return AnswerSet.toEDX(self,'unlimited')
@@ -305,6 +295,15 @@ class NumericAnswerSet(AnswerSet):
         elif len(correctAnswer) == 1:
             correctAnswer[0].ownEDX(doc)
 
+#IMS
+    def toIMSFB(self,doc,tag,text):
+        for id_a, answer in enumerate(self.answers):
+            if a.feedback:
+                with tag('itemfeedback', ident='feedb_'+str(id_a)):
+                    with tag('flow_mat'):
+                        with tag('material'):
+                            with tag('mattext', texttype='text/html'):
+                                text(answer.feedback)
 
     # def scriptEDX(self,doc):
     #     with doc.tag('script', type="loncapa/python"):
@@ -381,6 +380,7 @@ class ChoicesSet(AnswerSet):
             a.myprint()
             print ('~~~~~')
 
+#IMS
     def listInteractions(self,doc,tag,text):
         for id_a, answer in enumerate(self.answers):
             score = 0
@@ -398,6 +398,14 @@ class ChoicesSet(AnswerSet):
                     text(score)
                 doc.stag('displayfeedback', feedbacktype='Response', linkrefid='feedb_'+str(id_a))
 
+    def toIMSFB(self,doc,tag,text):
+        for id_a, answer in enumerate(self.answers):
+            if a.feedback:
+                with tag('itemfeedback', ident='feedb_'+str(id_a)):
+                    with tag('flow_mat'):
+                        with tag('material'):
+                            with tag('mattext', texttype='text/html'):
+                                text(answer.feedback)
 
 
 class ShortSet(ChoicesSet):
