@@ -253,11 +253,14 @@ class TrueFalseSet(AnswerSet):
     def cardinaliteIMS(self,doc,tag,text,rcardinality='Single'):
         with tag('response_lid', rcardinality=rcardinality, ident='response_'+str(self.question.id)):
             with tag('render_choice', shuffle='No'):
-                for id_a, answer in enumerate(self.answers):
-                    with tag('response_label', ident='answer_'+str(self.question.id)+'_'+str(id_a)):
-                        with tag('material'):
-                            with tag('mattext', texttype="text/html"):
-                                text(answer.answer)
+                with tag('response_label', ident='answer_'+str(self.question.id):
+                    with tag('material'):
+                        with tag('mattext', texttype="text/html"):
+                            if self.feedbackWrong:
+                                text(self.feedbackWrong)
+                            elif self.feedbackCorrect:
+                                text(self.feedbackCorrect)
+
 
 
 class NumericAnswerSet(AnswerSet):
