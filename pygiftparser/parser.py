@@ -306,7 +306,7 @@ class NumericAnswerSet(AnswerSet):
                     with tag('flow_mat'):
                         with tag('material'):
                             with tag('mattext', texttype='text/html'):
-                                text(answer.feedback)
+                                text(markupRendering(answer.feedback,self.question.markup))
 
     # def scriptEDX(self,doc):
     #     with doc.tag('script', type="loncapa/python"):
@@ -418,7 +418,7 @@ class ChoicesSet(AnswerSet):
                     with tag('flow_mat'):
                         with tag('material'):
                             with tag('mattext', texttype='text/html'):
-                                text(answer.feedback)
+                                text(markupRendering(answer.feedback,self.question.markup))
 
 
 class ShortSet(ChoicesSet):
