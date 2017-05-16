@@ -253,7 +253,7 @@ class TrueFalseSet(AnswerSet):
     def cardinaliteIMS(self,doc,tag,text,rcardinality='Single'):
         with tag('response_lid', rcardinality=rcardinality, ident='response_'+str(self.question.id)):
             with tag('render_choice', shuffle='No'):
-                with tag('response_label', ident='answer_'+str(self.question.id):
+                with tag('response_label', ident='answer_'+str(self.question.id) ):
                     with tag('material'):
                         with tag('mattext', texttype="text/html"):
                             if self.feedbackWrong:
