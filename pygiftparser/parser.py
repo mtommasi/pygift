@@ -77,8 +77,9 @@ def mdToHtml(text,doc=None):
         if doc :
             doc.asis(html_text)
             doc.text(' ')
+            return 
         else :
-            html_text
+            return html_text
 
 ############# Sets of answers ###############
 # Can be a singleton, empty or not or just the emptyset!
@@ -694,6 +695,16 @@ class Question:
         self.textHTML = markdown.markdown(self.text, MARKDOWN_EXT, output_format='xhtml')
 
     def __parseNumericText(self,text):
+        # m=reAnswerNumericValue.match(text)
+        # if m:
+        #     a = NumericAnswer(m)
+        # else:
+        #     m = reAnswerNumericInterval.match(text)
+        #     if m:
+        #         a = NumericAnswerMinMax(m)
+        #     else :
+        #         self.valid = False
+        #         return None
         m = reAnswerNumericInterval.match(text)
         if m :
              a = NumericAnswerMinMax(m)
@@ -810,6 +821,7 @@ class Question:
                         # gf = markdown.markdown(self.generalFeedback, MARKDOWN_EXT, output_format='xhtml')
                         doc.asis('<b><em>Feedback:</em></b><br/>')
                         doc.asis(self.generalFeedbackHTML)
+                        mdToHtml(self.generalFeedback, doc)
         return doc
 
     def toEDX(self):
