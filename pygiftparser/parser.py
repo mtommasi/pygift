@@ -298,7 +298,7 @@ class NumericAnswerSet(AnswerSet):
 #IMS
     def toIMSFB(self,doc,tag,text):
         for id_a, answer in enumerate(self.answers):
-            if a.feedback:
+            if answer.feedback:
                 with tag('itemfeedback', ident='feedb_'+str(id_a)):
                     with tag('flow_mat'):
                         with tag('material'):
@@ -400,7 +400,7 @@ class ChoicesSet(AnswerSet):
 
     def toIMSFB(self,doc,tag,text):
         for id_a, answer in enumerate(self.answers):
-            if a.feedback:
+            if answer.feedback:
                 with tag('itemfeedback', ident='feedb_'+str(id_a)):
                     with tag('flow_mat'):
                         with tag('material'):
