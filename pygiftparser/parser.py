@@ -107,7 +107,7 @@ class AnswerSet:
     def toIMSFB(self,doc,tag,text):
         pass
 
-    def cardinaliteIMS(self,doc,tag,text,rcardinality):
+    def cardinaliteIMS(self,doc,tag,text,rcardinality='Single'):
         pass
 
 #EDX
@@ -144,9 +144,6 @@ class Essay(AnswerSet):
     def possiblesAnswersIMS(self,doc,tag,text):
         with doc.tag('response_str', rcardinality='Single', ident='response_'+str(self.question.id)):
             doc.stag('render_fib', rows=5, prompt='Box', fibtype="String")
-
-    def cardinaliteIMS(self,doc,tag,text):
-        pass
 
 
     def toEDX(self):
@@ -252,6 +249,15 @@ class TrueFalseSet(AnswerSet):
                     doc.text('Faux')
                     if self.feedbackWrong:
                         doc.asis("<choicehint>"+self.feedbackWrong+"</choicehint>")
+
+    def cardinaliteIMS(self,doc,tag,text,rcardinality='Single'):
+        with tag('response_lid', rcardinality=rcardinality, ident='response_'+str(self.question.id)):
+            with tag('render_choice', shuffle='No'):
+                for id_a, answer in enumerate(self.answers):
+                    with tag('response_label', ident='answer_'+str(self.question.id)+'_'+str(id_a)):
+                        with tag('material'):
+                            with tag('mattext', texttype="text/html"):
+                                text(answer.answer)
 
 
 class NumericAnswerSet(AnswerSet):
