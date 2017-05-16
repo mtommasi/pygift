@@ -89,19 +89,6 @@ class AnswerSet:
     def myprint(self):
         print (self.__class__)
 
-    def toEDX(self, max_att = "1"):
-        doc = yattag.Doc()
-        with doc.tag("problem", display_name=self.question.title, max_attempts=max_att):
-            with doc.tag("legend"):
-                mdToHtml(self.question.text,doc)
-            self.scriptEDX(doc)
-            self.ownEDX(doc)
-            # FIXME : Ajouter un warning ici si rien n'est renvoyé
-            if (len(self.question.generalFeedback) > 1):
-                with doc.tag("solution"):
-                    with doc.tag("div", klass="detailed-solution"):
-                        mdToHtml(self.question.generalFeedback,doc)
-        return doc.getvalue()
 
     def toHTML(self,doc):
         pass
@@ -109,7 +96,9 @@ class AnswerSet:
     def toHTMLFB(self,doc):
         pass
 
-    def listInteractions(self,doc,tag,text):
+#IMS
+
+    def listInteractionsIMS(self,doc,tag,text):
         pass
 
     def possiblesAnswersIMS(self,doc,tag,text):
@@ -123,6 +112,30 @@ class AnswerSet:
                         with tag('material'):
                             with tag('mattext', texttype="text/html"):
                                 text(answer.answer)
+
+    def toIMSFB(self,doc,tag,text):
+        for id_a, answer in enumerate(self.answers):
+            if a.feedback:
+                with tag('itemfeedback', ident='feedb_'+str(id_a)):
+                    with tag('flow_mat'):
+                        with tag('material'):
+                            with tag('mattext', texttype='text/html'):
+                                text(answer.feedback)
+
+#EDX
+    def toEDX(self, max_att = "1"):
+        doc = yattag.Doc()
+        with doc.tag("problem", display_name=self.question.title, max_attempts=max_att):
+            with doc.tag("legend"):
+                mdToHtml(self.question.text,doc)
+            self.scriptEDX(doc)
+            self.ownEDX(doc)
+            # FIXME : Ajouter un warning ici si rien n'est renvoyé
+            if (len(self.question.generalFeedback) > 1):
+                with doc.tag("solution"):
+                    with doc.tag("div", klass="detailed-solution"):
+                        mdToHtml(self.question.generalFeedback,doc)
+        return doc.getvalue()
 
     def ownEDX(self,doc):
         pass
