@@ -15,6 +15,9 @@ import sys
 _ = i18n.language.gettext
 
 def parseFile(f):
+    """
+    parse a file to transform a text in GIFT format to an list of questions
+    """
     cleanedSource = fullSource = ""
     category='$course$'
     newCategory = None
