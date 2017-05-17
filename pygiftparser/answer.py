@@ -12,55 +12,6 @@ import sys
 
 _ = i18n.language.gettext
 
-# TODOS:
-# - unittest
-MARKDOWN_EXT = ['markdown.extensions.extra', 'markdown.extensions.nl2br', 'superscript']
-
-# Url and blank lines (moodle format)
-reURL=re.compile(r"(http://[^ ]+)",re.M)
-reNewLine=re.compile(r'\n\n',re.M)
-
-#WARNING MESSAGES
-INVALID_FORMAT_QUESTION = "Vous avez saisi un quizz invalide"
-
-# Sub regular expressions
-ANYCHAR=r'([^\\=~#]|(\\.))'
-OPTIONALFEEDBACK='(#(?P<feedback>'+ANYCHAR+'*))?'
-OPTIONALFEEDBACK2='(#(?P<feedback2>'+ANYCHAR+'*))?'
-GENERALFEEDBACK='(####(\[(?P<gf_markup>.*?)\])*(?P<generalfeedback>.*))?'
-NUMERIC='[\d]+(\.[\d]+)?'
-
-
-# Regular Expressions
-reSepQuestions=re.compile(r'^\s*$')
-reComment=re.compile(r'^//.*$')
-reCategory=re.compile(r'^\$CATEGORY: (?P<cat>[/\w$]*)')
-
-# Special chars
-reSpecialChar=re.compile(r'\\(?P<char>[#=~:{}])')
-
-
-# Heading
-# Title is supposed to be at the begining of a line
-reTitle=re.compile(r'^::(?P<title>.*?)::(?P<text>.*)$',re.M+re.S)
-reMarkup=re.compile(r'^\s*\[(?P<markup>.*?)\](?P<text>.*)',re.M+re.S)
-reAnswer=re.compile(r'^(?P<head>.*[^\\]){\s*(?P<answer>.*?[^\\]?)'+GENERALFEEDBACK+'}(?P<tail>.*)',re.M+re.S)
-
-# numeric answers
-reAnswerNumeric=re.compile(r'^#[^#]')
-reAnswerNumericValue = re.compile(r'\s*(?P<value>'+NUMERIC+')(:(?P<tolerance>'+NUMERIC+'))?'+OPTIONALFEEDBACK)
-reAnswerNumericInterval=re.compile(r'\s*(?P<min>'+NUMERIC+')(\.\.(?P<max>'+NUMERIC+'))'+OPTIONALFEEDBACK)
-reAnswerNumericExpression = re.compile(r'\s*(?P<val1>'+NUMERIC+')((?P<op>:|\.\.)(?P<val2>'+NUMERIC+'))?'+OPTIONALFEEDBACK)
-
-# Multiple choices only ~ symbols
-reAnswerMultipleChoices = re.compile(r'\s*(?P<sign>=|~)(%(?P<fraction>-?'+NUMERIC+')%)?(?P<answer>('+ANYCHAR+')*)'+OPTIONALFEEDBACK)
-
-# True False
-reAnswerTrueFalse = re.compile(r'^\s*(?P<answer>(T(RUE)?)|(F(ALSE)?))\s*'+OPTIONALFEEDBACK+OPTIONALFEEDBACK2)
-
-# Match (applies on 'answer' part of the reAnswerMultipleChoices pattern
-reMatch = re.compile(r'(?P<question>.*)->(?P<answer>.*)')
-
 ############# Sets of answers ###############
 # Can be a singleton, empty or not or just the emptyset!
 
