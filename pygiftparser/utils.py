@@ -61,6 +61,8 @@ reAnswerTrueFalse = re.compile(r'^\s*(?P<answer>(T(RUE)?)|(F(ALSE)?))\s*'+OPTION
 reMatch = re.compile(r'(?P<question>.*)->(?P<answer>.*)')
 
 def stripMatch(match,s):
+    """
+    """
     if match.group(s):
         return match.group(s).strip()
     else:
