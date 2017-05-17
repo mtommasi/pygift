@@ -20,6 +20,7 @@ class AnswerSet:
         self.question = question
         self.valid = True
         self.cc_profile = 'ESSAY' # need in toIMS.py
+        self.max_att = '1'
 
 
     def myprint(self):
@@ -46,9 +47,9 @@ class AnswerSet:
         pass
 
 #EDX
-    def toEDX(self, max_att = "1"):
+    def toEDX(self):
         doc = yattag.Doc()
-        with doc.tag("problem", display_name=self.question.title, max_attempts=max_att):
+        with doc.tag("problem", display_name=self.question.title, max_attempts=self.max_att):
             with doc.tag("legend"):
                 mdToHtml(self.question.text,doc)
             self.scriptEDX(doc)
@@ -71,6 +72,7 @@ class Essay(AnswerSet):
     """ Empty answer """
     def __init__(self,question):
         AnswerSet.__init__(self,question)
+        self.max_att = 'unlimited'
 
     def toHTML(self, doc):
         with doc.tag('textarea',name=self.question.getId(),placeholder=_('Your answer here')):
@@ -79,10 +81,6 @@ class Essay(AnswerSet):
     def possiblesAnswersIMS(self,doc,tag,text):
         with doc.tag('response_str', rcardinality='Single', ident='response_'+str(self.question.id)):
             doc.stag('render_fib', rows=5, prompt='Box', fibtype="String")
-
-
-    def toEDX(self):
-        return AnswerSet.toEDX(self,'unlimited')
 
     def scriptEDX(self,doc):
         with doc.tag("script", type="loncapa/python"):
