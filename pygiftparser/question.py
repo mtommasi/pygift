@@ -7,7 +7,8 @@ import yattag
 import uuid
 import markdown
 from pygiftparser import i18n
-from answer import * 
+from utils import *
+from answer import *
 import sys
 
 _ = i18n.language.gettext
@@ -60,27 +61,6 @@ reAnswerTrueFalse = re.compile(r'^\s*(?P<answer>(T(RUE)?)|(F(ALSE)?))\s*'+OPTION
 
 # Match (applies on 'answer' part of the reAnswerMultipleChoices pattern
 reMatch = re.compile(r'(?P<question>.*)->(?P<answer>.*)')
-
-def stripMatch(match,s):
-    if match.group(s):
-        return match.group(s).strip()
-    else:
-        return ""
-
-def mdToHtml(text,doc=None):
-    """
-    Transform txt in markdown to html
-    """
-    if not (text.isspace()):
-        text = re.sub(r'\\n','\n',text)
-        html_text = markdown.markdown(text, MARKDOWN_EXT, output_format='xhtml')
-        # html_text = utils.add_target_blank(html_text)
-        if doc :
-            doc.asis(html_text)
-            doc.text(' ')
-            return
-        else :
-            return html_text
 
 ############ Questions ################
 
