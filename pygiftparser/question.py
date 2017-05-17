@@ -6,7 +6,8 @@ import re
 import yattag
 import uuid
 import markdown
-from pygiftparser import i18n,answer
+from pygiftparser import i18n
+from answer import * 
 import sys
 
 _ = i18n.language.gettext
