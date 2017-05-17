@@ -77,7 +77,7 @@ def mdToHtml(text,doc=None):
         if doc :
             doc.asis(html_text)
             doc.text(' ')
-            return 
+            return
         else :
             return html_text
 
@@ -821,7 +821,7 @@ class Question:
                         # gf = markdown.markdown(self.generalFeedback, MARKDOWN_EXT, output_format='xhtml')
                         doc.asis('<b><em>Feedback:</em></b><br/>')
                         doc.asis(self.generalFeedbackHTML)
-                        mdToHtml(self.generalFeedback, doc)
+                        # mdToHtml(self.generalFeedback, doc)
         return doc
 
     def toEDX(self):
