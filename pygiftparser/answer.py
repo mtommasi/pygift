@@ -20,7 +20,7 @@ class AnswerSet:
         self.question = question
         self.valid = True
         self.cc_profile = 'ESSAY' # need in toIMS.py
-        self.max_att = '1'
+        self.question.max_att = '1'
 
 
     def myprint(self):
@@ -72,7 +72,7 @@ class Essay(AnswerSet):
     """ Empty answer """
     def __init__(self,question):
         AnswerSet.__init__(self,question)
-        self.max_att = 'unlimited'
+        self.question.max_att = 'unlimited'
 
     def toHTML(self, doc):
         with doc.tag('textarea',name=self.question.getId(),placeholder=_('Your answer here')):
