@@ -389,7 +389,10 @@ class SelectSet(ChoicesSet):
                 for a in self.answers:
                     with doc.tag("li"):
                         doc.input(name = "name", type = 'radio')
-                        doc.text(a.answer)
+                        if question.markup = 'html':
+                            doc.asis(a.answer)
+                        else :
+                            doc.asis(mdToHtml(a.answer))
 
     def toHTMLFB(self,doc):
         with doc.tag('div', klass='groupedAnswerFeedback'):
@@ -400,7 +403,10 @@ class SelectSet(ChoicesSet):
                     else:
                         aklass="wrong_answer"
                     with doc.tag('li', klass=aklass):
-                        doc.text(a.answer)
+                        if question.markup = 'html':
+                            doc.asis(a.answer)
+                        else :
+                            doc.asis(mdToHtml(a.answer))
                         if a.feedback:
                             doc.asis(" &#8669; "+markupRendering(a.feedback,self.question.markup))
 
