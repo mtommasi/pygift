@@ -389,7 +389,7 @@ class SelectSet(ChoicesSet):
                 for a in self.answers:
                     with doc.tag("li"):
                         doc.input(name = "name", type = 'radio')
-                        if question.markup = 'html':
+                        if question.markup == 'html':
                             doc.asis(a.answer)
                         else :
                             doc.asis(mdToHtml(a.answer))
@@ -403,7 +403,7 @@ class SelectSet(ChoicesSet):
                     else:
                         aklass="wrong_answer"
                     with doc.tag('li', klass=aklass):
-                        if question.markup = 'html':
+                        if question.markup == 'html':
                             doc.asis(a.answer)
                         else :
                             doc.asis(mdToHtml(a.answer))
