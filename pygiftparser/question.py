@@ -39,16 +39,16 @@ class Question:
         if not match:
             # it is a description
             self.answers = Description(None)
-            self.__parseHead(source)
+            self._parseHead(source)
         else:
             self.tail=stripMatch(match,'tail')
-            self.__parseHead(match.group('head'))
+            self._parseHead(match.group('head'))
             self.generalFeedback = stripMatch(match,'generalfeedback')
             # replace \n
             self.generalFeedback = re.sub(r'\\n','\n',self.generalFeedback)
-            self.__parseAnswer(match.group('answer'))
+            self._parseAnswer(match.group('answer'))
 
-    def __parseHead(self,head):
+    def _parseHead(self,head):
         # finds the title and the type of the text
         match = reTitle.match(head)
         if match:
@@ -68,7 +68,7 @@ class Question:
         # replace \n
         self.text = re.sub(r'\\n','\n',self.text)
 
-    def __parseNumericText(self,text):
+    def _parseNumericText(self,text):
         m = reAnswerNumericInterval.match(text)
         if m :
              a = NumericAnswerMinMax(m)
@@ -82,11 +82,11 @@ class Question:
         a.feedback = stripMatch(m,"feedback")
         return a
 
-    def __parseNumericAnswers(self,answer):
+    def _parseNumericAnswers(self,answer):
         self.numeric = True;
         answers=[]
         for match in reAnswerMultipleChoices.finditer(answer):
-            a = self.__parseNumericText(match.group('answer'))
+            a = self._parseNumericText(match.group('answer'))
             if not a:
                 return
             # fractions
@@ -100,14 +100,14 @@ class Question:
             a.feedback = stripMatch(match,"feedback")
             answers.append(a)
         if len(answers) == 0:
-            a = self.__parseNumericText(answer)
+            a = self._parseNumericText(answer)
             if a:
                 a.fraction=100
                 answers.append(a)
         self.answers = NumericAnswerSet(self,answers)
 
 
-    def __parseAnswer(self,answer):
+    def _parseAnswer(self,answer):
         # Essay
         if answer=='':
             self.answers = Essay(self)
@@ -121,7 +121,7 @@ class Question:
 
         # Numeric answer
         if reAnswerNumeric.match(answer) != None:
-            self.__parseNumericAnswers(answer[1:])
+            self._parseNumericAnswers(answer[1:])
             return
 
 
