@@ -80,7 +80,7 @@ class Essay(AnswerSet):
             doc.text('')
 
     def possiblesAnswersIMS(self,doc,tag,text):
-        with doc.tag('response_str', rcardinality='Single', ident='response_'+question.getId():
+        with doc.tag('response_str', rcardinality='Single', ident='response_'+self.question.getId()):
             doc.stag('render_fib', rows=5, prompt='Box', fibtype="String")
 
     def scriptEDX(self,doc):
@@ -94,12 +94,12 @@ def checkAnswerEssay(expect, ans):
     else:
         return 0
             """)
-        doc.asis('<span id="'+question.getId()+'"></span>')
+        doc.asis('<span id="'+self.question.getId()+'"></span>')
         with doc.tag("script", type="text/javascript"):
             doc.asis("""
     /* The object here is to replace the single line input with a textarea */
     (function() {
-    var elem = $("#"""+question.getId()+"""")
+    var elem = $("#"""+self.question.getId()+"""")
         .closest("div.problem")
         .find(":text");
     /* There's CSS in the LMS that controls the height, so we have to override here */
@@ -187,9 +187,9 @@ class TrueFalseSet(AnswerSet):
                         doc.asis("<choicehint>"+self.feedbackWrong+"</choicehint>")
 
     def cardinaliteIMS(self,doc,tag,text,rcardinality='Single'):
-        with tag('response_lid', rcardinality=rcardinality, ident='response_'+question.getId():
+        with tag('response_lid', rcardinality=rcardinality, ident='response_'+self.question.getId()):
             with tag('render_choice', shuffle='No'):
-                with tag('response_label', ident='answer_'+question.getId():
+                with tag('response_label', ident='answer_'+self.question.getId()):
                     with tag('material'):
                         with tag('mattext', texttype="text/html"):
                             if self.feedbackWrong:
@@ -330,17 +330,17 @@ class ChoicesSet(AnswerSet):
                 score = answer.fraction
             with tag('respcondition', title=title):
                 with tag('conditionvar'):
-                    with tag('varequal', respident='response_'+question.getId(): # respoident is id of response_lid element
-                        text('answer_'+question.getId()+'_'+str(id_a))
+                    with tag('varequal', respident='response_'+self.question.getId()): # respoident is id of response_lid element
+                        text('answer_'+self.question.getId()+'_'+str(id_a))
                 with tag('setvar', varname='SCORE', action='Set'):
                     text(score)
                 doc.stag('displayfeedback', feedbacktype='Response', linkrefid='feedb_'+str(id_a))
 
     def cardinaliteIMS(self,doc,tag,text,rcardinality='Single'):
-        with tag('response_lid', rcardinality=rcardinality, ident='response_'+question.getId():
+        with tag('response_lid', rcardinality=rcardinality, ident='response_'+self.question.getId()):
             with tag('render_choice', shuffle='No'):
                 for id_a, answer in enumerate(self.answers):
-                    with tag('response_label', ident='answer_'+question.getId()+'_'+str(id_a)):
+                    with tag('response_label', ident='answer_'+self.question.getId()+'_'+str(id_a)):
                         with tag('material'):
                             with tag('mattext', texttype="text/html"):
                                 text(answer.answer)
@@ -481,10 +481,10 @@ class MultipleChoicesSet(ChoicesSet):
                             pass
                         if score <= 0:
                             with tag('not'):
-                                with tag('varequal', case='Yes', respident='response_'+question.getId() # respoident is id of response_lid element
-                                    text('answer_'+question.getId()+'_'+str(id_a))
+                                with tag('varequal', case='Yes', respident='response_'+self.question.getId()) # respoident is id of response_lid element
+                                    text('answer_'+self.question.getId()+'_'+str(id_a))
                         else:
-                            with tag('varequal', case='Yes', respident='response_'+question.getId(): # respoident is id of response_lid element
+                            with tag('varequal', case='Yes', respident='response_'+self.question.getId()): # respoident is id of response_lid element
                                 text('answer_'+question.getId+'_'+str(id_a))
             with tag('setvar', varname='SCORE', action='Set'):
                 text('100')
@@ -492,8 +492,8 @@ class MultipleChoicesSet(ChoicesSet):
         for id_a, answer in enumerate(self.answers):
             with tag('respcondition', kontinue='No'):
                 with tag('conditionvar'):
-                    with tag('varequal', respident='response_'+question.getId(), case="Yes"):
-                        text('answer_'+question.getId()+'_'+str(id_a))
+                    with tag('varequal', respident='response_'+self.question.getId(), case="Yes"):
+                        text('answer_'+self.question.getId()+'_'+str(id_a))
                 doc.stag('displayfeedback', feedbacktype='Response', linkrefid='feedb_'+str(id_a))
 
 
