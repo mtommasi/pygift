@@ -533,32 +533,32 @@ class NumericAnswerMinMax(Answer):
         with doc.tag('numericalresponse', answer = "["+str(self.mini)+","+str(self.maxi)+"]"):
             doc.asis("<formulaequationinput />")
 
-
-class AnswerInList(Answer):
-    """ one answer in a list"""
-    def __init__(self,match):
-        if not match : return
-        self.answer = match.group('answer').strip()
-        self.feedback = stripMatch(match,"feedback")
-        # At least one = sign => selects (radio buttons)
-        self.select = match.group('sign') == "="
-
-        # fractions
-        if match.group('fraction') :
-            self.fraction=float(match.group('fraction'))
-        else:
-            if match.group('sign') == "=":
-                self.fraction = 100
-            else:
-                self.fraction = 0
-
-        # matching
-        match = reMatch.match(self.answer)
-        self.isMatching = match != None
-        if self.isMatching:
-            self.answer = match.group('answer')
-            self.question = match.group('question')
-
-    def myprint(self):
-        for key, val in self.__dict__.items():
-            print ('>',key,':',val)
+# 
+# class AnswerInList(Answer):
+#     """ one answer in a list"""
+#     def __init__(self,match):
+#         if not match : return
+#         self.answer = match.group('answer').strip()
+#         self.feedback = stripMatch(match,"feedback")
+#         # At least one = sign => selects (radio buttons)
+#         self.select = match.group('sign') == "="
+#
+#         # fractions
+#         if match.group('fraction') :
+#             self.fraction=float(match.group('fraction'))
+#         else:
+#             if match.group('sign') == "=":
+#                 self.fraction = 100
+#             else:
+#                 self.fraction = 0
+#
+#         # matching
+#         match = reMatch.match(self.answer)
+#         self.isMatching = match != None
+#         if self.isMatching:
+#             self.answer = match.group('answer')
+#             self.question = match.group('question')
+#
+#     def myprint(self):
+#         for key, val in self.__dict__.items():
+#             print ('>',key,':',val)
