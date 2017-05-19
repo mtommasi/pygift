@@ -25,6 +25,7 @@ class Question:
         self.cat = cat
         self.valid = True
         self.tail = ''
+        self.title = 'Quizz'
         self.generalFeedback = ""
         self.parse(source)
 
@@ -55,7 +56,8 @@ class Question:
             self.title = match.group('title').strip()
             textMarkup = match.group('text')
         else:
-            self.title = head[:20] # take 20 first chars as a title
+            # self.title = head[:20] # take 20 first chars as a title
+            logging.warning (DEFAULT_TITLE + "%s", self.title) # Question Title par défault
             textMarkup = head
 
         match = reMarkup.match(textMarkup)

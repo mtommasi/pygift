@@ -21,6 +21,7 @@ reNewLine=re.compile(r'\n\n',re.M)
 
 #WARNING MESSAGES
 INVALID_FORMAT_QUESTION = "Vous avez saisi un quizz invalide"
+DEFAULT_TITLE = "Vous n'avez pas précisé de titre de question : question par default"
 
 # Sub regular expressions
 ANYCHAR=r'([^\\=~#]|(\\.))'
