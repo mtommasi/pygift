@@ -19,7 +19,7 @@ class Question:
     """
     def __init__(self,source,full,cat):
         """ source of the question without comments and with comments"""
-        # self.id = uuid.uuid4()
+        self.id = uuid.uuid4()
         self.source = source
         self.full = full
         self.cat = cat
@@ -31,7 +31,7 @@ class Question:
 
     def getId(self):
         """ get Identifier for the question"""
-        return 'Q'+str(id(self)) # TODO process title
+        return str(self.id)
 
     def parse(self,source):
         """ parses a question source. Comments should be removed first"""
