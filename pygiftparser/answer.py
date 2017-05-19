@@ -481,7 +481,7 @@ class MultipleChoicesSet(ChoicesSet):
                             pass
                         if score <= 0:
                             with tag('not'):
-                                with tag('varequal', case='Yes', respident='response_'+self.question.getId()) # respoident is id of response_lid element
+                                with tag('varequal', case='Yes', respident='response_'+self.question.getId()): # respoident is id of response_lid element
                                     text('answer_'+self.question.getId()+'_'+str(id_a))
                         else:
                             with tag('varequal', case='Yes', respident='response_'+self.question.getId()): # respoident is id of response_lid element
