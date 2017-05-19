@@ -19,7 +19,7 @@ class Question:
     """
     def __init__(self,source,full,cat):
         """ source of the question without comments and with comments"""
-        self.id = uuid.uuid4()
+        # self.id = uuid.uuid4()
         self.source = source
         self.full = full
         self.cat = cat
