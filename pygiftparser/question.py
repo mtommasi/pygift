@@ -39,7 +39,7 @@ class Question:
         match = reAnswer.match(source)
         if not match:
             # it is a description
-            self.answers = Description(None)
+            self.answers = Description(self)
             self._parseHead(source)
         else:
             self.tail=stripMatch(match,'tail')
