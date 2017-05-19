@@ -31,7 +31,7 @@ class Question:
 
     def getId(self):
         """ get Identifier for the question"""
-        return str(self.id)
+        return 'Q'+str(id(self)) # TODO process title
 
     def parse(self,source):
         """ parses a question source. Comments should be removed first"""
