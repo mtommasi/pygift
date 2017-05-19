@@ -48,6 +48,7 @@ class AnswerSet:
 
 #EDX
     def toEDX(self):
+        assert (self.question)
         doc = yattag.Doc()
         with doc.tag("problem", display_name=self.question.title, max_attempts=self.max_att):
             with doc.tag("legend"):
