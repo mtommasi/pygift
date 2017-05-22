@@ -84,38 +84,39 @@ class Essay(AnswerSet):
             doc.stag('render_fib', rows=5, prompt='Box', fibtype="String")
 
     def scriptEDX(self,doc):
-        with doc.tag("script", type="loncapa/python"):
-            doc.text("""
-import re
-def checkAnswerEssay(expect, ans):
-    response = re.search('', ans)
-    if response:
-        return 1
-    else:
-        return 0
-            """)
-        doc.asis('<span id="'+str(self.question.id)+'"></span>')
-        with doc.tag("script", type="text/javascript"):
-            doc.asis("""
-    /* The object here is to replace the single line input with a textarea */
-    (function() {
-    var elem = $("#"""+str(self.question.id)+"""")
-        .closest("div.problem")
-        .find(":text");
-    /* There's CSS in the LMS that controls the height, so we have to override here */
-    var textarea = $('<textarea style="height:150px" rows="20" cols="70"/>');
-    console.log(elem);
-    console.log(textarea);
-    //This is just a way to do an iterator in JS
-    for (attrib in {'id':null, 'name':null}) {
-        textarea.attr(attrib, elem.attr(attrib));
-    }
-    /* copy over the submitted value */
-    textarea.val(elem.val())
-    elem.replaceWith(textarea);
-
-    })();
-            """)
+        pass
+#         with doc.tag("script", type="loncapa/python"):
+#             doc.text("""
+# import re
+# def checkAnswerEssay(expect, ans):
+#     response = re.search('', ans)
+#     if response:
+#         return 1
+#     else:
+#         return 0
+#             """)
+#         doc.asis('<span id="'+str(self.question.id)+'"></span>')
+#         with doc.tag("script", type="text/javascript"):
+#             doc.asis("""
+#     /* The object here is to replace the single line input with a textarea */
+#     (function() {
+#     var elem = $("#"""+str(self.question.id)+"""")
+#         .closest("div.problem")
+#         .find(":text");
+#     /* There's CSS in the LMS that controls the height, so we have to override here */
+#     var textarea = $('<textarea style="height:150px" rows="20" cols="70"/>');
+#     console.log(elem);
+#     console.log(textarea);
+#     //This is just a way to do an iterator in JS
+#     for (attrib in {'id':null, 'name':null}) {
+#         textarea.attr(attrib, elem.attr(attrib));
+#     }
+#     /* copy over the submitted value */
+#     textarea.val(elem.val())
+#     elem.replaceWith(textarea);
+#
+#     })();
+#             """)
 
     def ownEDX(self,doc):
         with doc.tag("customresponse", cfn="checkAnswerEssay"):
