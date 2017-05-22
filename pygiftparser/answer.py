@@ -374,7 +374,13 @@ class ShortSet(ChoicesSet):
                             doc.asis(" &#8669; "+markupRendering(a.feedback,self.question.markup))
 
     def ownEDX(self,doc):
-        pass
+        with doc.tag('stringresponse', answer = self.answers[0], type = 'ci'):
+            if len(self.answers) > 1:
+                for i,a in enumerate(self.answers):
+                    if i > 0 :
+                        doc.asis('<additional_answer answer='+ a +'></additional_answer>')
+            doc.asis("<texline size='20'>")
+
 
 
 
