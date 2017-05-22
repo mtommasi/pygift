@@ -118,9 +118,9 @@ class Essay(AnswerSet):
 #     })();
 #             """)
 
-    def ownEDX(self,doc):
-        with doc.tag("customresponse", cfn="checkAnswerEssay"):
-            doc.asis('<textline size="40" correct_answer="" label="Problem Text"/>')
+    # def ownEDX(self,doc):
+    #     with doc.tag("customresponse", cfn="checkAnswerEssay"):
+    #         doc.asis('<textline size="40" correct_answer="" label="Problem Text"/>')
 
 
 class Description(AnswerSet):
