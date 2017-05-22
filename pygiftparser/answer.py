@@ -378,7 +378,7 @@ class ShortSet(ChoicesSet):
             if len(self.answers) > 1:
                 for i,a in enumerate(self.answers):
                     if i > 0 :
-                        doc.asis('<additional_answer answer='+ a.answer +'></additional_answer>')
+                        doc.asis('<additional_answer answer="'+ a.answer +'"></additional_answer>')
             doc.asis("<texline size='20' />")
 
 
