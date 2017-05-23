@@ -303,6 +303,8 @@ class MatchingSet(AnswerSet):
                 options += ')\"'
                 doc.asis("<optioninput label=\""+a.question+"\" options="+options+"  correct=\""+a.answer+"\" ></optioninput>")
 
+    def possiblesAnswersIMS(self,doc,tag,text):
+        Essay.possiblesAnswersIMS()
 
 
 class ChoicesSet(AnswerSet):
