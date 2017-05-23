@@ -166,6 +166,7 @@ class TrueFalseSet(AnswerSet):
                 doc.asis(markupRendering(self.feedbackWrong,self.question.markup))
 
 
+    #FIXME : à corriger
     def ownEDX(self, doc):
         with doc.tag("multiplechoiceresponse"):
             with doc.tag("choicegroup", type="MultipleChoice"):
@@ -187,29 +188,31 @@ class TrueFalseSet(AnswerSet):
     def possiblesAnswersIMS(self,doc,tag,text):
         with tag('response_lid', rcardinality='Single', ident='response_'+str(self.question.id)):
             with tag('render_choice', shuffle='No'):
-                with tag('response_label', ident='answer_'+str(self.question.id) ):
+                with tag('response_label', ident='answer_'+str(self.question.id)+'_'+'0'):
                     with tag('material'):
                         with tag('mattext', texttype="text/html"):
-                            if self.feedbackWrong:
-                                text(self.feedbackWrong)
-                            elif self.feedbackCorrect:
-                                text(self.feedbackCorrect)
+                            text(_('True'))
+                with tag('response_label', ident='answer_'+str(self.question.id)+'_'+'1'):
+                    with tag('material'):
+                        with tag('mattext', texttype="text/html"):
+                            text(_('False'))
 
-    def listInteractionsIMS(self,doc,tag,text):
-            score = 0
-            if answer['is_right']:
-                title = 'Correct'
-                score = 100
-            else:
-                title = ''
-                score = answer['credit']
-            with tag('respcondition', title=title):
-                with tag('conditionvar'):
-                    with tag('varequal', respident='response_'+str(question.id)): # respoident is id of response_lid element
-                        text('answer_'+str(question.id)+'_'+str(id_a))
-                with tag('setvar', varname='SCORE', action='Set'):
-                    text(score)
-                doc.stag('displayfeedback', feedbacktype='Response', linkrefid='feedb_'+str(id_a))
+
+    # def listInteractionsIMS(self,doc,tag,text):
+    #         score = 0
+    #         if self.feedbackCorrect :
+    #             title = 'Correct'
+    #             score = 100
+    #         else :
+    #             title = ''
+    #             wrong = 0
+    #         with tag('respcondition', title=title):
+    #             with tag('conditionvar'):
+    #                 with tag('varequal', respident='response_'+str(question.id)): # respoident is id of response_lid element
+    #                     text('answer_'+str(question.id)+'_'+str(i))
+    #             with tag('setvar', varname='SCORE', action='Set'):
+    #                 text(score)
+    #             doc.stag('displayfeedback', feedbacktype='Response', linkrefid='feedb_'+str(id_a))
 
 
 class NumericAnswerSet(AnswerSet):
