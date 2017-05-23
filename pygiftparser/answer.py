@@ -321,8 +321,7 @@ class ChoicesSet(AnswerSet):
             print ('~~~~~')
 
 #IMS
-    def listInteractions(self,doc,tag,text):
-        print('coucou')
+    def listInteractionsIMS(self,doc,tag,text):
         for id_a, answer in enumerate(self.answers):
             score = 0
             if answer.fraction == 100:
@@ -478,7 +477,7 @@ class MultipleChoicesSet(ChoicesSet):
     def cardinaliteIMS(self,doc,tag,text):
         ChoicesSet.cardinaliteIMS(self,doc,tag,text,'Multiple')
 
-    def listInteractions(self,doc,tag,text):
+    def listInteractionsIMS(self,doc,tag,text):
         with tag('respcondition', title="Correct", kontinue='No'):
             with tag('conditionvar'):
                 with tag('and'):
