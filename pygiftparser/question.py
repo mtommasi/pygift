@@ -47,7 +47,7 @@ class Question:
             self.generalFeedback = stripMatch(match,'generalfeedback')
             # replace \n
             self.generalFeedback = re.sub(r'\\n','\n',self.generalFeedback)
-            self.generalFeedbackHTML = markupRendering(self.generalFeedback,self.question.markup))
+            self.generalFeedbackHTML = markupRendering(self.generalFeedback,self.question.markup)
             self._parseAnswer(match.group('answer'))
 
     def _parseHead(self,head):
