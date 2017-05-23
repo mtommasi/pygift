@@ -7,6 +7,7 @@ import uuid
 import markdown
 from pygiftparser import i18n
 from answer import *
+from utils import *
 
 _ = i18n.language.gettext
 
@@ -66,7 +67,7 @@ class Question:
             self.markup = match.group('markup').lower()
             self.text = match.group('text').strip()
         else:
-            self.markup = 'moodle'
+            self.markup = 'markdown'
             self.text = textMarkup.strip()
         # replace \n
         self.text = re.sub(r'\\n','\n',self.text)
