@@ -345,7 +345,7 @@ class ChoicesSet(AnswerSet):
                     with tag('response_label', ident='answer_'+str(self.question.id)+'_'+str(id_a)):
                         with tag('material'):
                             with tag('mattext', texttype="text/html"):
-                                text(answer.answer)
+                                text(markupRendering(answer.answer,self.question.markup))
 
     def toIMSFB(self,doc,tag,text):
         for id_a, answer in enumerate(self.answers):

@@ -47,6 +47,7 @@ class Question:
             self.generalFeedback = stripMatch(match,'generalfeedback')
             # replace \n
             self.generalFeedback = re.sub(r'\\n','\n',self.generalFeedback)
+            self.generalFeedbackHTML = markupRendering(self.generalFeedback,self.question.markup))
             self._parseAnswer(match.group('answer'))
 
     def _parseHead(self,head):
@@ -186,8 +187,7 @@ class Question:
                     with doc.tag('div', klass='global_feedback'):
                         # gf = markdown.markdown(self.generalFeedback, MARKDOWN_EXT, output_format='xhtml')
                         doc.asis('<b><em>Feedback:</em></b><br/>')
-                        # doc.asis(self.generalFeedbackHTML)
-                        mdToHtml(self.generalFeedback, doc)
+                        doc.asis(self.generalFeedbackHTML)
         return doc
 
     def toEDX(self):
