@@ -349,12 +349,14 @@ class ChoicesSet(AnswerSet):
 
     def toIMSFB(self,doc,tag,text):
         for id_a, answer in enumerate(self.answers):
-            if answer.feedback:
-                with tag('itemfeedback', ident='feedb_'+str(id_a)):
-                    with tag('flow_mat'):
-                        with tag('material'):
-                            with tag('mattext', texttype='text/html'):
+            with tag('itemfeedback', ident='feedb_'+str(id_a)):
+                with tag('flow_mat'):
+                    with tag('material'):
+                        with tag('mattext', texttype='text/html'):
+                            if answer.feedback:
                                 text(markupRendering(answer.feedback,self.question.markup))
+                            else :
+                                text('')
 
 
 class ShortSet(ChoicesSet):
