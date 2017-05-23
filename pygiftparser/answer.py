@@ -304,7 +304,8 @@ class MatchingSet(AnswerSet):
                 doc.asis("<optioninput label=\""+a.question+"\" options="+options+"  correct=\""+a.answer+"\" ></optioninput>")
 
     def possiblesAnswersIMS(self,doc,tag,text):
-        Essay.possiblesAnswersIMS(self,doc,tag,text)
+        with doc.tag('response_str', rcardinality='Single', ident='response_'+str(self.question.id)):
+            doc.stag('render_fib', rows=5, prompt='Box', fibtype="String")
 
 
 class ChoicesSet(AnswerSet):
