@@ -37,14 +37,12 @@ class AnswerSet:
     def listInteractionsIMS(self,doc,tag,text):
         pass
 
-    def possiblesAnswersIMS(self,doc,tag,text):
+    def possiblesAnswersIMS(self,doc,tag,text,rcardinality='Single'):
         pass
 
     def toIMSFB(self,doc,tag,text):
         pass
 
-    def cardinaliteIMS(self,doc,tag,text,rcardinality='Single'):
-        pass
 
 #EDX
     def toEDX(self):
@@ -79,8 +77,8 @@ class Essay(AnswerSet):
         with doc.tag('textarea',name=self.question.getId(),placeholder=_('Your answer here')):
             doc.text('')
 
-    def possiblesAnswersIMS(self,doc,tag,text):
-        with doc.tag('response_str', rcardinality='Single', ident='response_'+str(self.question.id)):
+    def possiblesAnswersIMS(self,doc,tag,text,rcardinality):
+        with doc.tag('response_str', rcardinality=rcardinality, ident='response_'+str(self.question.id)):
             doc.stag('render_fib', rows=5, prompt='Box', fibtype="String")
 
     def scriptEDX(self,doc):
@@ -178,15 +176,15 @@ class TrueFalseSet(AnswerSet):
                     correct = 'false'
                     wrong = 'true'
                 with doc.tag("choice", correct=correct):
-                    doc.text('Vrai')
+                    doc.text(_('True'))
                     if self.feedbackCorrect:
                         doc.asis("<choicehint>"+self.feedbackCorrect+"</choicehint>")
                 with doc.tag("choice", correct=wrong):
-                    doc.text('Faux')
+                    doc.text(_('False'))
                     if self.feedbackWrong:
                         doc.asis("<choicehint>"+self.feedbackWrong+"</choicehint>")
 
-    def cardinaliteIMS(self,doc,tag,text,rcardinality='Single'):
+    def possiblesAnswersIMS(self,doc,tag,text,rcardinality='Single'):
         with tag('response_lid', rcardinality=rcardinality, ident='response_'+str(self.question.id)):
             with tag('render_choice', shuffle='No'):
                 with tag('response_label', ident='answer_'+str(self.question.id) ):
@@ -196,6 +194,22 @@ class TrueFalseSet(AnswerSet):
                                 text(self.feedbackWrong)
                             elif self.feedbackCorrect:
                                 text(self.feedbackCorrect)
+
+    def listInteractionsIMS(self,doc,tag,text):
+            score = 0
+            if answer['is_right']:
+                title = 'Correct'
+                score = 100
+            else:
+                title = ''
+                score = answer['credit']
+            with tag('respcondition', title=title):
+                with tag('conditionvar'):
+                    with tag('varequal', respident='response_'+str(question.id)): # respoident is id of response_lid element
+                        text('answer_'+str(question.id)+'_'+str(id_a))
+                with tag('setvar', varname='SCORE', action='Set'):
+                    text(score)
+                doc.stag('displayfeedback', feedbacktype='Response', linkrefid='feedb_'+str(id_a))
 
 
 class NumericAnswerSet(AnswerSet):
@@ -303,10 +317,6 @@ class MatchingSet(AnswerSet):
                 options += ')\"'
                 doc.asis("<optioninput label=\""+a.question+"\" options="+options+"  correct=\""+a.answer+"\" ></optioninput>")
 
-    def possiblesAnswersIMS(self,doc,tag,text):
-        with doc.tag('response_str', rcardinality='Single', ident='response_'+str(self.question.id)):
-            doc.stag('render_fib', rows=5, prompt='Box', fibtype="String")
-
 
 class ChoicesSet(AnswerSet):
     """ One or many choices in a list (Abstract)"""
@@ -338,7 +348,7 @@ class ChoicesSet(AnswerSet):
                     text(score)
                 doc.stag('displayfeedback', feedbacktype='Response', linkrefid='feedb_'+str(id_a))
 
-    def cardinaliteIMS(self,doc,tag,text,rcardinality='Single'):
+    def possiblesAnswersIMS(self,doc,tag,text,rcardinality):
         with tag('response_lid', rcardinality=rcardinality, ident='response_'+str(self.question.id)):
             with tag('render_choice', shuffle='No'):
                 for id_a, answer in enumerate(self.answers):
@@ -476,8 +486,8 @@ class MultipleChoicesSet(ChoicesSet):
                             with doc.tag("choicehint", selected="true"):
                                 doc.text(a.answer+" : "+a.feedback)
 
-    def cardinaliteIMS(self,doc,tag,text):
-        ChoicesSet.cardinaliteIMS(self,doc,tag,text,'Multiple')
+    def possiblesAnswersIMS(self,doc,tag,text):
+        ChoicesSet.possiblesAnswersIMS(self,doc,tag,text,'Multiple')
 
     def listInteractionsIMS(self,doc,tag,text):
         with tag('respcondition', title="Correct", kontinue='No'):
