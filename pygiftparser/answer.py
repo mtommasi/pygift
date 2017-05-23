@@ -322,6 +322,7 @@ class ChoicesSet(AnswerSet):
 
 #IMS
     def listInteractions(self,doc,tag,text):
+        print('coucou')
         for id_a, answer in enumerate(self.answers):
             score = 0
             if answer.fraction == 100:
