@@ -77,8 +77,8 @@ class Essay(AnswerSet):
         with doc.tag('textarea',name=self.question.getId(),placeholder=_('Your answer here')):
             doc.text('')
 
-    def possiblesAnswersIMS(self,doc,tag,text,rcardinality):
-        with doc.tag('response_str', rcardinality=rcardinality, ident='response_'+str(self.question.id)):
+    def possiblesAnswersIMS(self,doc,tag,text):
+        with doc.tag('response_str', rcardinality='Single', ident='response_'+str(self.question.id)):
             doc.stag('render_fib', rows=5, prompt='Box', fibtype="String")
 
     def scriptEDX(self,doc):
@@ -184,8 +184,8 @@ class TrueFalseSet(AnswerSet):
                     if self.feedbackWrong:
                         doc.asis("<choicehint>"+self.feedbackWrong+"</choicehint>")
 
-    def possiblesAnswersIMS(self,doc,tag,text,rcardinality='Single'):
-        with tag('response_lid', rcardinality=rcardinality, ident='response_'+str(self.question.id)):
+    def possiblesAnswersIMS(self,doc,tag,text):
+        with tag('response_lid', rcardinality='Single', ident='response_'+str(self.question.id)):
             with tag('render_choice', shuffle='No'):
                 with tag('response_label', ident='answer_'+str(self.question.id) ):
                     with tag('material'):
@@ -348,7 +348,7 @@ class ChoicesSet(AnswerSet):
                     text(score)
                 doc.stag('displayfeedback', feedbacktype='Response', linkrefid='feedb_'+str(id_a))
 
-    def possiblesAnswersIMS(self,doc,tag,text,rcardinality):
+    def possiblesAnswersIMS(self,doc,tag,text,rcardinality='Single'):
         with tag('response_lid', rcardinality=rcardinality, ident='response_'+str(self.question.id)):
             with tag('render_choice', shuffle='No'):
                 for id_a, answer in enumerate(self.answers):
