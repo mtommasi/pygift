@@ -254,7 +254,6 @@ class MatchingSet(AnswerSet):
         AnswerSet.__init__(self,question)
         self.answers = answers
         self.possibleAnswers = [a.answer for a in self.answers]
-        self.cc_profile = 'MATCH'
 
     def checkValidity(self):
         valid = True
