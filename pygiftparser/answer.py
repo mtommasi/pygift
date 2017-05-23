@@ -170,7 +170,7 @@ class TrueFalseSet(AnswerSet):
     def ownEDX(self, doc):
         with doc.tag("multiplechoiceresponse"):
             with doc.tag("choicegroup", type="MultipleChoice"):
-                if self.feedbackCorrect :
+                if self.answer == (_('True')) :
                     correct = 'true'
                     wrong = 'false'
                 else :
@@ -178,11 +178,15 @@ class TrueFalseSet(AnswerSet):
                     wrong = 'true'
                 with doc.tag("choice", correct=correct):
                     doc.text(_('True'))
-                    if self.feedbackCorrect:
+                    if correct == 'true':
                         doc.asis("<choicehint>"+self.feedbackCorrect+"</choicehint>")
+                    else :
+                        doc.asis("<choicehint>"+self.feedbackWrong+"</choicehint>")
                 with doc.tag("choice", correct=wrong):
                     doc.text(_('False'))
-                    if self.feedbackWrong:
+                    if wrong == 'true':
+                        doc.asis("<choicehint>"+self.feedbackCorrect+"</choicehint>")
+                    else :
                         doc.asis("<choicehint>"+self.feedbackWrong+"</choicehint>")
 
     def possiblesAnswersIMS(self,doc,tag,text):
