@@ -214,14 +214,14 @@ class TrueFalseSet(AnswerSet):
                 score2 = 100
             with tag('respcondition', title=title1):
                 with tag('conditionvar'):
-                    with tag('varequal', respident='response_'+str(question.id)): # respoident is id of response_lid element
+                    with tag('varequal', respident='response_'+str(self.question.id)): # respoident is id of response_lid element
                         text('answer_'+str(self.question.id)+'_'+'0')
                 with tag('setvar', varname='SCORE', action='Set'):
                     text(score1)
                 doc.stag('displayfeedback', feedbacktype='Response', linkrefid='feedb_'+str(id_a))
             with tag('respcondition', title=title2):
                 with tag('conditionvar'):
-                    with tag('varequal', respident='response_'+str(question.id)): # respoident is id of response_lid element
+                    with tag('varequal', respident='response_'+str(self.question.id)): # respoident is id of response_lid element
                         text('answer_'+str(self.question.id)+'_'+'1')
                 with tag('setvar', varname='SCORE', action='Set'):
                     text(score2)
