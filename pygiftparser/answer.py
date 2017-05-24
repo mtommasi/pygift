@@ -170,11 +170,10 @@ class TrueFalseSet(AnswerSet):
     def ownEDX(self, doc):
         with doc.tag("multiplechoiceresponse"):
             with doc.tag("choicegroup", type="MultipleChoice"):
-                print(self.answer)
-                if self.answer == (_('True')) :
+                if (_('True')) in self.answer:
                     correct = 'true'
                     wrong = 'false'
-                elif self.answer == (_('False')):
+                elif (_('False')) in self.answer:
                     correct = 'false'
                     wrong = 'true'
                 # else :
