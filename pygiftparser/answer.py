@@ -173,9 +173,11 @@ class TrueFalseSet(AnswerSet):
                 if self.answer == (_('True')) :
                     correct = 'true'
                     wrong = 'false'
-                else :
+                elif self.answer == (_('False')):
                     correct = 'false'
                     wrong = 'true'
+                else :
+                    print('WARNING WARNING')
                 with doc.tag("choice", correct=correct):
                     doc.text(_('True'))
                     if correct == 'true':
