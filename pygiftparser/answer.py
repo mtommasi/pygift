@@ -200,21 +200,32 @@ class TrueFalseSet(AnswerSet):
                             text(_('False'))
 
 
-    # def listInteractionsIMS(self,doc,tag,text):
-    #         score = 0
-    #         if self.feedbackCorrect :
-    #             title = 'Correct'
-    #             score = 100
-    #         else :
-    #             title = ''
-    #             wrong = 0
-    #         with tag('respcondition', title=title):
-    #             with tag('conditionvar'):
-    #                 with tag('varequal', respident='response_'+str(question.id)): # respoident is id of response_lid element
-    #                     text('answer_'+str(question.id)+'_'+str(i))
-    #             with tag('setvar', varname='SCORE', action='Set'):
-    #                 text(score)
-    #             doc.stag('displayfeedback', feedbacktype='Response', linkrefid='feedb_'+str(id_a))
+    def listInteractionsIMS(self,doc,tag,text):
+            score = 0
+            if self.answer :
+                title1 = 'Correct'
+                score1 = 100
+                title2 = ''
+                score2 = 0
+            else :
+                title1 = ''
+                score1 = 0
+                title2 = 'Correct'
+                score2 = 100
+            with tag('respcondition', title=title):
+                with tag('conditionvar'):
+                    with tag('varequal', respident='response_'+str(question.id)): # respoident is id of response_lid element
+                        text('answer_'+str(question.id)+'_'+'0')
+                with tag('setvar', varname='SCORE', action='Set'):
+                    text(score)
+                doc.stag('displayfeedback', feedbacktype='Response', linkrefid='feedb_'+str(id_a))
+            with tag('respcondition', title=title2):
+                with tag('conditionvar'):
+                    with tag('varequal', respident='response_'+str(question.id)): # respoident is id of response_lid element
+                        text('answer_'+str(question.id)+'_'+'1')
+                with tag('setvar', varname='SCORE', action='Set'):
+                    text(score2)
+                doc.stag('displayfeedback', feedbacktype='Response', linkrefid='feedb_'+str(id_a))
 
 
 class NumericAnswerSet(AnswerSet):
