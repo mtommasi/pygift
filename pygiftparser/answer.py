@@ -37,8 +37,9 @@ class AnswerSet:
     def listInteractionsIMS(self,doc,tag,text):
         pass
 
-    def possiblesAnswersIMS(self,doc,tag,text,rcardinality='Single'):
-        pass
+    def possiblesAnswersIMS(self,doc,tag,text, rcardinality='Single'):
+        with doc.tag('response_str', rcardinality=rcardinality, ident='response_'+str(self.question.id)):
+            doc.stag('render_fib', rows=5, prompt='Box', fibtype="String")
 
     def toIMSFB(self,doc,tag,text):
         pass
@@ -76,10 +77,6 @@ class Essay(AnswerSet):
     def toHTML(self, doc):
         with doc.tag('textarea',name=self.question.getId(),placeholder=_('Your answer here')):
             doc.text('')
-
-    def possiblesAnswersIMS(self,doc,tag,text):
-        with doc.tag('response_str', rcardinality='Single', ident='response_'+str(self.question.id)):
-            doc.stag('render_fib', rows=5, prompt='Box', fibtype="String")
 
     def scriptEDX(self,doc):
         with doc.tag("script", type="loncapa/python"):
@@ -261,21 +258,6 @@ class NumericAnswerSet(AnswerSet):
             return
         elif len(correctAnswer) == 1:
             correctAnswer[0].ownEDX(doc)
-
-#IMS
-    def toIMSFB(self,doc,tag,text):
-        for id_a, answer in enumerate(self.answers):
-            if answer.feedback:
-                with tag('itemfeedback', ident='feedb_'+str(id_a)):
-                    with tag('flow_mat'):
-                        with tag('material'):
-                            with tag('mattext', texttype='text/html'):
-                                text(markupRendering(answer.feedback,self.question.markup))
-
-    # def scriptEDX(self,doc):
-    #     with doc.tag('script', type="loncapa/python"):
-    #         doc.text("computed_response = math.sqrt(math.fsum([math.pow(math.pi,2), math.pow(math.e,2)]))")
-
 
 
 class MatchingSet(AnswerSet):
