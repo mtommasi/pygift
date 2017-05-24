@@ -165,8 +165,6 @@ class TrueFalseSet(AnswerSet):
             with doc.tag('div', klass='wrong_answer'):
                 doc.asis(markupRendering(self.feedbackWrong,self.question.markup))
 
-
-    #FIXME : à corriger
     def ownEDX(self, doc):
         with doc.tag("multiplechoiceresponse"):
             with doc.tag("choicegroup", type="MultipleChoice"):
