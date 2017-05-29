@@ -73,6 +73,7 @@ class Question:
 
     def _parseNumericText(self,text):
         m = reAnswerNumericInterval.match(text)
+        print('pourt')
         if m :
              a = NumericAnswerMinMax(m)
         else :
