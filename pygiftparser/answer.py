@@ -50,41 +50,6 @@ class AnswerSet:
         :type doc: Yattag.Doc
         """
         pass
-#
-# #IMS
-#     def listInteractionsIMS(self,doc,tag,text):
-#         pass
-#
-#     def possiblesAnswersIMS(self,doc,tag,text, rcardinality='Single'):
-#         with doc.tag('response_str', rcardinality=rcardinality, ident='response_'+str(self.question.id)):
-#             doc.stag('render_fib', rows=5, prompt='Box', fibtype="String")
-#
-#     def toIMSFB(self,doc,tag,text):
-#         pass
-#
-#
-# #EDX
-#     def toEDX(self):
-#         assert (self.question)
-#         doc = yattag.Doc()
-#         with doc.tag("problem", display_name=self.question.title, max_attempts=self.max_att):
-#             with doc.tag("legend"):
-#                 mdToHtml(self.question.text,doc)
-#             self.scriptEDX(doc)
-#             self.ownEDX(doc)
-#             # FIXME : Ajouter un warning ici si rien n'est renvoyé
-#             if (len(self.question.generalFeedback) > 1):
-#                 with doc.tag("solution"):
-#                     with doc.tag("div", klass="detailed-solution"):
-#                         mdToHtml(self.question.generalFeedback,doc)
-#         return doc.getvalue()
-#
-#     def ownEDX(self,doc):
-#         pass
-#
-#     def scriptEDX(self,doc):
-#         pass
-
 
 class Essay(AnswerSet):
     """ Essay Answer : This Class represents the type of Answer with a free area text"""
@@ -129,11 +94,6 @@ def checkAnswerEssay(expect, ans):
 
     })();
             """)
-
-    # def ownEDX(self,doc):
-    #     with doc.tag("customresponse", cfn="checkAnswerEssay"):
-    #         doc.asis('<textline size="40" correct_answer="" label="Problem Text"/>')
-
 
 class Description(AnswerSet):
     """ Emptyset, nothing!"""
@@ -187,69 +147,6 @@ class TrueFalseSet(AnswerSet):
             with doc.tag('div', klass='wrong_answer'):
                 doc.asis(markupRendering(self.feedbackWrong,self.question.markup))
 
-    # def ownEDX(self, doc):
-    #     with doc.tag("multiplechoiceresponse"):
-    #         with doc.tag("choicegroup", type="MultipleChoice"):
-    #             if self.answer :
-    #                 correct = 'true'
-    #                 wrong = 'false'
-    #             else :
-    #                 correct = 'false'
-    #                 wrong = 'true'
-    #             with doc.tag("choice", correct=correct):
-    #                 doc.text(_('True'))
-    #                 if correct == 'true':
-    #                     doc.asis("<choicehint>"+self.feedbackCorrect+"</choicehint>")
-    #                 else :
-    #                     doc.asis("<choicehint>"+self.feedbackWrong+"</choicehint>")
-    #             with doc.tag("choice", correct=wrong):
-    #                 doc.text(_('False'))
-    #                 if wrong == 'true':
-    #                     doc.asis("<choicehint>"+self.feedbackCorrect+"</choicehint>")
-    #                 else :
-    #                     doc.asis("<choicehint>"+self.feedbackWrong+"</choicehint>")
-    #
-    # def possiblesAnswersIMS(self,doc,tag,text):
-    #     with tag('response_lid', rcardinality='Single', ident='response_'+str(self.question.id)):
-    #         with tag('render_choice', shuffle='No'):
-    #             with tag('response_label', ident='answer_'+str(self.question.id)+'_'+'0'):
-    #                 with tag('material'):
-    #                     with tag('mattext', texttype="text/html"):
-    #                         text(_('True'))
-    #             with tag('response_label', ident='answer_'+str(self.question.id)+'_'+'1'):
-    #                 with tag('material'):
-    #                     with tag('mattext', texttype="text/html"):
-    #                         text(_('False'))
-    #
-    #
-    # def listInteractionsIMS(self,doc,tag,text):
-    #         score = 0
-    #         if self.answer :
-    #             title1 = 'Correct'
-    #             score1 = 100
-    #             title2 = ''
-    #             score2 = 0
-    #         else :
-    #             title1 = ''
-    #             score1 = 0
-    #             title2 = 'Correct'
-    #             score2 = 100
-    #         with tag('respcondition', title=title1):
-    #             with tag('conditionvar'):
-    #                 with tag('varequal', respident='response_'+str(self.question.id)): # respoident is id of response_lid element
-    #                     text('answer_'+str(self.question.id)+'_0')
-    #             with tag('setvar', varname='SCORE', action='Set'):
-    #                 text(score1)
-    #             doc.stag('displayfeedback', feedbacktype='Response', linkrefid='feedb_0')
-    #         with tag('respcondition', title=title2):
-    #             with tag('conditionvar'):
-    #                 with tag('varequal', respident='response_'+str(self.question.id)): # respoident is id of response_lid element
-    #                     text('answer_'+str(self.question.id)+'_1')
-    #             with tag('setvar', varname='SCORE', action='Set'):
-    #                 text(score2)
-    #             doc.stag('displayfeedback', feedbacktype='Response', linkrefid='feedb_1')
-
-
 class NumericAnswerSet(AnswerSet):
     """
         Type NumericAnswer where is stored the list of differents numerical answers
@@ -273,19 +170,6 @@ class NumericAnswerSet(AnswerSet):
                         doc.asis(a.toHTMLFB())
                         if a.feedback:
                             doc.asis(" &#8669; "+markupRendering(a.feedback,self.question.markup))
-
-    # def ownEDX(self,doc):
-    #     #FIXME : Problème pour le multi answer NUMERIC, ne gère qu'une réponse
-    #     correctAnswer = []
-    #     for a in self.answers:
-    #         if a.fraction > 0:
-    #             correctAnswer.append(a)
-    #     if len(correctAnswer) == 0:
-    #         logging.warning('')
-    #         return
-    #     elif len(correctAnswer) == 1:
-    #         correctAnswer[0].ownEDX(doc)
-
 
 class MatchingSet(AnswerSet):
     """  a mapping (list of pairs) """
@@ -330,18 +214,6 @@ class MatchingSet(AnswerSet):
                         doc.asis(" &#8669; ")
                         doc.text(a.answer)
 
-    # def ownEDX(self,doc):
-    #     for a in self.answers:
-    #         with doc.tag('h2'):
-    #             doc.text(a.question+" ")
-    #         with doc.tag('optionresponse'):
-    #             options = '\"('
-    #             random.shuffle(self.possibleAnswers)
-    #             for a2 in self.possibleAnswers:
-    #                 options += "'"+a2+"'"+','
-    #             options += ')\"'
-    #             doc.asis("<optioninput label=\""+a.question+"\" options="+options+"  correct=\""+a.answer+"\" ></optioninput>")
-
 
 class ChoicesSet(AnswerSet):
     """ One or many choices in a list (Abstract)"""
@@ -354,44 +226,6 @@ class ChoicesSet(AnswerSet):
         for a in self.answers:
             a.myprint()
             print ('~~~~~')
-
-# #IMS
-#     def listInteractionsIMS(self,doc,tag,text):
-#         for id_a, answer in enumerate(self.answers):
-#             score = 0
-#             if answer.fraction == 100:
-#                 title = 'Correct'
-#                 score = 100
-#             else:
-#                 title = ''
-#                 score = answer.fraction
-#             with tag('respcondition', title=title):
-#                 with tag('conditionvar'):
-#                     with tag('varequal', respident='response_'+str(self.question.id)): # respoident is id of response_lid element
-#                         text('answer_'+str(self.question.id)+'_'+str(id_a))
-#                 with tag('setvar', varname='SCORE', action='Set'):
-#                     text(score)
-#                 doc.stag('displayfeedback', feedbacktype='Response', linkrefid='feedb_'+str(id_a))
-#
-#     def possiblesAnswersIMS(self,doc,tag,text,rcardinality='Single'):
-#         with tag('response_lid', rcardinality=rcardinality, ident='response_'+str(self.question.id)):
-#             with tag('render_choice', shuffle='No'):
-#                 for id_a, answer in enumerate(self.answers):
-#                     with tag('response_label', ident='answer_'+str(self.question.id)+'_'+str(id_a)):
-#                         with tag('material'):
-#                             with tag('mattext', texttype="text/html"):
-#                                 text(markupRendering(answer.answer,self.question.markup))
-#
-#     def toIMSFB(self,doc,tag,text):
-#         for id_a, answer in enumerate(self.answers):
-#             with tag('itemfeedback', ident='feedb_'+str(id_a)):
-#                 with tag('flow_mat'):
-#                     with tag('material'):
-#                         with tag('mattext', texttype='text/html'):
-#                             if answer.feedback:
-#                                 text(markupRendering(answer.feedback,self.question.markup))
-#                             else :
-#                                 text('')
 
 
 class ShortSet(ChoicesSet):
@@ -411,16 +245,6 @@ class ShortSet(ChoicesSet):
                         doc.text(a.answer)
                         if a.feedback:
                             doc.asis(" &#8669; "+markupRendering(a.feedback,self.question.markup))
-
-    # def ownEDX(self,doc):
-    #     with doc.tag('stringresponse', answer = self.answers[0].answer, type = 'ci'):
-    #         if len(self.answers) > 1:
-    #             for i,a in enumerate(self.answers):
-    #                 if i > 0 :
-    #                     doc.asis('<additional_answer answer="'+ a.answer +'"></additional_answer>')
-    #         doc.asis("<textline size='20' />")
-    #
-
 
 
 class SelectSet(ChoicesSet):
@@ -449,20 +273,6 @@ class SelectSet(ChoicesSet):
                         doc.asis(markupRendering(a.answer,self.question.markup))
                         if a.feedback:
                             doc.asis(" &#8669; "+markupRendering(a.feedback,self.question.markup))
-    #
-    # def ownEDX(self,doc):
-    #     with doc.tag("multiplechoiceresponse"):
-    #         with doc.tag("choicegroup", type="MultipleChoice"):
-    #             for a in self.answers:
-    #                 if a.fraction>0:
-    #                     korrect = 'true'
-    #                 else :
-    #                     korrect = 'false'
-    #                 with doc.tag("choice", correct=korrect):
-    #                     doc.text(a.answer)
-    #                     if (a.feedback) and (len(a.feedback)> 1):
-    #                         doc.asis("<choicehint>"+a.feedback+"</choicehint>")
-
 
 
 class MultipleChoicesSet(ChoicesSet):
@@ -497,51 +307,6 @@ class MultipleChoicesSet(ChoicesSet):
                         if  a.feedback:
                             doc.asis(" &#8669; "+markupRendering(a.feedback,self.question.markup))
 
-    # def ownEDX(self,doc):
-    #     with doc.tag("choiceresponse", partial_credit="EDC"):
-    #         with doc.tag("checkboxgroup"):
-    #             for a in self.answers:
-    #                 if a.fraction>0:
-    #                     korrect = 'true'
-    #                 else :
-    #                     korrect = 'false'
-    #                 with doc.tag("choice", correct=korrect):
-    #                     doc.text(a.answer)
-    #                     if (a.feedback) and (len(a.feedback)> 1):
-    #                         with doc.tag("choicehint", selected="true"):
-    #                             doc.text(a.answer+" : "+a.feedback)
-    #
-    # def possiblesAnswersIMS(self,doc,tag,text):
-    #     ChoicesSet.possiblesAnswersIMS(self,doc,tag,text,'Multiple')
-    #
-    # def listInteractionsIMS(self,doc,tag,text):
-    #     with tag('respcondition', title="Correct", kontinue='No'):
-    #         with tag('conditionvar'):
-    #             with tag('and'):
-    #                 for id_a, answer in enumerate(self.answers):
-    #                     score = 0
-    #                     try:
-    #                         score = answer.fraction
-    #                     except:
-    #                         pass
-    #                     if score <= 0:
-    #                         with tag('not'):
-    #                             with tag('varequal', case='Yes', respident='response_'+str(self.question.id)): # respoident is id of response_lid element
-    #                                 text('answer_'+str(self.question.id)+'_'+str(id_a))
-    #                     else:
-    #                         with tag('varequal', case='Yes', respident='response_'+str(self.question.id)): # respoident is id of response_lid element
-    #                             text('answer_'+str(self.question.id)+'_'+str(id_a))
-    #         with tag('setvar', varname='SCORE', action='Set'):
-    #             text('100')
-    #         doc.stag('displayfeedback', feedbacktype='Response', linkrefid='general_fb')
-    #     for id_a, answer in enumerate(self.answers):
-    #         with tag('respcondition', kontinue='No'):
-    #             with tag('conditionvar'):
-    #                 with tag('varequal', respident='response_'+str(self.question.id), case="Yes"):
-    #                     text('answer_'+str(self.question.id)+'_'+str(id_a))
-    #             doc.stag('displayfeedback', feedbacktype='Response', linkrefid='feedb_'+str(id_a))
-    #
-
 
 ################# Single answer ######################
 class Answer:
@@ -560,12 +325,6 @@ class NumericAnswer(Answer):
     def toHTMLFB(self):
         return str(self.value)+"&#177;"+str(self.tolerance)
 
-    # def ownEDX(self, doc):
-    #     with doc.tag('numericalresponse', answer = str(self.value)):
-    #         if self.tolerance != 0.0:
-    #             doc.asis("<responseparam type='tolerance' default='"+str(self.tolerance)+"' />")
-    #         doc.asis("<formulaequationinput />")
-
 class NumericAnswerMinMax(Answer):
     def __init__(self,match):
         self.mini = match.group('min')
@@ -573,10 +332,6 @@ class NumericAnswerMinMax(Answer):
 
     def toHTMLFB(self):
         return _('Between')+" "+str(self.mini)+" "+_('and')+" "+str(self.maxi)
-
-    # def ownEDX(self, doc):
-    #     with doc.tag('numericalresponse', answer = "["+str(self.mini)+","+str(self.maxi)+"]"):
-    #         doc.asis("<formulaequationinput />")
 
 
 class AnswerInList(Answer):

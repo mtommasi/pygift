@@ -189,15 +189,6 @@ class Question:
                         mdToHtml(self.generalFeedback,doc)
         return doc
 
-    # def toEDX(self):
-    #     """
-    #     produces an XML fragment for EDX
-    #     """
-    #     if not self.valid :
-    #         logging.warning (INVALID_FORMAT_QUESTION ) #
-    #         return ''
-    #     return self.answers.toEDX()
-
     def myprint(self):
         print ("=========Question=========")
         if not self.valid:
