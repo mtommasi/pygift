@@ -55,7 +55,6 @@ class Essay(AnswerSet):
     """ Essay Answer : This Class represents the type of Answer with a free area text"""
     def __init__(self,question):
         AnswerSet.__init__(self,question)
-        self.max_att = ''
 
     def toHTML(self, doc):
         with doc.tag('textarea',name=self.question.getId(),placeholder=_('Your answer here')):
@@ -99,7 +98,6 @@ class Description(AnswerSet):
     """ Emptyset, nothing!"""
     def __init__(self,question):
         AnswerSet.__init__(self,question)
-        self.cc_profile = 'DESCRIPTION'
 
     def toHTML(self,doc):
         return
@@ -232,7 +230,6 @@ class ShortSet(ChoicesSet):
     """ A single answer is expected but several solutions are possible """
     def __init__(self,question,answers):
         ChoicesSet.__init__(self,question,answers)
-        self.cc_profile = 'MISSINGWORD'
 
     def toHTML(self,doc):
         doc.input(name=self.question.getId(), type = 'text')
@@ -251,7 +248,6 @@ class SelectSet(ChoicesSet):
     """ One  choice in a list"""
     def __init__(self,question,answers):
         ChoicesSet.__init__(self,question,answers)
-        self.cc_profile = 'MULTICHOICE'
 
     def toHTML(self,doc):
         with doc.tag('div', klass='groupedAnswer'):
@@ -279,7 +275,6 @@ class MultipleChoicesSet(ChoicesSet):
     """ One or more choices in a list"""
     def __init__(self,question,answers):
         ChoicesSet.__init__(self,question,answers)
-        self.cc_profile = 'MULTIANSWER'
 
     def checkValidity(self):
         """ Check validity the sum f fractions should be 100 """
