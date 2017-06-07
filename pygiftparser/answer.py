@@ -25,7 +25,7 @@ class AnswerSet:
     def __init__(self,question):
         self.question = question
         self.valid = True
-        self.cc_profile = 'ESSAY' # need in toIMS.py
+        self.max_att = '1'
 
 
     def myprint(self):
