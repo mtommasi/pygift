@@ -155,7 +155,7 @@ class Question:
                 self.valid = self.answers.checkValidity()
         else:
             # not a valid question  ?
-            logging.warning("Incorrect question "+self.full)
+            logging.warning (INVALID_FORMAT_QUESTION+' '+self.full)
             self.valid = False
 
     def toHTML(self, doc=None,feedbacks=False):
@@ -189,14 +189,14 @@ class Question:
                         mdToHtml(self.generalFeedback,doc)
         return doc
 
-    def toEDX(self):
-        """
-        produces an XML fragment for EDX
-        """
-        if not self.valid :
-            logging.warning (INVALID_FORMAT_QUESTION ) #
-            return ''
-        return self.answers.toEDX()
+    # def toEDX(self):
+    #     """
+    #     produces an XML fragment for EDX
+    #     """
+    #     if not self.valid :
+    #         logging.warning (INVALID_FORMAT_QUESTION ) #
+    #         return ''
+    #     return self.answers.toEDX()
 
     def myprint(self):
         print ("=========Question=========")
