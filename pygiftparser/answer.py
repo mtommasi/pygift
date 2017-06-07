@@ -25,8 +25,6 @@ class AnswerSet:
     def __init__(self,question):
         self.question = question
         self.valid = True
-        self.cc_profile = 'ESSAY' # need in toIMS.py
-        self.max_att = '1'
 
 
     def myprint(self):
@@ -51,12 +49,10 @@ class AnswerSet:
         """
         pass
 
-
 class Essay(AnswerSet):
     """ Essay Answer : This Class represents the type of Answer with a free area text"""
     def __init__(self,question):
         AnswerSet.__init__(self,question)
-        self.max_att = ''
 
     def toHTML(self, doc):
         with doc.tag('textarea',name=self.question.getId(),placeholder=_('Your answer here')):
