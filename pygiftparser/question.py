@@ -170,23 +170,23 @@ class Question:
             if (not feedbacks):
                 if self.tail !='' :
                     with doc.tag('span', klass='questionTextInline'):
-                        mdToHtml(self.text,doc)
+                        doc.asis(markupRendering(self.text,self.markup))
                     with doc.tag('span', klass='questionAnswersInline'):
                         self.answers.toHTML(doc)
                     doc.text(' ')
                     doc.asis(markupRendering(self.tail,self.markup))
                 else:
                     with doc.tag('div', klass='questiontext'):
-                        mdToHtml(self.text,doc)
+                        doc.asis(markupRendering(self.text,self.markup))
                     self.answers.toHTML(doc)
             if feedbacks:
                 with doc.tag('div', klass='questiontext'):
-                    mdToHtml(self.text,doc)
+                    doc.asis(markupRendering(self.text,self.markup))
                 self.answers.toHTMLFB(doc)
                 if self.generalFeedback != '':
                     with doc.tag('div', klass='global_feedback'):
                         doc.asis('<b><em>Feedback:</em></b><br/>')
-                        mdToHtml(self.generalFeedback,doc)
+                        doc.asis(markupRendering(self.text,self.markup))
         return doc
 
     def myprint(self):
