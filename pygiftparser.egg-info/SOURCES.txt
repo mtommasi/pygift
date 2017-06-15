@@ -1,8 +1,0 @@
-pygiftparser/__init__.py
-pygiftparser/i18n.py
-pygiftparser/parser.py
-pygiftparser.egg-info/PKG-INFO
-pygiftparser.egg-info/SOURCES.txt
-pygiftparser.egg-info/dependency_links.txt
-pygiftparser.egg-info/requires.txt
-pygiftparser.egg-info/top_level.txt
