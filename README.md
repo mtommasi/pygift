@@ -9,7 +9,7 @@
 
 ## Install
 ```
-pip install -e git://github.com/mtommasi/pygiftparser#egg=pygiftparser
+pip install -e git://github.com/CultureNumerique/pygiftparser#egg=pygiftparser
 ```
 Import it in your application like this
 ```

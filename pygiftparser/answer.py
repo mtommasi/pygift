@@ -27,6 +27,9 @@ class AnswerSet:
         self.valid = True
 
     def myprint(self):
+        """
+        return a print of this class
+        """
         print (self.__class__)
 
 
@@ -268,7 +271,7 @@ class MultipleChoicesSet(ChoicesSet):
 
 ################# Single answer ######################
 class Answer:
-    """ one answer in a list"""
+    """ one answer in a list, use in AnswerSet"""
     pass
 
 

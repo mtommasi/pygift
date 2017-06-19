@@ -69,21 +69,6 @@ def stripMatch(match,s):
     else:
         return ""
 
-def mdToHtml(text,doc=None):
-    """
-    Transform txt in markdown to html
-    """
-    if not (text.isspace()):
-        # text = re.sub(r'\\n','\n',text)
-        html_text = markdown.markdown(text, MARKDOWN_EXT, output_format='xhtml')
-        text = re.sub(r'\\n','\n',text)
-        if doc :
-            doc.asis(html_text)
-            doc.text(' ')
-            return
-        else :
-            return html_text
-
 def moodleRendering(src):
     """ See https://docs.moodle.org/23/en/Formatting_text#Moodle_auto-format"""
     # blank lines are new paragraphs, url are links, html is allowed
