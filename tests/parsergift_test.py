@@ -7,10 +7,6 @@ import sys
 reload(sys)
 sys.setdefaultencoding('utf8')
 
-import os
-import sys
-import mock
-
 sys.path.append('..')
 from pygiftparser import parser as pygift
 from bs4 import BeautifulSoup
@@ -414,7 +410,7 @@ My Question{
                 for j,div in enumerate(form.find_all('div')):
                     if j == 0 :
                         self.assertEqual(div['class'][0], u'questiontext')
-                        self.assertEqual(str(div.contents[0]),'<p>second part of text of Q2\nMy Question</p>')
+                        self.assertEqual(str(div.contents[0]),'<p>second part of text of Q2<br/>\nMy Question</p>')
                     if j == 2 :
                         self.assertEqual(div['class'][0], 'groupedAnswerFeedback')
                         self.assertEqual(str(div.contents[0]),'<ul><li class="right_answer">2</li><li class="right_answer">Q2</li><li class="right_answer">Question2</li></ul>')
@@ -422,7 +418,7 @@ My Question{
                 for j,span in enumerate(form.find_all('span')):
                     if j == 0 :
                         self.assertEqual(span['class'][0], u'questionTextInline')
-                        self.assertEqual(str(span.contents[0]),'<p>second part of text of Q2\nMy Question</p>')
+                        self.assertEqual(str(span.contents[0]),'<p>second part of text of Q2<br/>\nMy Question</p>')
                     if j == 1 :
                         self.assertEqual(span['class'][0], u'questionAnswersInline')
                         self.assertEqual(span.input['type'], u'text')
