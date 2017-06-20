@@ -492,21 +492,13 @@ When was Ulysses S. Grant born? {#
                             self.assertEqual(str(div.contents[0]), '<p>When was Ulysses S. Grant born?</p>')
                     if j == 1:
                         self.assertEqual(div['class'][0], u'answerFeedback')
-                        if i == 0:
-                            self.assertEqual(str(div.contents[0]), '<ul><li class="right_answer">1822.0±5.0</li></ul>')
-                        if i == 1:
-                            self.assertEqual(str(div.contents[0]), '<ul><li class="right_answer">Entre 3.141 et 3.142</li></ul>')
-                        if i == 2:
-                            self.assertEqual(str(div.contents[0]), '<ul><li class="right_answer">1822.0\xc2\xb10.0</li><li class="right_answer">1822.0\xc2\xb12.0</li></ul>')
-                        if i == 3:
-                            self.assertEqual(str(div.contents[0]), '<ul><li class="right_answer">2.0\xc2\xb10</li></ul>')
-                else :
-                    for j,span in enumerate(form.find_all('span')):
-                        if j == 0 :
-                            self.assertEqual(span['class'][0], u'questionTextInline')
-                        if j == 1 :
-                            self.assertEqual(span['class'][0], u'questionAnswersInline')
-                            self.assertEqual(span.input['type'], u'number')
+            else :
+                for j,span in enumerate(form.find_all('span')):
+                    if j == 0 :
+                        self.assertEqual(span['class'][0], u'questionTextInline')
+                    if j == 1 :
+                        self.assertEqual(span['class'][0], u'questionAnswersInline')
+                        self.assertEqual(span.input['type'], u'number')
 
 
         print("[GiftParsingHTMLTestCase]-- check_numerical OK --")
