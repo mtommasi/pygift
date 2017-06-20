@@ -4,5 +4,4 @@ tests/index.html
 tests/testGIFT
 tests/.coverage
 pygiftparser/*.pyc
-virtualenv
 pygiftparser.egg-info
