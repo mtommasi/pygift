@@ -1,7 +1,7 @@
 language : python
 
 before_script : 
-  - pip install coverage
+  - pip install -r requirement.txy
 
 script :
   - cd tests
