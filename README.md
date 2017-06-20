@@ -1,6 +1,9 @@
 # pygiftparser
 [Gift](http://microformats.org/wiki/gift) parser in python with HTML generation. 
 
+## TRAVIS-CI
+https://travis-ci.org/CelestineSauvage/pygiftparser.svg?branch=ajout_test
+
 ## Requirements
 
 - python3
