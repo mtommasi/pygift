@@ -414,7 +414,7 @@ My Question{
                 for j,div in enumerate(form.find_all('div')):
                     if j == 0 :
                         self.assertEqual(div['class'][0], u'questiontext')
-                        self.assertEqual(str(div.contents[0]),'<p>second part of text of Q2<br/>\nMy Question</p>')
+                        self.assertEqual(str(div.contents[0]),'<p>second part of text of Q2\nMy Question</p>')
                     if j == 2 :
                         self.assertEqual(div['class'][0], 'groupedAnswerFeedback')
                         self.assertEqual(str(div.contents[0]),'<ul><li class="right_answer">2</li><li class="right_answer">Q2</li><li class="right_answer">Question2</li></ul>')
@@ -498,7 +498,7 @@ When was Ulysses S. Grant born? {#
                         if i == 0:
                             self.assertEqual(str(div.contents[0]), '<ul><li class="right_answer">1822.0±5.0</li></ul>')
                         if i == 1:
-                            self.assertEqual(str(div.contents[0]), '<ul><li class="right_answer">Entre 3.141 et 3.142</li></ul>')
+                            self.assertEqual(str(div.contents[0]), '<ul><li class="right_answer">Between 3.141 and 3.142</li></ul>')
                         if i == 2:
                             self.assertEqual(str(div.contents[0]), '<ul><li class="right_answer">1822.0\xc2\xb10.0</li><li class="right_answer">1822.0\xc2\xb12.0</li></ul>')
                         if i == 3:
