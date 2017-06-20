@@ -1,4 +1,4 @@
-#!/usr/bin/python3
+#!/usr/bin/python
 #-*- coding: utf-8 -*-
 import logging
 import random
@@ -11,9 +11,8 @@ import sys
 
 _ = i18n.language.gettext
 
-# TODOS:
-# - unittest
-MARKDOWN_EXT = ['markdown.extensions.extra', 'markdown.extensions.nl2br', 'superscript']
+# MARKDOWN_EXT = ['markdown.extensions.extra', 'markdown.extensions.nl2br', 'superscript']
+MARKDOWN_EXT = ['markdown.extensions.extra', 'superscript']
 
 # Url and blank lines (moodle format)
 reURL=re.compile(r"(http://[^ ]+)",re.M)
