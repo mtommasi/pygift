@@ -422,7 +422,7 @@ My Question{
                 for j,span in enumerate(form.find_all('span')):
                     if j == 0 :
                         self.assertEqual(span['class'][0], u'questionTextInline')
-                        self.assertEqual(str(span.contents[0]),'<p>second part of text of Q2<br/>\nMy Question</p>')
+                        self.assertEqual(str(span.contents[0]),'<p>second part of text of Q2\nMy Question</p>')
                     if j == 1 :
                         self.assertEqual(span['class'][0], u'questionAnswersInline')
                         self.assertEqual(span.input['type'], u'text')
