@@ -1,0 +1,7 @@
+yattag
+coverage
+markdown
+bs4
+MarkdownSuperscript
+python-coveralls
+coveralls

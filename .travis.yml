@@ -1,0 +1,11 @@
+language : python
+
+before_script : 
+  - pip install -r requirement.txt
+
+script :
+  - cd tests
+  - coverage run parsergift_test.py
+
+after_success:
+  - coveralls
