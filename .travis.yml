@@ -1,8 +1,6 @@
 language : python
 
 before_script : 
-  - virtual env testenv
-  - source testenv/bin/activate
   - pip install -r requirement.txt
 
 script :
