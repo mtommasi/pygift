@@ -2,5 +2,6 @@
 __pycache__
 tests/index.html
 tests/testGIFT
+*.pyc
 virtualenv
 pygiftparser.egg-info
