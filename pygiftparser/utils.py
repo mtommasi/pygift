@@ -11,7 +11,7 @@ import sys
 
 _ = i18n.language.gettext
 
-MARKDOWN_EXT = ['markdown.extensions.extra', 'markdown.extensions.nl2br', 'superscript']
+MARKDOWN_EXT = ['markdown.extensions.extra', 'markdown.extensions.nl2br', 'mdx_superscript']
 
 # Url and blank lines (moodle format)
 reURL=re.compile(r"(http://[^ ]+)",re.M)

@@ -5,14 +5,20 @@
 import sys
 import os
 
-reload(sys)
-sys.setdefaultencoding('utf8')
+if sys.version_info[0] == 3:
+    pass
+else:
+    reload(sys)
+    sys.setdefaultencoding('utf8')
 
 sys.path.append('..')
 from pygiftparser import parser as pygift
 from bs4 import BeautifulSoup
 
-from StringIO import StringIO
+if sys.version_info[0] == 3:
+    from io import StringIO
+else:
+    from StringIO import StringIO
 import unittest
 
 import markdown
@@ -26,8 +32,6 @@ import yattag
 
 _ = pygift.i18n.language.gettext
 
-
-TEST_GIFT_DIR = "./testGIFT/"
 
 """
     Test File for pygiftparser module
@@ -68,13 +72,9 @@ tout doit être représenté sous forme de nombres être manipulé par un ordina
         io_gift.close()
 
         d = yattag.Doc()
-        d.asis('<!DOCTYPE html>')
         with d.tag('html'):
             with d.tag('head'):
                 d.stag('meta', charset="utf-8")
-                d.stag('link', rel="stylesheet", href="../../static/css/bootstrap.min.css")
-                d.stag('link', rel="stylesheet", href="../../static/css/modules.css")
-                d.stag('link', rel="stylesheet", href="../../static/css/jasny-bootstrap.min.css", media="screen")
 
         with d.tag('h2'):
             d.text(str(questions[0].answers.__class__))
@@ -107,10 +107,6 @@ tout doit être représenté sous forme de nombres être manipulé par un ordina
             self.assertEqual(nb_li,3)
 
 
-        out =  open(TEST_GIFT_DIR+"simplechoice.html", "w")
-        out.write (d.getvalue())
-        out.close()
-
         print("[GiftParsingHTMLTestCase]-- check_single_answer OK --")
 
 
@@ -127,13 +123,9 @@ tout doit être représenté sous forme de nombres être manipulé par un ordina
         io_gift.close()
 
         d = yattag.Doc()
-        d.asis('<!DOCTYPE html>')
         with d.tag('html'):
             with d.tag('head'):
                 d.stag('meta', charset="utf-8")
-                d.stag('link', rel="stylesheet", href="../../static/css/bootstrap.min.css")
-                d.stag('link', rel="stylesheet", href="../../static/css/modules.css")
-                d.stag('link', rel="stylesheet", href="../../static/css/jasny-bootstrap.min.css", media="screen")
 
         with d.tag('h2'):
             d.text(str(questions[0].answers.__class__))
@@ -164,9 +156,6 @@ tout doit être représenté sous forme de nombres être manipulé par un ordina
             nb_li = len(form.find_all('li'))
             self.assertEqual(nb_li,4)
 
-        out =  open(TEST_GIFT_DIR+"multipleanswer.html", "w")
-        out.write (d.getvalue())
-        out.close()
 
         print("[GiftParsingHTMLTestCase]-- check_multiple_answer OK --")
 
@@ -202,13 +191,9 @@ Voici quelques exemples que nous vous proposons, n'hésitez pas à proposer d'au
         io_gift.close()
 
         d = yattag.Doc()
-        d.asis('<!DOCTYPE html>')
         with d.tag('html'):
             with d.tag('head'):
                 d.stag('meta', charset="utf-8")
-                d.stag('link', rel="stylesheet", href="../../static/css/bootstrap.min.css")
-                d.stag('link', rel="stylesheet", href="../../static/css/modules.css")
-                d.stag('link', rel="stylesheet", href="../../static/css/jasny-bootstrap.min.css", media="screen")
 
         with d.tag('h2'):
             d.text(str(questions[0].answers.__class__))
@@ -231,10 +216,6 @@ Voici quelques exemples que nous vous proposons, n'hésitez pas à proposer d'au
                 if (j == 1):
                         self.assertEqual(div['class'][0], u'global_feedback')
 
-
-        out =  open(TEST_GIFT_DIR+"texte.html", "w")
-        out.write (d.getvalue())
-        out.close()
 
         print("[GiftParsingHTMLTestCase]-- check_text1 OK --")
 
@@ -265,13 +246,9 @@ Les **lentilles pour la vue** ?
         io_gift.close()
 
         d = yattag.Doc()
-        d.asis('<!DOCTYPE html>')
         with d.tag('html'):
             with d.tag('head'):
                 d.stag('meta', charset="utf-8")
-                d.stag('link', rel="stylesheet", href="../../static/css/bootstrap.min.css")
-                d.stag('link', rel="stylesheet", href="../../static/css/modules.css")
-                d.stag('link', rel="stylesheet", href="../../static/css/jasny-bootstrap.min.css", media="screen")
 
         with d.tag('h2'):
             d.text(str(questions[0].answers.__class__))
@@ -298,22 +275,14 @@ Les **lentilles pour la vue** ?
         print("[GiftParsingHTMLTestCase]-- check_text2 OK --")
 
 
-        out =  open(TEST_GIFT_DIR+"texte2.html", "w")
-        out.write (d.getvalue())
-        out.close()
-
     def testTrueFalse(self):
         """
         """
         #INITIALISATION
         d = yattag.Doc()
-        d.asis('<!DOCTYPE html>')
         with d.tag('html'):
             with d.tag('head'):
                 d.stag('meta', charset="utf-8")
-                d.stag('link', rel="stylesheet", href="../../static/css/bootstrap.min.css")
-                d.stag('link', rel="stylesheet", href="../../static/css/modules.css")
-                d.stag('link', rel="stylesheet", href="../../static/css/jasny-bootstrap.min.css", media="screen")
 
 # AVEC UNE RÉPONSE SIMPLE
         io_tf = StringIO("""
@@ -365,20 +334,12 @@ Le soleil se lève à l'Ouest.{F#Non!#Oui le soleil se lève à l'Est}
         print("[GiftParsingHTMLTestCase]-- check_truefalse OK --")
 
 
-        out =  open(TEST_GIFT_DIR+"truefalse.html", "w")
-        out.write (d.getvalue())
-        out.close()
-
     def testAnswerArea(self):
         #INITIALISATION
         d = yattag.Doc()
-        d.asis('<!DOCTYPE html>')
         with d.tag('html'):
             with d.tag('head'):
                 d.stag('meta', charset="utf-8")
-                d.stag('link', rel="stylesheet", href="../../static/css/bootstrap.min.css")
-                d.stag('link', rel="stylesheet", href="../../static/css/modules.css")
-                d.stag('link', rel="stylesheet", href="../../static/css/jasny-bootstrap.min.css", media="screen")
 
 # AVEC UNE RÉPONSE SIMPLE
         io_simple = StringIO("""
@@ -424,25 +385,15 @@ My Question{
                         self.assertEqual(span['class'][0], u'questionAnswersInline')
                         self.assertEqual(span.input['type'], u'text')
 
-        out =  open(TEST_GIFT_DIR+"areaAnswer.html", "w")
-
         print("[GiftParsingHTMLTestCase]-- check_answer_area OK --")
 
-
-        #FERMETURE ET ECRITURE DU FICHIER
-        out.write (d.getvalue())
-        out.close()
 
     def testNumerical(self):
 
         d = yattag.Doc()
-        d.asis('<!DOCTYPE html>')
         with d.tag('html'):
             with d.tag('head'):
                 d.stag('meta', charset="utf-8")
-                d.stag('link', rel="stylesheet", href="../../static/css/bootstrap.min.css")
-                d.stag('link', rel="stylesheet", href="../../static/css/modules.css")
-                d.stag('link', rel="stylesheet", href="../../static/css/jasny-bootstrap.min.css", media="screen")
 
         #NUMERICAL ANSWER
         io_num = StringIO("""
@@ -475,7 +426,6 @@ When was Ulysses S. Grant born? {#
         for q in questions:
             q.toHTML(d,False)
 
-        out =  open(TEST_GIFT_DIR+"numerical.html", "w")
 
         soup = BeautifulSoup(d.getvalue(), 'html.parser')
         for i,form in enumerate(soup.find_all('form')):
@@ -504,20 +454,13 @@ When was Ulysses S. Grant born? {#
         print("[GiftParsingHTMLTestCase]-- check_numerical OK --")
 
 
-        #FERMETURE ET ECRITURE DU FICHIER
-        out.write (d.getvalue())
-        out.close()
 
     def testMatch(self):
 
         d = yattag.Doc()
-        d.asis('<!DOCTYPE html>')
         with d.tag('html'):
             with d.tag('head'):
                 d.stag('meta', charset="utf-8")
-                d.stag('link', rel="stylesheet", href="../../static/css/bootstrap.min.css")
-                d.stag('link', rel="stylesheet", href="../../static/css/modules.css")
-                d.stag('link', rel="stylesheet", href="../../static/css/jasny-bootstrap.min.css", media="screen")
 
         io_match = StringIO("""
 ::Match::
@@ -554,23 +497,24 @@ Match the following countries with their corresponding capitals. {
                 self.assertIsNotNone(form.table)
                 for j,tr in enumerate(soup.find_all('tr')):
                     #WARNING : check options
-                    if j == 0 :
-                        self.assertEqual(tr.td.contents[0], u'Canada  ')
-                    if j == 1:
-                        self.assertEqual(tr.td.contents[0], u'Italy  ')
-                    if j == 2:
-                        self.assertEqual(tr.td.contents[0], u'Japan  ')
-                    if j == 3:
-                        self.assertEqual(tr.td.contents[0], u'India  ')
+                    for p,td in enumerate(tr.find_all('td')):
+                        if p == 0 :
+                            if j == 0 :
+                                self.assertEqual(tr.td.contents[0], u'Canada  ')
+                            if j == 1:
+                                self.assertEqual(tr.td.contents[0], u'Italy  ')
+                            if j == 2:
+                                self.assertEqual(tr.td.contents[0], u'Japan  ')
+                            if j == 3:
+                                self.assertEqual(tr.td.contents[0], u'India  ')
+                        if p == 1 :
+                            self.assertIsNotNone(td.select)
+                            self.assertIsNotNone(td.find('select')['name'])
+                            self.assertEqual(len(td.find('select').find_all('option')),4)
 
-        out =  open(TEST_GIFT_DIR+"match.html", "w")
 
         print("[GiftParsingHTMLTestCase]-- check_match OK --")
 
-
-        #FERMETURE ET ECRITURE DU FICHIER
-        out.write (d.getvalue())
-        out.close()
 
 class GiftParserTestCase(unittest.TestCase):
 
@@ -675,6 +619,7 @@ Qui repose dans la Grant's tomb ? {=Grant ~Personne ~Napoléon ~Churchill ~Mère
         print('\n')
 
         del question2
+
     def testParseMatchingSet(self):
         """
         """
