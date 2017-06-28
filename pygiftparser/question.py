@@ -11,6 +11,8 @@ from pygiftparser.utils import *
 
 _ = i18n.language.gettext
 
+logger = logging.getLogger(__name__)
+
 ############ Questions ################
 
 class Question:
@@ -58,7 +60,7 @@ class Question:
             textMarkup = match.group('text')
         else:
             # self.title = head[:20] # take 20 first chars as a title
-            logging.warning (DEFAULT_TITLE + "%s", self.title) # Question Title par défault
+            logger.warning (DEFAULT_TITLE + "%s", self.title) # Question Title par défault
             textMarkup = head
 
         match = reMarkup.match(textMarkup)
@@ -155,7 +157,7 @@ class Question:
                 self.valid = self.answers.checkValidity()
         else:
             # not a valid question  ?
-            logging.warning (INVALID_FORMAT_QUESTION+' '+self.full)
+            logger.warning (INVALID_FORMAT_QUESTION+' '+self.full)
             self.valid = False
 
     def toHTML(self, doc=None,feedbacks=False):

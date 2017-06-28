@@ -11,6 +11,8 @@ import sys
 
 _ = i18n.language.gettext
 
+logger = logging.getLogger(__name__)
+
 MARKDOWN_EXT = ['markdown.extensions.extra', 'markdown.extensions.nl2br', 'mdx_superscript']
 
 # Url and blank lines (moodle format)
@@ -88,7 +90,7 @@ def markupRendering(src,markup='html'):
     if rendering in m.__dict__ :
         return getattr(m,rendering)(src)
     else:
-        logging.warning('Rendering error: unknown markup language '+markup)
+        logger.warning('Rendering error: unknown markup language '+markup)
         return src
 
 def transformSpecials(src):
