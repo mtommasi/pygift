@@ -33,7 +33,7 @@ NUMERIC='[\d]+(\.[\d]+)?'
 
 # Regular Expressions
 reSepQuestions=re.compile(r'^\s*$')
-reComment=re.compile(r'^//.*$')
+reComment=re.compile(r'^\s*//.*$')
 reCategory=re.compile(r'^\$CATEGORY: (?P<cat>[/\w$]*)')
 
 # Special chars
@@ -42,7 +42,7 @@ reSpecialChar=re.compile(r'\\(?P<char>[#=~:{}])')
 
 # Heading
 # Title is supposed to be at the begining of a line
-reTitle=re.compile(r'^::(?P<title>.*?)::(?P<text>.*)$',re.M+re.S)
+reTitle=re.compile(r'^\s*::(?P<title>.*?)::(?P<text>.*)$',re.M+re.S)
 reMarkup=re.compile(r'^\s*\[(?P<markup>.*?)\](?P<text>.*)',re.M+re.S)
 reAnswer=re.compile(r'^(?P<head>.*[^\\]){\s*(?P<answer>.*?[^\\]?)'+GENERALFEEDBACK+'}(?P<tail>.*)',re.M+re.S)
 

@@ -874,6 +874,18 @@ Blablablablabla
         q.myprint()
         self.assertEqual('', q.toHTML())
 
+    def testParseQuestionWithSpaces(self):
+        io = StringIO("""
+  // some comment
+  ::question_title::question_text{
+    =Grant
+    ~Personne
+}
+        """)
+        questions = pygift.parseFile(io)
+        io.close()
+        self.assertEqual(questions[0].text, 'question_text')
+
 
 # Main
 if __name__ == '__main__':
