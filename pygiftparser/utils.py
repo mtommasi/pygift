@@ -86,7 +86,7 @@ def htmlRendering(src):
 
 
 def markdownRendering(src):
-    return markdown.markdown(transformSpecials(src), MARKDOWN_EXT)
+    return markdown.markdown(transformSpecials(src), extensions=MARKDOWN_EXT)
 
 
 def markupRendering(src, markup='html'):
